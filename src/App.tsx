@@ -94,7 +94,39 @@ function Brand({ dark = false, small = false }) {
 }
 function Tabs({ value, onChange, vertical = false, id }) {
   const key = useId();
-  return <div className={`jz-tabs ${vertical ? 'vertical' : ''}`} role="tablist" aria-label={vertical ? 'Campus product preview' : 'Explore products'} aria-orientation={vertical ? 'vertical' : 'horizontal'}>{PRODUCTS.map((p, i) => <button key={p.name} id={`${key}-${i}`} type="button" role="tab" aria-selected={value === i} aria-controls={id} tabIndex={value === i ? 0 : -1} className={value === i ? 'active' : ''} onClick={() => onChange(i)} onKeyDown={e => { const next = ['ArrowRight','ArrowDown'].includes(e.key) ? (i + 1) % 5 : ['ArrowLeft','ArrowUp'].includes(e.key) ? (i + 4) % 5 : e.key === 'Home' ? 0 : e.key === 'End' ? 4 : null; if(next !== null) { e.preventDefault(); onChange(next); document.getElementById(`${key}-${next}`)?.focus(); } }}><Icon name={p.icon} size={vertical ? 28 : 16}/><span>{vertical ? 'Jenzabar ' : ''}{p.name}</span></button>)}</div>;
+  return (
+    <div 
+      className={`jz-tabs ${vertical ? 'vertical' : ''}`} 
+      role="tablist" 
+      aria-label={vertical ? 'Campus product preview' : 'Explore products'} 
+      aria-orientation={vertical ? 'vertical' : 'horizontal'}
+    >
+      {PRODUCTS.map((p, i) => (
+        <button 
+          key={p.name} 
+          id={`${key}-${i}`} 
+          type="button" 
+          role="tab" 
+          aria-selected={value === i} 
+          aria-controls={id} 
+          tabIndex={value === i ? 0 : -1} 
+          className={value === i ? 'active' : ''} 
+          onClick={() => onChange(i)} 
+          onKeyDown={e => { 
+            const next = ['ArrowRight','ArrowDown'].includes(e.key) ? (i + 1) % 5 : ['ArrowLeft','ArrowUp'].includes(e.key) ? (i + 4) % 5 : e.key === 'Home' ? 0 : e.key === 'End' ? 4 : null; 
+            if(next !== null) { 
+              e.preventDefault(); 
+              onChange(next); 
+              document.getElementById(`${key}-${next}`)?.focus(); 
+            } 
+          }}
+        >
+          <Icon name={p.icon} size={vertical ? 28 : 18}/>
+          <span>{vertical ? 'Jenzabar ' : ''}{p.name}</span>
+        </button>
+      ))}
+    </div>
+  );
 }
 function LineChart({ values, title, period = 'Fall 2025' }) {
   const [hover, setHover] = useState(null); const uid = useId().replace(/:/g, '');
@@ -279,13 +311,19 @@ function Hero() {
   return <section className="jz-hero jz-dark" id="top"><Header/><div className="jz-container"><div className="jz-hero-copy"><span className="jz-eyebrow-pill">Built exclusively for higher education</span><h1>Your entire campus.<em>One connected experience.</em></h1><p>Connect every stage of the student journey. From recruitment and registration to retention,<br className="jz-desktop-break"/> finance and advancement, bring your campus together with Jenzabar.</p><div className="jz-hero-actions"><a className="jz-button white" href="#platform">Explore Jenzabar One <span>↗</span></a><a className="jz-overview" href={`${BASE}/jenzabar-one`}>Explore the platform <span className="jz-round-play"><Icon name="arrow" size={17}/></span></a></div><small>Higher education, connected &nbsp; • &nbsp; One trusted partner</small></div><div className="jz-hero-showcase"><Tabs vertical value={product} onChange={setProduct} id="hero-product-panel"/><div className="jz-hero-screen" role="tabpanel" id="hero-product-panel" aria-label={`Jenzabar ${PRODUCTS[product].name}`}><div className="jz-slide-panel" key={product}><Dashboard index={product}/></div></div><StudentPhone/></div><div className="jz-proof"><h2>Trusted by more than <span>1,400 campuses.</span></h2><div className="jz-campus-logos">{[1,3,4,2].map(i=><img key={i} src={ASSETS[i].src} alt={ASSETS[i].name}/>)}</div></div><div className="jz-benefits">{[['database','One campus record'],['users','Connected departments'],['user','Student self-service'],['gear','Flexible workflows'],['cap','Higher ed expertise']].map(([icon,label])=><div key={label}><Icon name={icon} size={31}/><span>{label}</span></div>)}</div></div></section>;
 }
 
-const PRODUCT_IMAGES = ['/images/jenzabarstudent.png', '/images/jenzabarrecruitment.png', '/images/jenzabarretention.png', '/images/jenzabarfinance.png', '/images/jenzabaranalytics.png'];
+const PRODUCT_IMAGES = [
+  '/images/jenzabar-student-campus-4k.png',
+  '/images/jenzabar-recruitment-campus-4k.png',
+  '/images/jenzabar-retention-campus-4k.png',
+  '/images/jenzabar-finance-campus-4k.png',
+  '/images/jenzabar-analytics-campus-4k.png'
+];
 
 
 function ShowcasePanel({ index }) {
   const p = PRODUCTS[index];
   return (
-    <div className="jz-image-poster">
+    <div className="jz-showcase-container">
       <img src={PRODUCT_IMAGES[index]} alt={`Jenzabar ${p.name} product screen`} loading="lazy"/>
     </div>
   );
@@ -294,7 +332,7 @@ function ShowcasePanel({ index }) {
 
 function ProductsSection({ selected, onSelect }) {
   const p=PRODUCTS[selected];
-  return <section className="jz-products jz-light" id="platform"><div className="jz-container"><h2>Everything your campus needs. <em>Connected.</em></h2><div className="jz-tabs-wrap"><Tabs value={selected} onChange={onSelect} id="feature-product-panel"/></div><div className="jz-product-grid" role="tabpanel" id="feature-product-panel" aria-label={`Jenzabar ${p.name} features`}><div className="jz-product-copy"><span className="jz-kicker">Jenzabar {p.name}</span><h3>{p.title}</h3><ul>{p.bullets.map(b=><li key={b}><span><Icon name="check" size={13}/></span>{b}</li>)}</ul><a className="jz-text-link" href={`${BASE}/jenzabar-one`}>Explore Jenzabar {p.name}<Icon name="arrow" size={20}/></a></div><div className="jz-feature-screen"><div className="jz-slide-panel" key={selected}><ShowcasePanel index={selected}/></div></div></div></div></section>;
+  return <section className="jz-products jz-light" id="platform"><div className="jz-container"><div className="jz-products-eyebrow"><span/>Our products<span/></div><h2>Everything your campus needs. <em>Connected.</em></h2><div className="jz-tabs-wrap"><Tabs value={selected} onChange={onSelect} id="feature-product-panel"/></div><div className="jz-product-grid" role="tabpanel" id="feature-product-panel" aria-label={`Jenzabar ${p.name} features`}><div className="jz-product-copy"><span className="jz-kicker">Jenzabar {p.name}</span><h3>{p.title}</h3><ul>{p.bullets.map(b=><li key={b}><span><Icon name="check" size={13}/></span>{b}</li>)}</ul><a className="jz-text-link" href={`${BASE}/jenzabar-one`}>Explore Jenzabar {p.name}<Icon name="arrow" size={20}/></a></div><div className="jz-feature-screen"><div className="jz-slide-panel" key={selected}><ShowcasePanel index={selected}/></div></div></div></div></section>;
 }
 function StoriesSection() {
   const [story,setStory]=useState(0); const s=STORIES[story];
@@ -416,32 +454,173 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-nav-caret{color:#bdd0e0}
 .jz-header-actions{display:flex;gap:24px;align-items:center}
 .jz-login{font-size:13px;font-weight:500;color:#d6e4f0;transition:color .2s}
-.jz-login:hover{color:#fff}.jz-header .jz-button{padding:11px 17px;font-size:12px;min-height:39px}.jz-mobile-toggle{display:none;background:none;border:0;padding:6px}.jz-hero{background:radial-gradient(ellipse at 48% 58%,#0d3556 0%,#082b48 65%,#062b49 100%)}.jz-hero-copy{text-align:center;padding:35px 0 24px}.jz-eyebrow-pill{display:inline-block;font-size:11px;line-height:1.2;border:1px solid #59748a;border-radius:30px;padding:4px 10px;background:#ffffff08}.jz-hero h1{font-size:clamp(40px,4.9vw,69px);line-height:1.03;letter-spacing:-2px;margin:18px 0 13px;font-weight:700}.jz-hero h1 em{display:block;font-size:1.03em;line-height:1.03;letter-spacing:-2.5px}.jz-hero-copy>p{font-size:16px;line-height:1.45;color:#edf3f7;max-width:865px;margin:auto}.jz-hero-actions{display:flex;align-items:center;justify-content:center;gap:27px;margin:22px 0 12px}.jz-hero-actions .jz-button{min-height:41px}.jz-overview{display:flex;align-items:center;gap:12px;font-size:13px}.jz-round-play{display:grid;place-items:center;border:1px solid #a5c2d8;width:29px;height:29px;border-radius:50%}.jz-hero-copy>small{font-size:11px;color:#d6e2ed}.jz-hero-showcase{display:grid;grid-template-columns:225px minmax(0,1fr) 214px;gap:25px;align-items:center;margin:10px -12px 0}.jz-tabs{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:0;
-  background:transparent;
-  padding:0;
-  border-radius:0;
-  border:0;
-  border-bottom:1px solid var(--line);
-  width:100%;
-}.jz-tabs button{display:flex;align-items:center;gap:8px;background:transparent;border:0;border-bottom:2px solid transparent;border-radius:0;min-height:46px;padding:0 0 15px;font-size:13.5px;font-weight:500;letter-spacing:-.01em;color:var(--muted);transition:color .2s,border-color .2s}.jz-tabs button svg{color:#a6b4c2;transition:color .2s}.jz-tabs button.active{color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}.jz-tabs button.active svg{color:var(--ink)}.jz-tabs button:hover{color:var(--ink)}
-.jz-tabs.vertical{
-  flex-direction:column;
-  gap:8px;
-  border:0;
-  align-self:start;
-  padding-top:24px;
-  justify-content:flex-start;
-  align-items:stretch;
+.jz-login:hover{color:#fff}.jz-header .jz-button{padding:11px 17px;font-size:12px;min-height:39px}.jz-mobile-toggle{display:none;background:none;border:0;padding:6px}.jz-hero{background:radial-gradient(ellipse at 48% 58%,#0d3556 0%,#082b48 65%,#062b49 100%)}.jz-hero-copy{text-align:center;padding:35px 0 24px}.jz-eyebrow-pill{display:inline-block;font-size:11px;line-height:1.2;border:1px solid #59748a;border-radius:30px;padding:4px 10px;background:#ffffff08}.jz-hero h1{font-size:clamp(40px,4.9vw,69px);line-height:1.03;letter-spacing:-2px;margin:18px 0 13px;font-weight:700}.jz-hero h1 em{display:block;font-size:1.03em;line-height:1.03;letter-spacing:-2.5px}.jz-hero-copy>p{font-size:16px;line-height:1.45;color:#edf3f7;max-width:865px;margin:auto}.jz-hero-actions{display:flex;align-items:center;justify-content:center;gap:27px;margin:22px 0 12px}.jz-hero-actions .jz-button{min-height:41px}.jz-overview{display:flex;align-items:center;gap:12px;font-size:13px}.jz-round-play{display:grid;place-items:center;border:1px solid #a5c2d8;width:29px;height:29px;border-radius:50%}.jz-hero-copy>small{font-size:11px;color:#d6e2ed}.jz-hero-showcase{display:grid;grid-template-columns:225px minmax(0,1fr) 214px;gap:25px;align-items:center;margin:10px -12px 0}/* Horizontal Tabs - Segmented pill, matches target design */
+.jz-products-eyebrow{display:flex;align-items:center;justify-content:center;gap:16px;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#0067c7;margin-bottom:18px}
+.jz-products-eyebrow span{width:44px;height:1px;background:currentColor;opacity:.45}
+
+.jz-tabs {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  background: #FFFFFF;
+  padding: 8px;
+  border-radius: 60px;
+  border: 1px solid #E7EBF0;
+  box-shadow: 0 8px 24px -10px rgba(16, 24, 40, 0.10);
+  width: auto;
+  margin: 0 auto;
 }
-.jz-tabs.vertical button{display:flex;gap:16px;align-items:center;justify-content:flex-start;text-align:left;padding:12px 14px;border-bottom:0;border-left:3px solid transparent;min-height:56px;color:#c8d8e4;font-size:14px;font-weight:400;white-space:nowrap;width:100%;transition:color .2s,background .2s,border-color .2s}
-.jz-tabs.vertical button.active{border-left-color:#db139d;background:linear-gradient(90deg,#ffffff09,transparent);color:#fff}
-.jz-tabs.vertical button svg{color:#a9c3d6;transition:color .2s}
-.jz-tabs.vertical button.active svg{color:#fff}
-.jz-tabs.vertical button:hover{background:#ffffff09}
+
+.jz-tabs button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: transparent;
+  border: 0;
+  border-radius: 60px;
+  min-height: 54px;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #8A97A6;
+  transition: color 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.jz-tabs button:not(:last-child):after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 20px;
+  background: #E5E7EB;
+  transition: opacity 0.2s ease;
+}
+
+.jz-tabs button.active:after,
+.jz-tabs button.active + button:after {
+  opacity: 0;
+}
+
+.jz-tabs button svg {
+  color: #9CA3AF;
+  transition: color 0.2s ease;
+  width: 21px;
+  height: 21px;
+}
+
+.jz-tabs button:hover {
+  color: #1A1F36;
+}
+
+.jz-tabs button.active {
+  background: #FFFFFF;
+  color: #0067c7;
+  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.10);
+}
+
+.jz-tabs button.active svg {
+  color: #0067c7;
+}
+
+/* Vertical Tabs - Keep Original Style (for Hero) */
+.jz-tabs.vertical {
+  flex-direction: column;
+  gap: 8px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 24px 0 0;
+  align-self: start;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.jz-tabs.vertical button {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 0;
+  border-left: 3px solid transparent;
+  border-radius: 0;
+  min-height: 56px;
+  color: #c8d8e4;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+  width: 100%;
+  background: transparent;
+  box-shadow: none;
+}
+
+.jz-tabs.vertical button.active {
+  border-left-color: #db139d;
+  background: linear-gradient(90deg, #ffffff09, transparent);
+  color: #fff;
+  box-shadow: none;
+}
+
+.jz-tabs.vertical button svg {
+  color: #a9c3d6;
+}
+
+.jz-tabs.vertical button.active svg {
+  color: #fff;
+}
+
+.jz-tabs.vertical button:hover{background:#ffffff09;color:#fff}
+.jz-tabs.vertical button:after{display:none}
+
+/* Product Showcase Image Container */
+.jz-showcase-container {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  background: #F4F7FA;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.jz-showcase-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  .jz-tabs {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+  .jz-tabs button {
+    padding: 0 16px;
+    min-height: 40px;
+    font-size: 12px;
+  }
+  .jz-showcase-container {
+    min-height: 300px;
+    padding: 10px;
+  }
+}
+
+/* Rest of the original CSS block that should remain unchanged */
 .jz-hero-screen{padding:5px;border:1px solid #849baa;border-radius:14px;background:#ffffff2b;min-width:0;overflow:hidden}
 .jz-slide-panel{animation:jzSlideIn .45s cubic-bezier(.22,.68,0,1.01)}
 @keyframes jzSlideIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}.jz-app{background:var(--surface);color:var(--ink);border:1px solid #E7EBF0;border-radius:var(--radius);overflow:hidden;font-family:var(--font-sans);line-height:1.4;min-width:0;box-shadow:var(--shadow-md)}
@@ -470,7 +649,7 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-budget-track{height:6px;background:#eef3f7;border-radius:3px;overflow:hidden}
 .jz-budget-track>span{display:block;height:100%;background:#0967c2;border-radius:3px}
 .jz-budget-row b{text-align:right}
-.jz-tabs-wrap{margin-top:36px}
+.jz-tabs-wrap{margin-top:36px;padding-bottom:24px;text-align:center}
 .jz-reports-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .jz-report-tile{background:white;border:1px solid #eef2f6;border-radius:4px;padding:12px 10px;display:flex;flex-direction:column;gap:6px}
 .jz-report-tile svg{color:#0876cf}
@@ -514,16 +693,54 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-benefits>div:last-child{border:0}
 .jz-benefits svg{color:#c2d6e5}
 .jz-products{padding:50px 0;scroll-margin-top:20px}
-.jz-products h2{text-align:center;margin-bottom:28px;font-size:clamp(32px,4vw,52px);letter-spacing:-.03em;font-family:var(--font-serif)}
-.jz-product-grid{display:grid;grid-template-columns:.85fr 1.4fr;gap:50px;align-items:center;padding-top:30px;min-height:358px}
-.jz-product-copy .jz-kicker{color:#0A2540;font-size:11.5px}
-.jz-product-copy h3{font-family:var(--font-sans);font-size:clamp(30px,3.2vw,42px);font-weight:800;line-height:1.1;letter-spacing:-.025em;max-width:340px;margin:16px 0 28px;color:var(--navy)}
+.jz-products h2{text-align:center;margin-bottom:32px;font-size:clamp(32px,4vw,52px);letter-spacing:-.03em;font-family:var(--font-serif)}
+.jz-product-grid{display:grid;grid-template-columns:.78fr 1.45fr;gap:28px;align-items:center;padding-top:30px;min-height:358px}
+.jz-product-copy .jz-kicker{color:#0A2540;font-size:12.5px}
+.jz-product-copy h3{font-family:var(--font-sans);font-size:clamp(34px,3.6vw,46px);font-weight:800;line-height:1.12;letter-spacing:-.025em;max-width:360px;margin:14px 0 26px;color:var(--navy)}
 .jz-product-copy ul{padding:0;list-style:none;display:flex;flex-direction:column;gap:18px;margin:0 0 30px}
-.jz-product-copy li{display:flex;align-items:flex-start;gap:14px;font-size:15px;color:#3a4a5e;line-height:1.5}.jz-product-copy li>span{display:grid;place-items:center;color:#fff;background:var(--blue);border-radius:50%;width:20px;height:20px;flex-shrink:0;margin-top:1px}
+.jz-product-copy li{display:flex;align-items:flex-start;gap:14px;font-size:16.5px;color:#3a4a5e;line-height:1.5}.jz-product-copy li>span{display:grid;place-items:center;color:#fff;background:var(--blue);border-radius:50%;width:22px;height:22px;flex-shrink:0;margin-top:1px}
 .jz-feature-screen{min-width:0;overflow:hidden}
 
+/* Plain, centered showcase image — no card, no border */
+.jz-showcase-container {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
 
-.jz-image-poster{position:relative;overflow:hidden;min-height:420px}
+.jz-showcase-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .jz-tabs {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .jz-tabs button {
+    padding: 0 16px;
+    min-height: 40px;
+    font-size: 12px;
+  }
+  .jz-showcase-container {
+    min-height: 300px;
+    padding: 0;
+  }
+}
 .jz-image-poster>img{display:block;width:100%;height:100%;object-fit:cover}
 @media(max-width:640px){.jz-image-poster{min-height:300px}}
 
