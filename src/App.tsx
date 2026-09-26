@@ -177,10 +177,45 @@ function BarChart({ mode = 0 }) {
 function AnalyticsSection() {
   return <section className="jz-casestudy jz-dark" id="intelligence"><div className="jz-container"><div className="jz-casestudy-grid"><div className="jz-casestudy-photo"><img src={CAMPUS} alt="Lakeland University campus, illustrative photography" loading="lazy"/></div><div className="jz-casestudy-panel"><div className="jz-casestudy-badges"><span className="jz-pill">Case study</span><span className="jz-pill outline">Higher education</span></div><h2>Modernizing operations. <em>Elevating the student experience.</em></h2><p>Lakeland University partnered with Jenzabar One to bring financial aid, registration and student services onto one connected platform — replacing disconnected systems with a single source of truth.</p><div className="jz-casestudy-stats"><div><span className="jz-pill outline small">Operations</span><b>One platform</b><small>Illustrative outcome</small></div><div><span className="jz-pill outline small">Experience</span><b>Fewer manual steps</b><small>Illustrative outcome</small></div></div><a className="jz-text-link cyan" href="https://www.jenzabar.com/resource/case-study-lakeland-university-modernizing-operations-and-elevating-student-experiences-with-jenzabar-one" target="_blank" rel="noopener noreferrer">Read the case study <Icon name="arrow" size={18}/></a></div></div></div></section>;
 }
+
+
 function IntegrationDiagram() {
-  const [selected,setSelected]=useState(null);
-  return <div className="jz-integration-wrap"><div className="jz-integration-map"><svg viewBox="0 0 600 210" preserveAspectRatio="none" aria-hidden="true"><path d="M140 50H205L245 95M140 160H205L245 115M355 95l40-45h65M355 115l40 45h65" fill="none" stroke="#70aed8" strokeWidth="1.7" strokeDasharray="4 6"/></svg>{[['Learning','book'],['Finance','database'],['Identity','user'],['Student services','users']].map(([l,i],n)=><button className={`jz-integration-node node-${n} ${selected===l?'active':''}`} key={l} onClick={()=>setSelected(selected===l?null:l)} aria-pressed={selected===l}><Icon name={i}/>{l}</button>)}<div className="jz-integration-center"><Brand/></div></div><p className="jz-integration-note" aria-live="polite">{selected ? `${selected}: discuss your systems and integration requirements with Jenzabar.`:'Jenzabar One API + Jenzabar Unity Platform'}</p></div>;
+  const [selected, setSelected] = useState(null);
+  return (
+    <div className="jz-integration-wrap">
+      <div className="jz-integration-map">
+        <div className="jz-integration-bg" aria-hidden="true" />
+        <svg viewBox="0 0 1200 480" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M420 165 H500 L575 240 M420 335 H500 L575 260 M780 165 H700 L625 240 M780 335 H700 L625 260 M600 300 V345" fill="none" stroke="#5b9fd6" strokeWidth="2" strokeDasharray="5 7"/>
+        </svg>
+        <button className={`jz-integration-node node-0 ${selected === 'Learning' ? 'active' : ''}`} onClick={() => setSelected(selected === 'Learning' ? null : 'Learning')} aria-pressed={selected === 'Learning'}>
+          <Icon name="book" /> Learning
+        </button>
+        <button className={`jz-integration-node node-2 ${selected === 'Identity' ? 'active' : ''}`} onClick={() => setSelected(selected === 'Identity' ? null : 'Identity')} aria-pressed={selected === 'Identity'}>
+          <Icon name="user" /> Identity
+        </button>
+        <button className={`jz-integration-node node-1 ${selected === 'Finance' ? 'active' : ''}`} onClick={() => setSelected(selected === 'Finance' ? null : 'Finance')} aria-pressed={selected === 'Finance'}>
+          <Icon name="database" /> Finance
+        </button>
+        <button className={`jz-integration-node node-3 ${selected === 'Student services' ? 'active' : ''}`} onClick={() => setSelected(selected === 'Student services' ? null : 'Student services')} aria-pressed={selected === 'Student services'}>
+          <Icon name="users" /> Student services
+        </button>
+        <div className="jz-integration-center">
+          <Brand dark/>
+        </div>
+        <div className="jz-integration-pill">
+          <Icon name="home" size={15}/> One connected view
+        </div>
+      </div>
+      <p className="jz-integration-note" aria-live="polite">
+        {selected ? `${selected}: discuss your systems and integration requirements with Jenzabar.` : ''}
+      </p>
+    </div>
+  );
 }
+
+
+
 function Header() {
   const [open,setOpen]=useState(false);
   return <> <header className="jz-header"><div className="jz-container jz-header-inner"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a><nav className={open?'open':''} aria-label="Main navigation">{[['Platform','#platform'],['Solutions','#roles'],['Case study','#intelligence'],['Integrations','#integrations'],['FAQ','#questions']].map(([label,href])=><a href={href} key={label} onClick={()=>setOpen(false)}>{label}</a>)}</nav><div className="jz-header-actions"><a className="jz-login" href="https://www.myjenzabar.net/">Log in</a><a className="jz-button magenta" href={DEMO}>Request a demo <Icon name="arrow" size={16}/></a><button className="jz-mobile-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={()=>setOpen(!open)}><Icon name={open?'close':'menu'}/></button></div></div></header></>;
@@ -216,7 +251,51 @@ function RolesSection({ onSelect }) {
   return <section className="jz-roles jz-light" id="roles"><div className="jz-container"><h2>Built around your campus.</h2><div className="jz-role-grid">{ROLES.map(r=><a key={r.name} href="#platform" onClick={()=>onSelect(r.product)} className="jz-role"><div className="jz-role-photo"><img src={r.img} alt="" loading="lazy"/></div><div className="jz-role-body"><h3>{r.name}</h3><p>{r.text}</p><Icon name="arrow" size={18}/></div></a>)}</div></div></section>;
 }
 function IntegrationsSection() {
-  return <section className="jz-integrations jz-light" id="integrations"><div className="jz-container"><div className="jz-integration-grid"><div><h2>Your campus systems.<br/><em>Better connected.</em></h2><p>Bring your technology together with the<br className="jz-desktop-break"/> Jenzabar One API and Jenzabar Unity Platform.</p></div><IntegrationDiagram/></div><div className="jz-comparison"><article><div><h3>Disconnected systems</h3><p>Data is often siloed across multiple systems,<br/> making it harder to get a complete view.</p></div><div className="jz-mini-flow"><Icon name="database"/><span>···</span><Icon name="document"/><span>···</span><Icon name="database"/></div></article><article><div><h3>A connected campus</h3><p>Bring your systems together for a unified view<br/> of your institution.</p></div><div className="jz-mini-flow"><Icon name="database"/><span>···</span><span className="jz-mini-brand"><Brand small/></span><span>···</span><Icon name="database"/></div></article></div></div></section>;
+  return (
+    <section className="jz-integrations jz-light" id="integrations">
+      <div className="jz-container">
+        <span className="jz-kicker">— A connected campus</span>
+        <div className="jz-integration-grid">
+          <div>
+            <h2>Your campus systems.<br/><em>Better connected.</em></h2>
+          </div>
+          <div className="jz-integration-copy">
+            <p>Bring your technology together with the<br className="jz-desktop-break"/> Jenzabar One API and Jenzabar Unity Platform.</p>
+            <a className="jz-text-link" href="#platform">Explore campus connectivity <Icon name="arrow" size={18}/></a>
+          </div>
+        </div>
+        <IntegrationDiagram />
+        <div className="jz-comparison">
+          <article>
+            <div>
+              <h3>Disconnected systems</h3>
+              <p>Data is often siloed across multiple systems,<br/> making it harder to get a complete view.</p>
+            </div>
+            <div className="jz-mini-flow">
+              <Icon name="database" />
+              <span>···</span>
+              <Icon name="document" />
+              <span>···</span>
+              <Icon name="database" />
+            </div>
+          </article>
+          <article>
+            <div>
+              <h3>A connected campus</h3>
+              <p>Bring your systems together for a unified view<br/> of your institution.</p>
+            </div>
+            <div className="jz-mini-flow">
+              <Icon name="database" />
+              <span>···</span>
+              <span className="jz-mini-brand"><Brand small /></span>
+              <span>···</span>
+              <Icon name="database" />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
 }
 function FAQSection() {
   const [open,setOpen]=useState(1);
@@ -478,33 +557,359 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-casestudy-stats b{font-family:Georgia,serif;font-size:26px;font-weight:400;color:#fff;letter-spacing:-.01em}
 .jz-casestudy-stats small{font-size:11px;color:#8fa6bb}
 .jz-casestudy-panel .jz-text-link{font-size:14px;align-self:flex-start}
-.jz-integrations{padding:100px 0}
-.jz-integration-grid{display:grid;grid-template-columns:.85fr 1.25fr;gap:56px;align-items:center}
-.jz-integration-grid h2{font-size:46px;font-weight:800;font-family:var(--font-sans);letter-spacing:-.025em;line-height:1.08}
-.jz-integration-grid h2 em{font-family:var(--font-serif);font-weight:400;font-style:italic}
-.jz-integration-grid p{font-size:16px;color:#4a5c70;line-height:1.7;margin-top:20px;max-width:400px}
-.jz-integration-map{position:relative;height:260px}
-.jz-integration-map>svg{position:absolute;inset:0;width:100%;height:100%}
-.jz-integration-node,.jz-integration-center{position:absolute;display:flex;align-items:center;justify-content:center;border:1.5px solid #c7dbec;border-radius:12px;background:#fafbfd;height:70px;gap:14px;font-size:14.5px;font-weight:700;color:#122a41;box-shadow:0 6px 16px -8px rgba(16,24,40,.08);transition:background .2s,border-color .2s,box-shadow .2s}
-.jz-integration-node{width:27%}
-.jz-integration-node svg{color:#0876cf;width:22px}
-.jz-integration-node:hover,.jz-integration-node.active{background:#e8f3fd;border-color:#8fc0ea;box-shadow:0 10px 22px -10px rgba(8,118,207,.35)}
-.jz-integration-node.node-0{top:12px;left:0}
-.jz-integration-node.node-1{bottom:12px;left:0}
-.jz-integration-node.node-2{top:12px;right:0}
-.jz-integration-node.node-3{bottom:12px;right:0}
-.jz-integration-center{top:74px;left:34%;width:32%;height:92px;background:white;border-color:#a9c8e2;box-shadow:0 12px 28px -12px rgba(16,24,40,.14)}
-.jz-integration-center .jz-brand{width:150px;height:32px}
-.jz-integration-grid .jz-integration-note{font-size:13px;font-weight:600;margin-top:0;min-height:18px;text-align:center;color:#3a5068}
-.jz-comparison{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:12px;padding:36px 40px;gap:40px;margin-top:24px;box-shadow:0 8px 24px -14px rgba(16,24,40,.08)}
-.jz-comparison article{display:flex;gap:24px;align-items:center}
-.jz-comparison article+article{border-left:1px solid var(--line);padding-left:40px}
-.jz-comparison h3{font-family:var(--font-sans);font-size:19px;letter-spacing:-.01em;color:var(--blue);margin-bottom:8px;font-weight:800}
-.jz-comparison p{font-size:13px;color:var(--muted);line-height:1.6}
-.jz-mini-flow{display:flex;align-items:center;gap:10px;margin-left:auto;color:var(--muted)}
-.jz-mini-flow svg{width:26px}
-.jz-mini-brand{background:white;padding:6px;border:1px solid var(--line);border-radius:6px}
-.jz-mini-brand .jz-brand{width:60px;height:24px}
+/* Integration Section - Premium Redesign */
+.jz-integrations {
+  padding: 120px 0 100px;
+  background: #FAFBFC;
+}
+
+.jz-integration-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  gap: 48px;
+  align-items: start;
+  padding: 20px 0 40px;
+  border-bottom: 1px solid #E3E8EE;
+}
+
+.jz-integration-grid h2 {
+  font-size: 52px;
+  font-weight: 800;
+  font-family: var(--font-sans);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: #0A2540;
+}
+
+.jz-integration-grid h2 em {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.jz-integration-copy {
+  padding-left: 48px;
+  padding-top: 6px;
+  border-left: 1px solid #E3E8EE;
+}
+
+.jz-integration-copy p {
+  font-size: 17px;
+  color: #4A5C70;
+  line-height: 1.7;
+  max-width: 380px;
+  margin-bottom: 14px;
+}
+
+.jz-integration-copy .jz-text-link { font-size: 14px; }
+
+/* Diagram Map */
+.jz-integration-wrap { padding: 48px 0 60px; }
+
+.jz-integration-map {
+  position: relative;
+  height: 420px;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #F1EEE6;
+}
+
+.jz-integration-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, #F6F3EC 0%, #EDE9DE 100%);
+}
+
+.jz-integration-map > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.jz-integration-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #122A41;
+  transition: all 0.25s cubic-bezier(0.22, 0.68, 0, 1.01);
+  border-radius: 10px;
+  background: #FFFFFF;
+  border: 1.5px solid #D6E2EE;
+  box-shadow: 0 4px 12px -4px rgba(16, 24, 40, 0.06);
+  cursor: pointer;
+  padding: 0 18px;
+  height: 58px;
+  width: 220px;
+}
+
+.jz-integration-node svg {
+  color: #0876CF;
+  width: 20px;
+  height: 20px;
+}
+
+.jz-integration-node:hover,
+.jz-integration-node.active {
+  background: #F0F7FF;
+  border-color: #8FC0EA;
+  box-shadow: 0 8px 20px -8px rgba(8, 118, 207, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Node Positions — matches screenshot corners */
+.jz-integration-node.node-0 { top: 40px; left: 40px; }
+.jz-integration-node.node-2 { top: 40px; right: 40px; }
+.jz-integration-node.node-1 { bottom: 40px; left: 40px; }
+.jz-integration-node.node-3 { bottom: 40px; right: 40px; }
+
+.jz-integration-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
+  height: 100px;
+  border-radius: 10px;
+  background: #0A2540;
+  border: none;
+  box-shadow: 0 12px 32px -10px rgba(10, 37, 64, 0.4);
+}
+
+.jz-integration-center .jz-brand { width: 160px; height: 34px; }
+
+.jz-integration-pill {
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFFFFF;
+  border: 1.5px solid #D6E2EE;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #122A41;
+  box-shadow: 0 4px 12px -4px rgba(16, 24, 40, 0.06);
+}
+
+.jz-integration-pill svg { color: #0876CF; }
+
+/* Comparison Section */
+.jz-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1.5px solid #E2E9F0;
+  border-radius: 16px;
+  background: #FFFFFF;
+  overflow: hidden;
+  box-shadow: 0 6px 24px -12px rgba(16, 24, 40, 0.08);
+}
+
+.jz-comparison article {
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.jz-comparison article + article {
+  border-left: 1.5px solid #E2E9F0;
+}
+
+.jz-comparison h3 {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0A2540;
+  margin-bottom: 10px;
+}
+
+.jz-comparison p {
+  font-size: 15px;
+  color: #5A6E84;
+  line-height: 1.6;
+  max-width: 380px;
+}
+
+/* Mini Flow */
+.jz-mini-flow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #9AABBD;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.jz-mini-flow svg {
+  width: 28px;
+  height: 28px;
+  color: #8FA8BF;
+}
+
+.jz-mini-brand {
+  background: #F8FAFC;
+  padding: 8px 14px;
+  border: 1.5px solid #E2E9F0;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px -2px rgba(0,0,0,0.04);
+}
+
+.jz-mini-brand .jz-brand {
+  width: 80px;
+  height: 22px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .jz-integration-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  .jz-integration-grid p {
+    margin: 0 auto;
+  }
+
+
+
+
+  .jz-integration-map {
+    height: 240px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .jz-comparison article {
+    padding: 32px 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .jz-integrations {
+    padding: 80px 0 60px;
+  }
+  .jz-integration-grid h2 {
+    font-size: 38px;
+  }
+  .jz-integration-node {
+    font-size: 11px;
+    height: 48px;
+    padding: 0 12px;
+    gap: 6px;
+  }
+  .jz-integration-node svg {
+    width: 16px;
+    height: 16px;
+  }
+  .jz-integration-center {
+    width: 160px;
+    height: 64px;
+  }
+  .jz-integration-center .jz-brand {
+    width: 100px;
+    height: 24px;
+  }
+  .jz-comparison {
+    grid-template-columns: 1fr;
+  }
+  .jz-comparison article + article {
+    border-left: none;
+    border-top: 1.5px solid #E2E9F0;
+  }
+  .jz-comparison article {
+    padding: 28px 24px;
+  }
+  .jz-comparison h3 {
+    font-size: 18px;
+  }
+  .jz-comparison p {
+    font-size: 13px;
+  }
+  .jz-mini-flow {
+    gap: 8px;
+  }
+  .jz-mini-flow svg {
+    width: 22px;
+    height: 22px;
+  }
+  .jz-mini-brand {
+    padding: 6px 10px;
+  }
+  .jz-mini-brand .jz-brand {
+    width: 60px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .jz-integration-grid h2 {
+    font-size: 30px;
+  }
+  .jz-integration-grid p {
+    font-size: 14px;
+  }
+  .jz-integration-map {
+    height: 200px;
+  }
+  .jz-integration-node {
+    font-size: 9px;
+    height: 40px;
+    padding: 0 8px;
+    gap: 4px;
+  }
+  .jz-integration-node svg {
+    width: 13px;
+    height: 13px;
+  }
+  .jz-integration-center {
+    width: 130px;
+    height: 52px;
+  }
+  .jz-integration-center .jz-brand {
+    width: 80px;
+    height: 18px;
+  }
+  .jz-comparison article {
+    padding: 22px 18px;
+  }
+  .jz-comparison h3 {
+    font-size: 16px;
+  }
+  .jz-comparison p {
+    font-size: 12px;
+  }
+  .jz-mini-flow svg {
+    width: 18px;
+    height: 18px;
+  }
+  .jz-mini-brand {
+    padding: 4px 8px;
+  }
+  .jz-mini-brand .jz-brand {
+    width: 50px;
+    height: 15px;
+  }
+}
 .jz-faq{background:#F4F6F9;padding:80px 0 130px;position:relative;overflow:hidden}
 .jz-faq-grid{display:grid;grid-template-columns:.9fr 1.5fr;gap:48px;align-items:start;position:relative;z-index:1;padding-top:60px}
 .jz-faq-intro{position:relative;top:-60px;display:flex;flex-direction:column;gap:0}
@@ -565,6 +970,10 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-header nav a:last-child{border-bottom:0}
 .jz-header nav a:after{display:none}.jz-mobile-toggle{display:block}.jz-hero h1{font-size:54px}.jz-hero-copy>p{font-size:14px}.jz-hero-showcase{grid-template-columns:minmax(0,1fr) 190px;gap:20px}.jz-tabs.vertical{grid-column:1/-1;flex-direction:row;padding:0;gap:0;justify-content:space-between;overflow-x:auto}.jz-tabs.vertical button{border-left:0;border-bottom:2px solid transparent;min-height:46px;padding:8px 10px;gap:7px}.jz-tabs.vertical button svg{width:20px}.jz-tabs.vertical button.active{border-left-color:transparent;border-bottom-color:var(--magenta)}.jz-tabs.vertical button span{font-size:10px}.jz-app-nav{width:83px}.jz-app-body{min-height:295px}.jz-proof h2{font-size:31px}.jz-campus-logos{gap:22px}.jz-campus-logos img{width:20%;height:66px}.jz-product-grid{grid-template-columns:.72fr 1fr;gap:20px}.jz-product-copy h3{font-size:31px}.jz-product-copy li{font-size:12px;gap:9px}.jz-feature-screen .jz-app-nav{display:none}.jz-feature-screen .jz-app-main{padding:13px}.jz-feature-screen .jz-app-body{min-height:284px}.jz-product-copy .jz-text-link{font-size:12px}.jz-tabs{gap:20px;justify-content:space-between}.jz-tabs button{padding-inline:12px}.jz-story-photo{min-height:230px}.jz-story-copy h3{font-size:24px}.jz-story-copy p{font-size:12px}.jz-outcomes h2{font-size:30px}.jz-outcomes>div{gap:18px;padding:0}.jz-outcomes article{gap:12px;padding-right:16px}.jz-outcomes article>svg{width:28px}.jz-outcomes h3{font-size:17px}.jz-outcomes p{font-size:10px}.jz-role-grid{gap:10px}.jz-role{min-height:220px}.jz-role>div{left:12px;right:12px;bottom:12px}.jz-role h3{font-size:18px}.jz-role p{font-size:9px;padding-right:14px}.jz-casestudy-photo{min-height:360px}.jz-casestudy-panel{padding:38px 32px}.jz-casestudy-panel h2{font-size:28px}.jz-casestudy-panel p{font-size:13px}.jz-casestudy-stats b{font-size:21px}.jz-integration-grid{grid-template-columns:.9fr 1.2fr;gap:26px}.jz-integration-grid h2{font-size:34px}.jz-integration-node{gap:9px;font-size:10.5px;height:56px}.jz-integration-node svg{width:17px}.jz-integration-center{height:72px}.jz-integration-center .jz-brand{width:110px}.jz-faq-grid{gap:52px}.jz-faq h2{font-size:46px}.jz-final-cta{flex-wrap:wrap}.jz-footer-grid{gap:22px}.jz-footer-grid .jz-brand{width:115px}}
 @media(max-width:640px){.jz-container{width:calc(100% - 36px)} .jz-header-inner{min-height:72px;gap:12px}.jz-header .jz-brand{width:123px;height:30px}.jz-header-actions{gap:10px}.jz-header .jz-button{font-size:10px;padding:10px 12px;min-height:35px;gap:7px}.jz-header .jz-button svg{width:13px}.jz-login{display:none}.jz-header nav{left:18px;right:18px;top:72px}.jz-hero-copy{padding:27px 0 18px}.jz-eyebrow-pill{font-size:9px}.jz-hero h1{font-size:clamp(34px,8.4vw,52px);letter-spacing:-1.4px;line-height:1.08;margin-top:18px}.jz-hero h1 em{letter-spacing:-1.7px;line-height:1.06;margin-top:4px}.jz-hero-copy>p{font-size:12px;line-height:1.65;max-width:400px;margin-top:18px}.jz-desktop-break{display:none}.jz-hero-actions{gap:16px;margin-top:22px}.jz-hero-actions .jz-button{font-size:10px;padding:11px 13px;gap:10px}.jz-overview{font-size:10px;gap:7px}.jz-round-play{width:24px;height:24px}.jz-hero-copy>small{font-size:8px}.jz-hero-showcase{grid-template-columns:1fr;gap:16px;margin-top:10px}.jz-tabs.vertical{grid-column:1;justify-content:start;gap:7px;padding-bottom:2px}.jz-tabs.vertical button{font-size:10px;min-width:124px;gap:8px;min-height:45px;padding-left:7px;padding-right:7px}.jz-tabs.vertical button span{font-size:10px}.jz-hero-screen{padding:3px;border-radius:7px}.jz-app-toolbar{height:34px;padding-inline:9px;gap:10px}.jz-fake-search{font-size:5px;padding:4px;overflow:hidden}.jz-app-nav{width:66px;gap:8px;padding-inline:3px}.jz-app-nav>span{font-size:5px;gap:4px;padding-inline:3px}.jz-app-nav svg{width:11px;height:11px}.jz-app-main{padding:12px 7px 7px}.jz-app h3{font-size:13px}.jz-dash-heading{gap:6px}.jz-dash-heading select{font-size:6px;padding:4px;max-width:78px}.jz-stat-cards{gap:5px;margin-bottom:10px}.jz-stat-cards>div{padding:9px 4px;gap:4px}.jz-stat-cards svg{width:13px}.jz-stat-cards b{font-size:12px}.jz-stat-cards span{font-size:4.5px}.jz-app-body{min-height:256px}.jz-records,.jz-line-chart{padding:7px 4px}.jz-chart-title{font-size:6px;min-height:20px}.jz-chart-title span{font-size:5px}.jz-records>strong{font-size:6px;margin-bottom:7px}.jz-record{font-size:4.5px;padding:7px 0}.jz-record .jz-avatar{width:15px;height:15px;font-size:5px}.jz-record .jz-status{font-size:4px;padding:2px}.jz-phone{width:210px;min-height:342px;margin:0 auto 5px;display:block}.jz-proof{margin-top:20px}.jz-proof h2{font-size:27px;max-width:300px;margin:auto;line-height:1.2}.jz-campus-logos{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin:22px auto;max-width:340px}.jz-campus-logos img{width:100%;height:64px}.jz-benefits{grid-template-columns:repeat(3,1fr);gap:22px 8px;padding:9px 0 30px}.jz-benefits>div{font-size:9px;gap:8px;padding:0 4px}.jz-benefits>div:nth-child(3){border:0}.jz-benefits svg{width:24px;height:24px}.jz-products{padding:33px 0}.jz-products h2{font-size:30px;text-align:left;max-width:350px;line-height:1.14}.jz-tabs{gap:5px;overflow:auto;justify-content:start;margin-top:20px}.jz-tabs button{font-size:11px;padding:0 10px;flex-shrink:0;min-height:44px}.jz-product-grid{grid-template-columns:1fr;gap:26px;padding-top:25px}.jz-product-copy h3{max-width:310px;font-size:34px;margin:12px 0 19px}.jz-product-copy ul{gap:13px;margin-bottom:23px}.jz-product-copy li{font-size:13px}.jz-product-copy .jz-text-link{font-size:13px}.jz-feature-screen .jz-app-body{min-height:275px}.jz-feature-screen .jz-app-main{padding:13px 10px}.jz-profile-head small{font-size:6px}.jz-profile-head h3{font-size:15px}.jz-profile-head>img{width:40px;height:40px}.jz-profile-tabs{gap:22px}.jz-profile-tabs button{font-size:8px}.jz-progress,.jz-schedule{padding:9px}.jz-progress>strong,.jz-schedule>strong{font-size:8px}.jz-progress svg{width:63px;height:63px}.jz-progress>div:first-of-type{gap:5px}.jz-progress span{font-size:6px}.jz-progress span b{font-size:8px}.jz-schedule>div{font-size:5px;grid-template-columns:34px 1fr 35px;gap:3px}.jz-stories{padding:30px 0}.jz-stories>div>h2{font-size:30px;max-width:330px;margin:0 auto 24px}.jz-carousel{padding:0}.jz-story{grid-template-columns:1fr}.jz-story-photo{min-height:210px}.jz-story-copy{padding:25px}.jz-story-copy h3{font-size:29px}.jz-story-copy p{font-size:13px}.jz-carousel-arrow{top:91px;background:#062e4fc9;padding:8px;border-radius:50%}.jz-carousel-arrow.prev{left:9px}.jz-carousel-arrow.next{right:9px}.jz-outcomes h2{font-size:30px;text-align:left;margin-bottom:25px}.jz-outcomes>div{grid-template-columns:1fr;gap:20px}.jz-outcomes article{border-right:0;border-bottom:1px solid #7693aa44;padding:0 0 20px;gap:22px}.jz-outcomes article:last-child{padding-bottom:0}.jz-outcomes article>svg{width:35px}.jz-outcomes h3{font-size:22px}.jz-outcomes p{font-size:12px}.jz-roles{padding:28px 0}.jz-roles h2{font-size:30px;text-align:left}.jz-role-grid{grid-template-columns:repeat(2,1fr);gap:12px}.jz-role{min-height:260px}.jz-role-body{padding:16px}.jz-role-body h3{font-size:18px}.jz-role-body p{font-size:11px;line-height:1.5;max-height:100px;opacity:1;margin-top:8px;padding-right:0}.jz-role-body svg{width:15px;right:16px;bottom:16px}.jz-casestudy{padding:36px 0}.jz-casestudy-grid{grid-template-columns:1fr}.jz-casestudy-photo{min-height:220px}.jz-casestudy-panel{padding:28px 22px}.jz-casestudy-panel h2{font-size:26px;max-width:100%}.jz-casestudy-panel p{font-size:13px;max-width:100%}.jz-casestudy-stats{grid-template-columns:1fr 1fr;gap:16px;padding:20px 0}.jz-casestudy-stats b{font-size:19px}
-.jz-integrations{padding:56px 0}.jz-integration-grid{grid-template-columns:1fr;gap:26px}.jz-integration-grid h2{font-size:32px}.jz-integration-grid>div>p{font-size:13px}.jz-integration-map{height:210px}.jz-integration-node{font-size:10px;gap:7px;height:54px}.jz-integration-node svg{width:18px}.jz-integration-center{height:72px;top:66px}.jz-integration-center .jz-brand{width:100px}.jz-comparison{grid-template-columns:1fr;padding:24px;gap:24px;margin-top:22px}.jz-comparison article{display:flex;gap:14px}.jz-comparison article+article{border-left:0;border-top:1px solid #d2dce5;padding-left:0;padding-top:24px}.jz-comparison h3{font-size:15px}.jz-comparison p{font-size:11px}.jz-mini-flow{gap:3px;margin-top:0}.jz-mini-flow svg{width:17px}.jz-mini-brand .jz-brand{width:39px;height:18px}.jz-faq{padding:64px 0}.jz-faq-grid{grid-template-columns:1fr;gap:44px}.jz-faq-intro{position:static;gap:0}.jz-faq h2{font-size:42px;margin-bottom:20px}.jz-faq-intro p{font-size:16px;max-width:100%;margin-bottom:28px}.jz-faq-illustration img{max-width:100%}.jz-faq-cta{padding:26px 22px;max-width:100%}.jz-faq-cta strong{font-size:22px}.jz-faq h3 button{font-size:15px;padding:22px 12px 22px 16px;gap:16px}.jz-faq-toggle{width:28px;height:28px}.jz-faq-answer{padding:0 16px 24px 40px}.jz-faq-answer p{font-size:14px}.jz-footer{padding:28px 0 22px}.jz-final-cta{justify-content:start;gap:18px 25px;padding-bottom:27px}.jz-final-cta h2{font-size:33px;width:100%;line-height:1.14;max-width:320px}.jz-final-cta .jz-button{font-size:12px;padding:12px 16px}.jz-talk{font-size:11px}.jz-footer-grid{grid-template-columns:1fr 1fr;gap:24px 25px;padding:28px 0}.jz-footer-grid>a{grid-column:1/-1;margin-bottom:2px}.jz-footer-grid .jz-brand{width:150px}.jz-footer-grid h3{font-size:12px}.jz-footer-grid>div>a{font-size:11px;margin:8px 0}.jz-footer-bottom{gap:22px;flex-wrap:wrap;font-size:9px}.jz-footer-tagline{width:100%;margin-left:0;opacity:.7}}
+.jz-integrations{padding:56px 0}.jz-integration-grid{grid-template-columns:1fr;gap:26px}.jz-integration-grid h2{font-size:32px}.jz-integration-grid>div>p{font-size:13px}
+
+
+
+.jz-integration-map{height:210px}.jz-integration-node{font-size:10px;gap:7px;height:54px}.jz-integration-node svg{width:18px}.jz-integration-center{height:72px;top:66px}.jz-integration-center .jz-brand{width:100px}.jz-comparison{grid-template-columns:1fr;padding:24px;gap:24px;margin-top:22px}.jz-comparison article{display:flex;gap:14px}.jz-comparison article+article{border-left:0;border-top:1px solid #d2dce5;padding-left:0;padding-top:24px}.jz-comparison h3{font-size:15px}.jz-comparison p{font-size:11px}.jz-mini-flow{gap:3px;margin-top:0}.jz-mini-flow svg{width:17px}.jz-mini-brand .jz-brand{width:39px;height:18px}.jz-faq{padding:64px 0}.jz-faq-grid{grid-template-columns:1fr;gap:44px}.jz-faq-intro{position:static;gap:0}.jz-faq h2{font-size:42px;margin-bottom:20px}.jz-faq-intro p{font-size:16px;max-width:100%;margin-bottom:28px}.jz-faq-illustration img{max-width:100%}.jz-faq-cta{padding:26px 22px;max-width:100%}.jz-faq-cta strong{font-size:22px}.jz-faq h3 button{font-size:15px;padding:22px 12px 22px 16px;gap:16px}.jz-faq-toggle{width:28px;height:28px}.jz-faq-answer{padding:0 16px 24px 40px}.jz-faq-answer p{font-size:14px}.jz-footer{padding:28px 0 22px}.jz-final-cta{justify-content:start;gap:18px 25px;padding-bottom:27px}.jz-final-cta h2{font-size:33px;width:100%;line-height:1.14;max-width:320px}.jz-final-cta .jz-button{font-size:12px;padding:12px 16px}.jz-talk{font-size:11px}.jz-footer-grid{grid-template-columns:1fr 1fr;gap:24px 25px;padding:28px 0}.jz-footer-grid>a{grid-column:1/-1;margin-bottom:2px}.jz-footer-grid .jz-brand{width:150px}.jz-footer-grid h3{font-size:12px}.jz-footer-grid>div>a{font-size:11px;margin:8px 0}.jz-footer-bottom{gap:22px;flex-wrap:wrap;font-size:9px}.jz-footer-tagline{width:100%;margin-left:0;opacity:.7}}
 @media(prefers-reduced-motion:reduce){.jz-site *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 `;
