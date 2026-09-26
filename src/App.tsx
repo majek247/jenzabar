@@ -55,7 +55,7 @@ const ROLES = [
 ];
 const FAQS = [
   ['What is Jenzabar One?', 'Jenzabar One brings together software for student information, recruitment, retention, finance and other campus functions. Its higher education ecosystem helps institutions connect their departments and support the student journey.'],
-  ['Which products fit our institution?', 'Start with the teams and processes you want to improve. Jenzabar can help you explore the appropriate combination of products for your institution’s size, priorities and existing technology. Request a demo to discuss your requirements.'],
+  ['Which products fit our institution?', 'Start with the teams and processes you want to improve. Jenzabar can help you explore the right combination of products for your institution’s size, priorities and existing technology.', 'Explore our products', `${BASE}/jenzabar-one`],
   ['Can Jenzabar connect with our existing systems?', 'Jenzabar offers integration options through the Jenzabar One API and Jenzabar Unity Platform. Your systems, data requirements and workflows determine the right approach; review compatibility and scope with the Jenzabar team.'],
   ['How does implementation work?', 'Implementation scope depends on the products you choose and your existing environment. Discuss data migration, configuration, training, responsibilities and launch milestones with Jenzabar before agreeing a project plan.'],
   ['What support is available?', 'Jenzabar provides higher education services and customer support. The team can explain the onboarding, training and ongoing support options available for your products and agreement.'],
@@ -63,8 +63,6 @@ const FAQS = [
   ['Is Jenzabar built for institutions of our size?', 'Yes. Jenzabar serves a broad range of colleges and universities, from small private institutions to larger multi-campus organizations. The platform scales with you — you can start with the modules you need today and expand over time.'],
   ['Can students and faculty access Jenzabar on mobile?', 'Yes. Jenzabar offers responsive web access and a mobile experience for students, faculty and staff. Students can view schedules, grades, financial information and appointments from a phone or tablet.'],
   ['How is data secured and protected?', 'Jenzabar follows industry-standard security practices including encryption in transit and at rest, role-based access controls, and regular audits. Specific compliance frameworks and data handling policies are documented during your evaluation.'],
-  ['Do you offer training and onboarding?', 'Yes. Jenzabar provides guided onboarding, role-based training and ongoing education for your teams. Training can be delivered remotely or on-site depending on your agreement and rollout plan.'],
-  ['What if we need to migrate from a legacy system?', 'Jenzabar supports data migration from common legacy systems. Your implementation team will help map existing records, validate data, and confirm the migration approach before launch.'],
 ];
 
 function Icon({ name = 'chart', size = 22, ...props }) {
@@ -221,28 +219,57 @@ function IntegrationsSection() {
   return <section className="jz-integrations jz-light" id="integrations"><div className="jz-container"><div className="jz-integration-grid"><div><h2>Your campus systems.<br/><em>Better connected.</em></h2><p>Bring your technology together with the<br className="jz-desktop-break"/> Jenzabar One API and Jenzabar Unity Platform.</p></div><IntegrationDiagram/></div><div className="jz-comparison"><article><div><h3>Disconnected systems</h3><p>Data is often siloed across multiple systems,<br/> making it harder to get a complete view.</p></div><div className="jz-mini-flow"><Icon name="database"/><span>···</span><Icon name="document"/><span>···</span><Icon name="database"/></div></article><article><div><h3>A connected campus</h3><p>Bring your systems together for a unified view<br/> of your institution.</p></div><div className="jz-mini-flow"><Icon name="database"/><span>···</span><span className="jz-mini-brand"><Brand small/></span><span>···</span><Icon name="database"/></div></article></div></div></section>;
 }
 function FAQSection() {
-  const [open,setOpen]=useState(0);
+  const [open,setOpen]=useState(1);
   return (
     <section className="jz-faq" id="questions">
       <div className="jz-container jz-faq-grid">
         <div className="jz-faq-intro">
           <span className="jz-faq-eyebrow">Frequently asked</span>
           <h2>Questions,<br/><em>answered.</em></h2>
-          <p>Everything you need to know about Jenzabar One, from implementation and integrations to support and security. Can't find what you're looking for? <a href={`${BASE}/contact-us`}>Talk to our team</a>.</p>
+          <p>Everything you need to know about connecting your campus with Jenzabar.</p>
+          <div className="jz-faq-illustration" aria-hidden="true">
+            <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="jzEngrave" width="6" height="6" patternUnits="userSpaceOnUse">
+                  <path d="M0 6L6 0" stroke="#0A2540" strokeWidth=".4" opacity=".35"/>
+                </pattern>
+              </defs>
+              <g fill="none" stroke="#0A2540" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M40 220h320M60 220V120l40-30v130M100 220V90l50-35v165" />
+                <path d="M150 220v-90l50-35v125M200 220v-100l50-30v130M250 220v-80l50-35v115M300 220V130l40-30v120"/>
+                <path d="M60 120l40-30M100 90l50-35M150 130l50-35M200 120l50-30M250 140l50-35M300 130l40-30"/>
+                <path d="M80 220v-70a20 20 0 0140 0v70"/>
+                <path d="M90 150v-40a10 10 0 0120 0v40"/>
+                <path d="M180 220v-80a30 30 0 0160 0v80"/>
+                <path d="M195 140v-50a15 15 0 0130 0v50"/>
+                <path d="M330 220v-60a15 15 0 0130 0v60"/>
+              </g>
+              <rect x="0" y="0" width="400" height="260" fill="url(#jzEngrave)" opacity=".35"/>
+            </svg>
+          </div>
+          <div className="jz-faq-cta">
+            <strong>Your campus.<br/>Your questions.</strong>
+            <span>Let's find the right fit for your institution.</span>
+            <a href={`${BASE}/contact-us`} className="jz-faq-cta-button"><span>Talk to our team</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></a>
+          </div>
         </div>
         <div className="jz-faq-list">
-          {FAQS.map(([q,a],i)=>(
+          {FAQS.map(([q,a,linkLabel,linkHref],i)=>(
             <article className={open===i?'open':''} key={q}>
               <h3>
                 <button onClick={()=>setOpen(open===i?null:i)} aria-expanded={open===i} aria-controls={`jz-answer-${i}`} id={`jz-question-${i}`}>
+                  <span className="jz-faq-num">{String(i+1).padStart(2,'0')}</span>
                   <span className="jz-faq-q">{q}</span>
                   <span className="jz-faq-toggle" aria-hidden="true">
-                    <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 8h10M8 3v10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
+                    {open===i
+                      ? <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 8h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
+                      : <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 8h10M8 3v10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>}
                   </span>
                 </button>
               </h3>
               <div className="jz-faq-answer" id={`jz-answer-${i}`} role="region" aria-labelledby={`jz-question-${i}`} hidden={open!==i}>
                 <p>{a}</p>
+                {linkLabel && <a className="jz-faq-inline-link" href={linkHref}>{linkLabel} <span aria-hidden="true">↗</span></a>}
               </div>
             </article>
           ))}
@@ -492,34 +519,42 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-mini-flow svg{width:26px}
 .jz-mini-brand{background:white;padding:6px;border:1px solid var(--line);border-radius:6px}
 .jz-mini-brand .jz-brand{width:60px;height:24px}
-.jz-faq{background:#0A2540;padding:130px 0 140px;position:relative;overflow:hidden}
-.jz-faq:before{content:'';position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(0,184,233,.10) 0%,transparent 65%);pointer-events:none}
-.jz-faq:after{content:'';position:absolute;bottom:-30%;left:-15%;width:700px;height:700px;background:radial-gradient(circle,rgba(173,8,123,.08) 0%,transparent 70%);pointer-events:none}
-.jz-faq-grid{display:grid;grid-template-columns:.9fr 1.3fr;gap:100px;align-items:start;position:relative;z-index:1}
-.jz-faq-intro{position:sticky;top:60px}
-.jz-faq-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#7db8e0;margin-bottom:26px}
-.jz-faq-eyebrow:before{content:'';width:24px;height:1px;background:#7db8e0}
-.jz-faq h2{font-family:var(--font-serif);font-size:clamp(38px,4vw,58px);line-height:1.04;letter-spacing:-.035em;font-weight:400;color:#fff;margin-bottom:28px}
-.jz-faq h2 em{font-style:italic;color:#c9dcee;font-weight:400}
-.jz-faq-intro p{font-size:16px;line-height:1.75;color:#8fa8c0;margin-top:0;max-width:400px}
-.jz-faq-intro p a{color:#00b8e9;font-weight:500;text-decoration:none;border-bottom:1px solid rgba(0,184,233,.4);padding-bottom:1px;transition:border-color .2s}
-.jz-faq-intro p a:hover{border-color:#00b8e9}
-.jz-faq-list{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,.10)}
-.jz-faq article{background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.10);border-radius:0;transition:background .3s ease}
-.jz-faq article:hover{background:rgba(255,255,255,.02)}
-.jz-faq article.open{background:rgba(255,255,255,.02)}
+.jz-faq{background:#F4F6F9;padding:120px 0 130px;position:relative;overflow:hidden}
+.jz-faq-grid{display:grid;grid-template-columns:.95fr 1.35fr;gap:80px;align-items:start;position:relative;z-index:1}
+.jz-faq-intro{position:sticky;top:60px;display:flex;flex-direction:column;gap:28px}
+.jz-faq-eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0A2540}
+.jz-faq-eyebrow:before{content:'';width:38px;height:1.5px;background:#0A2540}
+.jz-faq h2{font-family:var(--font-serif);font-size:clamp(42px,4.6vw,64px);line-height:1.02;letter-spacing:-.035em;font-weight:400;color:#0A2540;margin:0}
+.jz-faq h2 em{font-style:italic;color:#0067c7;font-weight:400}
+.jz-faq-intro p{font-size:16px;line-height:1.7;color:#4a5c70;margin:0;max-width:380px}
+.jz-faq-illustration{margin:8px 0 4px;max-width:100%}
+.jz-faq-illustration svg{display:block;width:100%;height:auto;max-width:400px}
+.jz-faq-cta{background:#0A2540;color:#fff;padding:32px 30px;border-radius:2px;display:flex;flex-direction:column;gap:12px;max-width:400px}
+.jz-faq-cta strong{font-family:var(--font-serif);font-size:26px;line-height:1.1;font-weight:400;letter-spacing:-.015em}
+.jz-faq-cta span{font-size:14px;color:#c9d8e6;line-height:1.5}
+.jz-faq-cta-button{margin-top:16px;display:inline-flex;align-items:center;justify-content:space-between;gap:18px;background:#ffffff;color:#0A2540 !important;font-family:var(--font-sans);font-size:14px;font-weight:600;line-height:1;letter-spacing:-.005em;padding:14px 18px 14px 22px;border:0;border-radius:2px;align-self:stretch;text-decoration:none;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.jz-faq-cta-button:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(0,0,0,.45);background:#f4f6f9}
+.jz-faq-cta-button span{flex:1;text-align:left;color:#0A2540}
+.jz-faq-cta-button svg{stroke:#0A2540;flex-shrink:0}
+.jz-faq-list{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(10,37,64,.12)}
+.jz-faq article{background:transparent;border:0;border-bottom:1px solid rgba(10,37,64,.12);border-radius:0;transition:background .25s ease}
+.jz-faq article:hover{background:#ffffff}
+.jz-faq article.open{background:#E7F1FA;border-left:3px solid #0067c7;padding-left:0}
 .jz-faq h3{margin:0}
-.jz-faq h3 button{display:flex;align-items:center;justify-content:space-between;gap:32px;width:100%;background:none;border:0;text-align:left;padding:32px 8px;color:#fff;font-family:var(--font-sans);font-size:19px;font-weight:500;line-height:1.4;letter-spacing:-.012em;transition:color .2s}
-.jz-faq h3 button:hover{color:#00b8e9}
-.jz-faq article.open h3 button{color:#fff}
+.jz-faq h3 button{display:flex;align-items:center;gap:28px;width:100%;background:none;border:0;text-align:left;padding:28px 20px 28px 24px;color:#0A2540;font-family:var(--font-sans);font-size:18px;font-weight:700;line-height:1.4;letter-spacing:-.012em;transition:color .2s}
+.jz-faq article.open h3 button{color:#0067c7}
+.jz-faq-num{font-family:var(--font-sans);font-size:13px;font-weight:600;color:#8a98a8;flex-shrink:0;letter-spacing:.5px;min-width:24px}
+.jz-faq article.open .jz-faq-num{color:#0067c7}
 .jz-faq-q{flex:1;padding-right:20px}
-.jz-faq-toggle{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:transparent;border:1px solid rgba(255,255,255,.22);color:#c9dcee;flex-shrink:0;transition:border-color .3s,color .3s,transform .45s cubic-bezier(.22,.68,0,1.01),background .3s}
-.jz-faq h3 button:hover .jz-faq-toggle{border-color:#00b8e9;color:#00b8e9}
-.jz-faq article.open .jz-faq-toggle{background:#00b8e9;border-color:#00b8e9;color:#0A2540;transform:rotate(45deg)}
-.jz-faq-toggle svg{display:block;transition:transform .3s}
-.jz-faq-answer{padding:0 8px 36px 8px;animation:jzFaqIn .4s cubic-bezier(.22,.68,0,1.01)}
-@keyframes jzFaqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.jz-faq-answer p{font-size:15.5px;color:#93a8bd;line-height:1.8;margin:0;max-width:680px;padding-right:40px}
+.jz-faq-toggle{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:transparent;border:0;color:#0A2540;flex-shrink:0;transition:color .25s,background .25s}
+.jz-faq h3 button:hover .jz-faq-toggle{color:#0067c7}
+.jz-faq article.open .jz-faq-toggle{color:#0067c7}
+.jz-faq-toggle svg{display:block}
+.jz-faq-answer{padding:0 60px 32px 76px;animation:jzFaqIn .35s cubic-bezier(.22,.68,0,1.01)}
+@keyframes jzFaqIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.jz-faq-answer p{font-size:15px;color:#41546a;line-height:1.75;margin:0 0 14px;max-width:640px}
+.jz-faq-inline-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#0067c7;text-decoration:underline;text-underline-offset:3px}
+.jz-faq-inline-link:hover{color:#004a94}
 .jz-footer{padding:30px 0 25px}
 .jz-final-cta{display:flex;align-items:center;justify-content:center;gap:30px;padding:0 0 30px;border-bottom:1px solid #7c96aa99}
 .jz-final-cta h2{font-size:36px}
@@ -538,8 +573,8 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-header nav.open{display:flex;flex-direction:column;gap:4px}
 .jz-header nav a{font-size:16px;font-weight:500;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07)}
 .jz-header nav a:last-child{border-bottom:0}
-.jz-header nav a:after{display:none}.jz-mobile-toggle{display:block}.jz-hero h1{font-size:54px}.jz-hero-copy>p{font-size:14px}.jz-hero-showcase{grid-template-columns:minmax(0,1fr) 190px;gap:20px}.jz-tabs.vertical{grid-column:1/-1;flex-direction:row;padding:0;gap:0;justify-content:space-between;overflow-x:auto}.jz-tabs.vertical button{border-left:0;border-bottom:2px solid transparent;min-height:46px;padding:8px 10px;gap:7px}.jz-tabs.vertical button svg{width:20px}.jz-tabs.vertical button.active{border-left-color:transparent;border-bottom-color:var(--magenta)}.jz-tabs.vertical button span{font-size:10px}.jz-app-nav{width:83px}.jz-app-body{min-height:295px}.jz-proof h2{font-size:31px}.jz-campus-logos{gap:22px}.jz-campus-logos img{width:20%;height:66px}.jz-product-grid{grid-template-columns:.72fr 1fr;gap:20px}.jz-product-copy h3{font-size:31px}.jz-product-copy li{font-size:12px;gap:9px}.jz-feature-screen .jz-app-nav{display:none}.jz-feature-screen .jz-app-main{padding:13px}.jz-feature-screen .jz-app-body{min-height:284px}.jz-product-copy .jz-text-link{font-size:12px}.jz-tabs{gap:20px;justify-content:space-between}.jz-tabs button{padding-inline:12px}.jz-story-photo{min-height:230px}.jz-story-copy h3{font-size:24px}.jz-story-copy p{font-size:12px}.jz-outcomes h2{font-size:30px}.jz-outcomes>div{gap:18px;padding:0}.jz-outcomes article{gap:12px;padding-right:16px}.jz-outcomes article>svg{width:28px}.jz-outcomes h3{font-size:17px}.jz-outcomes p{font-size:10px}.jz-role-grid{gap:10px}.jz-role{min-height:220px}.jz-role>div{left:12px;right:12px;bottom:12px}.jz-role h3{font-size:18px}.jz-role p{font-size:9px;padding-right:14px}.jz-casestudy-photo{min-height:360px}.jz-casestudy-panel{padding:38px 32px}.jz-casestudy-panel h2{font-size:28px}.jz-casestudy-panel p{font-size:13px}.jz-casestudy-stats b{font-size:21px}.jz-integration-grid{grid-template-columns:.9fr 1.2fr;gap:26px}.jz-integration-grid h2{font-size:34px}.jz-integration-node{gap:9px;font-size:10.5px;height:56px}.jz-integration-node svg{width:17px}.jz-integration-center{height:72px}.jz-integration-center .jz-brand{width:110px}.jz-faq-grid{gap:52px}.jz-faq h2{font-size:42px}.jz-final-cta{flex-wrap:wrap}.jz-footer-grid{gap:22px}.jz-footer-grid .jz-brand{width:115px}}
+.jz-header nav a:after{display:none}.jz-mobile-toggle{display:block}.jz-hero h1{font-size:54px}.jz-hero-copy>p{font-size:14px}.jz-hero-showcase{grid-template-columns:minmax(0,1fr) 190px;gap:20px}.jz-tabs.vertical{grid-column:1/-1;flex-direction:row;padding:0;gap:0;justify-content:space-between;overflow-x:auto}.jz-tabs.vertical button{border-left:0;border-bottom:2px solid transparent;min-height:46px;padding:8px 10px;gap:7px}.jz-tabs.vertical button svg{width:20px}.jz-tabs.vertical button.active{border-left-color:transparent;border-bottom-color:var(--magenta)}.jz-tabs.vertical button span{font-size:10px}.jz-app-nav{width:83px}.jz-app-body{min-height:295px}.jz-proof h2{font-size:31px}.jz-campus-logos{gap:22px}.jz-campus-logos img{width:20%;height:66px}.jz-product-grid{grid-template-columns:.72fr 1fr;gap:20px}.jz-product-copy h3{font-size:31px}.jz-product-copy li{font-size:12px;gap:9px}.jz-feature-screen .jz-app-nav{display:none}.jz-feature-screen .jz-app-main{padding:13px}.jz-feature-screen .jz-app-body{min-height:284px}.jz-product-copy .jz-text-link{font-size:12px}.jz-tabs{gap:20px;justify-content:space-between}.jz-tabs button{padding-inline:12px}.jz-story-photo{min-height:230px}.jz-story-copy h3{font-size:24px}.jz-story-copy p{font-size:12px}.jz-outcomes h2{font-size:30px}.jz-outcomes>div{gap:18px;padding:0}.jz-outcomes article{gap:12px;padding-right:16px}.jz-outcomes article>svg{width:28px}.jz-outcomes h3{font-size:17px}.jz-outcomes p{font-size:10px}.jz-role-grid{gap:10px}.jz-role{min-height:220px}.jz-role>div{left:12px;right:12px;bottom:12px}.jz-role h3{font-size:18px}.jz-role p{font-size:9px;padding-right:14px}.jz-casestudy-photo{min-height:360px}.jz-casestudy-panel{padding:38px 32px}.jz-casestudy-panel h2{font-size:28px}.jz-casestudy-panel p{font-size:13px}.jz-casestudy-stats b{font-size:21px}.jz-integration-grid{grid-template-columns:.9fr 1.2fr;gap:26px}.jz-integration-grid h2{font-size:34px}.jz-integration-node{gap:9px;font-size:10.5px;height:56px}.jz-integration-node svg{width:17px}.jz-integration-center{height:72px}.jz-integration-center .jz-brand{width:110px}.jz-faq-grid{gap:52px}.jz-faq h2{font-size:46px}.jz-final-cta{flex-wrap:wrap}.jz-footer-grid{gap:22px}.jz-footer-grid .jz-brand{width:115px}}
 @media(max-width:640px){.jz-container{width:calc(100% - 36px)} .jz-header-inner{min-height:72px;gap:12px}.jz-header .jz-brand{width:123px;height:30px}.jz-header-actions{gap:10px}.jz-header .jz-button{font-size:10px;padding:10px 12px;min-height:35px;gap:7px}.jz-header .jz-button svg{width:13px}.jz-login{display:none}.jz-header nav{left:18px;right:18px;top:72px}.jz-hero-copy{padding:27px 0 18px}.jz-eyebrow-pill{font-size:9px}.jz-hero h1{font-size:clamp(34px,8.4vw,52px);letter-spacing:-1.4px;line-height:1.08;margin-top:18px}.jz-hero h1 em{letter-spacing:-1.7px;line-height:1.06;margin-top:4px}.jz-hero-copy>p{font-size:12px;line-height:1.65;max-width:400px;margin-top:18px}.jz-desktop-break{display:none}.jz-hero-actions{gap:16px;margin-top:22px}.jz-hero-actions .jz-button{font-size:10px;padding:11px 13px;gap:10px}.jz-overview{font-size:10px;gap:7px}.jz-round-play{width:24px;height:24px}.jz-hero-copy>small{font-size:8px}.jz-hero-showcase{grid-template-columns:1fr;gap:16px;margin-top:10px}.jz-tabs.vertical{grid-column:1;justify-content:start;gap:7px;padding-bottom:2px}.jz-tabs.vertical button{font-size:10px;min-width:124px;gap:8px;min-height:45px;padding-left:7px;padding-right:7px}.jz-tabs.vertical button span{font-size:10px}.jz-hero-screen{padding:3px;border-radius:7px}.jz-app-toolbar{height:34px;padding-inline:9px;gap:10px}.jz-fake-search{font-size:5px;padding:4px;overflow:hidden}.jz-app-nav{width:66px;gap:8px;padding-inline:3px}.jz-app-nav>span{font-size:5px;gap:4px;padding-inline:3px}.jz-app-nav svg{width:11px;height:11px}.jz-app-main{padding:12px 7px 7px}.jz-app h3{font-size:13px}.jz-dash-heading{gap:6px}.jz-dash-heading select{font-size:6px;padding:4px;max-width:78px}.jz-stat-cards{gap:5px;margin-bottom:10px}.jz-stat-cards>div{padding:9px 4px;gap:4px}.jz-stat-cards svg{width:13px}.jz-stat-cards b{font-size:12px}.jz-stat-cards span{font-size:4.5px}.jz-app-body{min-height:256px}.jz-records,.jz-line-chart{padding:7px 4px}.jz-chart-title{font-size:6px;min-height:20px}.jz-chart-title span{font-size:5px}.jz-records>strong{font-size:6px;margin-bottom:7px}.jz-record{font-size:4.5px;padding:7px 0}.jz-record .jz-avatar{width:15px;height:15px;font-size:5px}.jz-record .jz-status{font-size:4px;padding:2px}.jz-phone{width:210px;min-height:342px;margin:0 auto 5px;display:block}.jz-proof{margin-top:20px}.jz-proof h2{font-size:27px;max-width:300px;margin:auto;line-height:1.2}.jz-campus-logos{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin:22px auto;max-width:340px}.jz-campus-logos img{width:100%;height:64px}.jz-benefits{grid-template-columns:repeat(3,1fr);gap:22px 8px;padding:9px 0 30px}.jz-benefits>div{font-size:9px;gap:8px;padding:0 4px}.jz-benefits>div:nth-child(3){border:0}.jz-benefits svg{width:24px;height:24px}.jz-products{padding:33px 0}.jz-products h2{font-size:30px;text-align:left;max-width:350px;line-height:1.14}.jz-tabs{gap:5px;overflow:auto;justify-content:start;margin-top:20px}.jz-tabs button{font-size:11px;padding:0 10px;flex-shrink:0;min-height:44px}.jz-product-grid{grid-template-columns:1fr;gap:26px;padding-top:25px}.jz-product-copy h3{max-width:310px;font-size:34px;margin:12px 0 19px}.jz-product-copy ul{gap:13px;margin-bottom:23px}.jz-product-copy li{font-size:13px}.jz-product-copy .jz-text-link{font-size:13px}.jz-feature-screen .jz-app-body{min-height:275px}.jz-feature-screen .jz-app-main{padding:13px 10px}.jz-profile-head small{font-size:6px}.jz-profile-head h3{font-size:15px}.jz-profile-head>img{width:40px;height:40px}.jz-profile-tabs{gap:22px}.jz-profile-tabs button{font-size:8px}.jz-progress,.jz-schedule{padding:9px}.jz-progress>strong,.jz-schedule>strong{font-size:8px}.jz-progress svg{width:63px;height:63px}.jz-progress>div:first-of-type{gap:5px}.jz-progress span{font-size:6px}.jz-progress span b{font-size:8px}.jz-schedule>div{font-size:5px;grid-template-columns:34px 1fr 35px;gap:3px}.jz-stories{padding:30px 0}.jz-stories>div>h2{font-size:30px;max-width:330px;margin:0 auto 24px}.jz-carousel{padding:0}.jz-story{grid-template-columns:1fr}.jz-story-photo{min-height:210px}.jz-story-copy{padding:25px}.jz-story-copy h3{font-size:29px}.jz-story-copy p{font-size:13px}.jz-carousel-arrow{top:91px;background:#062e4fc9;padding:8px;border-radius:50%}.jz-carousel-arrow.prev{left:9px}.jz-carousel-arrow.next{right:9px}.jz-outcomes h2{font-size:30px;text-align:left;margin-bottom:25px}.jz-outcomes>div{grid-template-columns:1fr;gap:20px}.jz-outcomes article{border-right:0;border-bottom:1px solid #7693aa44;padding:0 0 20px;gap:22px}.jz-outcomes article:last-child{padding-bottom:0}.jz-outcomes article>svg{width:35px}.jz-outcomes h3{font-size:22px}.jz-outcomes p{font-size:12px}.jz-roles{padding:28px 0}.jz-roles h2{font-size:30px;text-align:left}.jz-role-grid{grid-template-columns:repeat(2,1fr);gap:12px}.jz-role{min-height:260px}.jz-role-body{padding:16px}.jz-role-body h3{font-size:18px}.jz-role-body p{font-size:11px;line-height:1.5;max-height:100px;opacity:1;margin-top:8px;padding-right:0}.jz-role-body svg{width:15px;right:16px;bottom:16px}.jz-casestudy{padding:36px 0}.jz-casestudy-grid{grid-template-columns:1fr}.jz-casestudy-photo{min-height:220px}.jz-casestudy-panel{padding:28px 22px}.jz-casestudy-panel h2{font-size:26px;max-width:100%}.jz-casestudy-panel p{font-size:13px;max-width:100%}.jz-casestudy-stats{grid-template-columns:1fr 1fr;gap:16px;padding:20px 0}.jz-casestudy-stats b{font-size:19px}
-.jz-integrations{padding:56px 0}.jz-integration-grid{grid-template-columns:1fr;gap:26px}.jz-integration-grid h2{font-size:32px}.jz-integration-grid>div>p{font-size:13px}.jz-integration-map{height:210px}.jz-integration-node{font-size:10px;gap:7px;height:54px}.jz-integration-node svg{width:18px}.jz-integration-center{height:72px;top:66px}.jz-integration-center .jz-brand{width:100px}.jz-comparison{grid-template-columns:1fr;padding:24px;gap:24px;margin-top:22px}.jz-comparison article{display:flex;gap:14px}.jz-comparison article+article{border-left:0;border-top:1px solid #d2dce5;padding-left:0;padding-top:24px}.jz-comparison h3{font-size:15px}.jz-comparison p{font-size:11px}.jz-mini-flow{gap:3px;margin-top:0}.jz-mini-flow svg{width:17px}.jz-mini-brand .jz-brand{width:39px;height:18px}.jz-faq{padding:72px 0}.jz-faq-grid{grid-template-columns:1fr;gap:48px}.jz-faq-intro{position:static}.jz-faq h2{font-size:38px;margin-bottom:18px}.jz-faq-intro p{font-size:14.5px;max-width:100%}.jz-faq h3 button{font-size:16px;padding:24px 4px;gap:20px}.jz-faq-toggle{width:32px;height:32px}.jz-faq-answer{padding:0 4px 26px 4px}.jz-faq-answer p{font-size:14px;padding-right:0}.jz-footer{padding:28px 0 22px}.jz-final-cta{justify-content:start;gap:18px 25px;padding-bottom:27px}.jz-final-cta h2{font-size:33px;width:100%;line-height:1.14;max-width:320px}.jz-final-cta .jz-button{font-size:12px;padding:12px 16px}.jz-talk{font-size:11px}.jz-footer-grid{grid-template-columns:1fr 1fr;gap:24px 25px;padding:28px 0}.jz-footer-grid>a{grid-column:1/-1;margin-bottom:2px}.jz-footer-grid .jz-brand{width:150px}.jz-footer-grid h3{font-size:12px}.jz-footer-grid>div>a{font-size:11px;margin:8px 0}.jz-footer-bottom{gap:22px;flex-wrap:wrap;font-size:9px}.jz-footer-tagline{width:100%;margin-left:0;opacity:.7}}
+.jz-integrations{padding:56px 0}.jz-integration-grid{grid-template-columns:1fr;gap:26px}.jz-integration-grid h2{font-size:32px}.jz-integration-grid>div>p{font-size:13px}.jz-integration-map{height:210px}.jz-integration-node{font-size:10px;gap:7px;height:54px}.jz-integration-node svg{width:18px}.jz-integration-center{height:72px;top:66px}.jz-integration-center .jz-brand{width:100px}.jz-comparison{grid-template-columns:1fr;padding:24px;gap:24px;margin-top:22px}.jz-comparison article{display:flex;gap:14px}.jz-comparison article+article{border-left:0;border-top:1px solid #d2dce5;padding-left:0;padding-top:24px}.jz-comparison h3{font-size:15px}.jz-comparison p{font-size:11px}.jz-mini-flow{gap:3px;margin-top:0}.jz-mini-flow svg{width:17px}.jz-mini-brand .jz-brand{width:39px;height:18px}.jz-faq{padding:64px 0}.jz-faq-grid{grid-template-columns:1fr;gap:44px}.jz-faq-intro{position:static;gap:22px}.jz-faq h2{font-size:40px}.jz-faq-intro p{font-size:14.5px;max-width:100%}.jz-faq-illustration svg{max-width:100%}.jz-faq-cta{padding:26px 22px;max-width:100%}.jz-faq-cta strong{font-size:22px}.jz-faq h3 button{font-size:15px;padding:22px 12px 22px 16px;gap:16px}.jz-faq-toggle{width:28px;height:28px}.jz-faq-answer{padding:0 16px 24px 40px}.jz-faq-answer p{font-size:14px}.jz-footer{padding:28px 0 22px}.jz-final-cta{justify-content:start;gap:18px 25px;padding-bottom:27px}.jz-final-cta h2{font-size:33px;width:100%;line-height:1.14;max-width:320px}.jz-final-cta .jz-button{font-size:12px;padding:12px 16px}.jz-talk{font-size:11px}.jz-footer-grid{grid-template-columns:1fr 1fr;gap:24px 25px;padding:28px 0}.jz-footer-grid>a{grid-column:1/-1;margin-bottom:2px}.jz-footer-grid .jz-brand{width:150px}.jz-footer-grid h3{font-size:12px}.jz-footer-grid>div>a{font-size:11px;margin:8px 0}.jz-footer-bottom{gap:22px;flex-wrap:wrap;font-size:9px}.jz-footer-tagline{width:100%;margin-left:0;opacity:.7}}
 @media(prefers-reduced-motion:reduce){.jz-site *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 `;
