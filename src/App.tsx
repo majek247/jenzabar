@@ -486,7 +486,18 @@ function FAQSection() {
 }
 function Footer() {
   const columns=[['Products',...PRODUCTS.map(p=>[`Jenzabar ${p.name}`,`${BASE}/jenzabar-one`])],['Solutions',['For your role','#roles'],['For your institution',`${BASE}/solutions`],['Integrations','#integrations'],['Support & training',`${BASE}/services`]],['Resources',['Resource library',`${BASE}/resources`],['Customer stories','#proof'],['Frequently asked questions','#questions'],['Blog',`${BASE}/blog`]],['Company',['About us',`${BASE}/about`],['Careers',`${BASE}/careers`],['Contact',`${BASE}/contact-us`]]];
-  return <footer className="jz-footer jz-dark" id="demo"><div className="jz-container"><div className="jz-final-cta"><div className="jz-final-cta-copy"><h2>Build a more <em>connected campus.</em></h2><div className="jz-final-cta-actions"><a className="jz-button white" href={DEMO}>Request a demo <Icon name="arrow" size={17}/></a><a className="jz-talk" href={`${BASE}/contact-us`}>Talk to our team <Icon name="arrow" size={18}/></a></div></div><div className="jz-final-cta-image"><img src="/images/jenzabar_cta.png" alt="Illustrated campus archway"/></div></div><div className="jz-footer-grid"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a>{columns.map(([title,...links])=><div key={title}><h3>{title}</h3>{links.map(([label,href])=><a key={label} href={href}>{label}</a>)}</div>)}</div><div className="jz-footer-bottom"><span>© {new Date().getFullYear()} Jenzabar</span><a href={`${BASE}/privacy-policy`}>Privacy</a><a href={`${BASE}/terms-of-use`}>Terms</a><span className="jz-footer-tagline">Higher education. Connected.</span></div></div></footer>;
+  return <footer className="jz-footer jz-dark jz-campus-footer" id="demo"><div className="jz-container"><section className="jz-campus-cta" aria-labelledby="jz-campus-cta-title">
+          <div className="jz-campus-cta-art" aria-hidden="true">
+            <img src="/images/jenzabar-cta-campus.png" alt="" loading="lazy" decoding="async" width="1536" height="1024" />
+          </div>
+          <div className="jz-campus-cta-content">
+            <h2 id="jz-campus-cta-title">Build a more<br/><em>connected campus.</em></h2>
+            <div className="jz-campus-cta-actions">
+              <a className="jz-campus-demo" href={DEMO}>Request a demo <Icon name="arrow" size={21}/></a>
+              <a className="jz-campus-talk" href={`${BASE}/contact-us`}>Talk to our team <Icon name="arrow" size={21}/></a>
+            </div>
+          </div>
+        </section><div className="jz-footer-grid"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a>{columns.map(([title,...links])=><div key={title}><h3>{title}</h3>{links.map(([label,href])=><a key={label} href={href}>{label}</a>)}</div>)}</div><div className="jz-footer-bottom"><span>© {new Date().getFullYear()} Jenzabar</span><a href={`${BASE}/privacy-policy`}>Privacy</a><a href={`${BASE}/terms-of-use`}>Terms</a><span className="jz-footer-tagline">Higher education. Connected.</span></div></div></footer>;
 }
 export default function App() {
   const [selected,setSelected]=useState(0);
@@ -1535,17 +1546,11 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-faq-answer p{font-size:15px;color:#41546a;line-height:1.75;margin:0 0 14px;max-width:640px}
 .jz-faq-inline-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#0067c7;text-decoration:underline;text-underline-offset:3px}
 .jz-faq-inline-link:hover{color:#004a94}
-.jz-footer{padding:30px 0 25px}
-.jz-final-cta{display:grid;grid-template-columns:0.9fr 1.1fr;align-items:center;gap:40px;padding:60px 0 80px;border-bottom:1px solid #7c96aa99}
-.jz-final-cta-copy{display:flex;flex-direction:column;gap:36px}
-.jz-final-cta h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(40px,4.4vw,68px);font-weight:500;line-height:1.08;letter-spacing:-.025em;color:#fff;margin:0}
-.jz-final-cta h2 em{font-style:italic;font-weight:400;color:#fff}
-.jz-final-cta-actions{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
-.jz-final-cta .jz-button{font-size:14px;padding:14px 22px;min-height:48px}
-.jz-talk{font-size:14px;display:flex;align-items:center;gap:16px;color:#d6e4f0}
-.jz-talk:hover{color:#fff}
-.jz-final-cta-image{display:flex;justify-content:flex-end;align-items:center}
-.jz-final-cta-image img{width:100%;max-width:820px;height:auto;display:block}
+.jz-footer{padding:30px 0 25px;background:#082b46}
+.jz-final-cta{display:flex;align-items:center;justify-content:center;gap:30px;padding:0 0 30px;border-bottom:1px solid #7c96aa99}
+.jz-final-cta h2{font-size:36px}
+.jz-final-cta .jz-button{font-size:13px;padding:12px 20px;min-height:44px}
+.jz-talk{font-size:13px;display:flex;align-items:center;gap:20px}
 .jz-footer-grid{display:grid;grid-template-columns:1.15fr repeat(4,1fr);gap:40px;padding:40px 0 30px}
 .jz-footer-grid .jz-brand{width:160px;height:34px}
 .jz-footer-grid h3{font-size:13px;font-weight:600;margin-bottom:14px}
@@ -1575,15 +1580,10 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-cmp-disconnected{gap:8px}
 .jz-cmp-db{width:38px;height:38px}
 .jz-cmp-connected{width:150px;height:76px}
-.jz-cmp-arrow{display:none}.jz-faq{padding:64px 0}.jz-faq-grid{grid-template-columns:1fr;gap:44px}.jz-faq-intro{position:static;gap:0}.jz-faq h2{font-size:42px;margin-bottom:20px}.jz-faq-intro p{font-size:16px;max-width:100%;margin-bottom:28px}.jz-faq-illustration img{max-width:100%}.jz-faq-cta{padding:26px 22px;max-width:100%}.jz-faq-cta strong{font-size:22px}.jz-faq h3 button{font-size:15px;padding:22px 12px 22px 16px;gap:16px}.jz-faq-toggle{width:28px;height:28px}.jz-faq-answer{padding:0 16px 24px 40px}.jz-faq-answer p{font-size:14px}.jz-footer{padding:28px 0 22px}.jz-final-cta{grid-template-columns:1fr;gap:32px;padding:24px 0 40px;text-align:left}
-.jz-final-cta h2{font-size:34px;line-height:1.12;max-width:320px}
-.jz-final-cta .jz-button{font-size:12px;padding:12px 16px}
-.jz-talk{font-size:12px}
-.jz-final-cta-image{justify-content:center}
-.jz-final-cta-image img{max-width:420px}.jz-footer-grid{grid-template-columns:1fr 1fr;gap:24px 25px;padding:28px 0}.jz-footer-grid>a{grid-column:1/-1;margin-bottom:2px}.jz-footer-grid .jz-brand{width:150px}.jz-footer-grid h3{font-size:12px}.jz-footer-grid>div>a{font-size:11px;margin:8px 0}.jz-footer-bottom{gap:22px;flex-wrap:wrap;font-size:9px}.jz-footer-tagline{width:100%;margin-left:0;opacity:.7}}
+.jz-cmp-arrow{display:none}.jz-faq{padding:64px 0}.jz-faq-grid{grid-template-columns:1fr;gap:44px}.jz-faq-intro{position:static;gap:0}.jz-faq h2{font-size:42px;margin-bottom:20px}.jz-faq-intro p{font-size:16px;max-width:100%;margin-bottom:28px}.jz-faq-illustration img{max-width:100%}.jz-faq-cta{padding:26px 22px;max-width:100%}.jz-faq-cta strong{font-size:22px}.jz-faq h3 button{font-size:15px;padding:22px 12px 22px 16px;gap:16px}.jz-faq-toggle{width:28px;height:28px}.jz-faq-answer{padding:0 16px 24px 40px}.jz-faq-answer p{font-size:14px}.jz-footer{padding:28px 0 22px}.jz-final-cta{justify-content:start;gap:18px 25px;padding-bottom:27px}.jz-final-cta h2{font-size:33px;width:100%;line-height:1.14;max-width:320px}.jz-final-cta .jz-button{font-size:12px;padding:12px 16px}.jz-talk{font-size:11px}.jz-footer-grid{grid-template-columns:1fr 1fr;gap:24px 25px;padding:28px 0}.jz-footer-grid>a{grid-column:1/-1;margin-bottom:2px}.jz-footer-grid .jz-brand{width:150px}.jz-footer-grid h3{font-size:12px}.jz-footer-grid>div>a{font-size:11px;margin:8px 0}.jz-footer-bottom{gap:22px;flex-wrap:wrap;font-size:9px}.jz-footer-tagline{width:100%;margin-left:0;opacity:.7}}
 @media(prefers-reduced-motion:reduce){.jz-site *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 /* Scoped integration section; unaffected by the previous .jz-integration media queries. */
-.jz-site .jzc-section{--jc-navy:#082d49;--jc-blue:#006bce;--jc-line:#c7d8e7;background:#f8f7f4;color:var(--jc-navy);padding:88px 0 72px;font-family:Inter,var(--font-sans);}
+.jz-site .jzc-section{--jc-navy:#082d49;--jc-blue:#006bce;--jc-line:#c7d8e7;background:#fff;color:var(--jc-navy);padding:88px 0 72px;font-family:Inter,var(--font-sans);}
 .jzc-container{width:min(1480px,calc(100% - 80px));margin-inline:auto;}
 .jzc-heading{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);align-items:end;gap:64px;padding:0 34px 36px;}
 .jzc-eyebrow{display:flex;align-items:center;gap:22px;color:var(--jc-blue);font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;margin-bottom:24px;}
@@ -1649,4 +1649,46 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 
 @media(min-width:761px){.jzc-br .jzc-node-heading{gap:.8cqw;}.jzc-br .jzc-node-heading strong{font-size:1.2cqw;}}
 @media(max-width:480px){.jzc-comparison article{flex-direction:column;align-items:flex-start;gap:18px;}.jz-site .jzc-comparison p{font-size:14px;max-width:none;}.jzc-mini-records{gap:10px;}.jzc-mini-connected{height:72px;width:160px;}}
+
+/* Final campus CTA: live copy and links over a separate decorative illustration. */
+.jz-site .jz-campus-footer{background:#082b46;padding:0 0 32px;overflow:hidden;font-family:Inter,var(--font-sans)}
+.jz-campus-footer>.jz-container{width:min(1480px,calc(100% - 80px))}
+.jz-campus-cta{position:relative;isolation:isolate;display:flex;align-items:center;min-height:620px;border-bottom:1px solid rgba(171,201,224,.38)}
+.jz-campus-cta-art{position:absolute;z-index:-1;inset:0 -90px 0 -90px;overflow:hidden;pointer-events:none;mask-image:linear-gradient(to bottom,#000 86%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 86%,transparent 100%)}
+.jz-campus-cta-art img{width:100%;height:100%;max-width:none;object-fit:cover;object-position:center 40%}
+.jz-campus-cta-art:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#082b46 0%,#082b46 28%,rgba(8,43,70,.92) 36%,rgba(8,43,70,.15) 56%,transparent 68%)}
+.jz-campus-cta-content{position:relative;width:100%;padding:96px 0 100px}
+.jz-site .jz-campus-cta h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(36px,4.4vw,68px);font-weight:400;line-height:1.1;letter-spacing:-1.4px;color:#fff;max-width:700px}
+.jz-campus-cta h2 em{white-space:nowrap;font-family:Georgia,'Times New Roman',serif;font-weight:400}
+.jz-campus-cta-actions{display:flex;align-items:center;gap:42px;margin-top:46px}
+.jz-site .jz-campus-demo,.jz-site .jz-campus-talk{display:inline-flex;align-items:center;justify-content:space-between;gap:36px;min-height:64px;font-size:16px;line-height:1.3;transition:background-color .2s,color .2s;box-shadow:none}
+.jz-site .jz-campus-demo{padding:18px 25px;background:#fff;color:#092b47;border:1px solid #e6edf3;border-radius:2px;font-weight:600;min-width:246px}
+.jz-site .jz-campus-demo:hover{background:#e6f0f7}
+.jz-site .jz-campus-talk{color:#fff;font-weight:400;padding:16px 0}
+.jz-site .jz-campus-talk:hover{text-decoration:underline;text-underline-offset:6px}
+.jz-campus-footer .jz-footer-grid{padding:40px 0 32px}
+.jz-campus-footer .jz-footer-grid h3{font-size:13px}
+.jz-campus-footer .jz-footer-grid>div>a{font-size:13px;line-height:1.65}
+.jz-campus-footer .jz-footer-bottom{border-color:rgba(171,201,224,.38)}
+@media(min-width:1700px){.jz-campus-cta{min-height:660px}}
+@media(max-width:1100px){
+ .jz-campus-footer>.jz-container{width:calc(100% - 64px)}
+ .jz-campus-cta{min-height:540px}
+ .jz-site .jz-campus-cta h2{font-size:clamp(48px,6.6vw,74px);letter-spacing:-2px}
+ .jz-campus-cta-actions{gap:28px}
+}
+@media(max-width:700px){
+ .jz-campus-footer>.jz-container{width:calc(100% - 40px)}
+ .jz-campus-cta{min-height:660px;align-items:flex-start}
+ .jz-campus-cta-content{padding:58px 0 290px}
+ .jz-site .jz-campus-cta h2{font-size:clamp(36px,8.1vw,56px);letter-spacing:-1.2px;line-height:1.12}
+ .jz-campus-cta-actions{gap:16px 24px;flex-wrap:wrap;margin-top:28px}
+ .jz-site .jz-campus-demo,.jz-site .jz-campus-talk{font-size:14px;min-height:54px;gap:22px}
+ .jz-site .jz-campus-demo{min-width:200px;padding:15px 20px}
+ .jz-campus-cta-art{inset:265px -100px 0 -140px;mask-image:linear-gradient(to bottom,transparent,#000 22%,#000 84%,transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 22%,#000 84%,transparent)}
+ .jz-campus-cta-art img{object-position:right center}
+ .jz-campus-cta-art:after{background:linear-gradient(90deg,#082b46,transparent 65%)}
+ .jz-campus-footer .jz-footer-grid{gap:28px;padding:32px 0}
+ .jz-campus-footer .jz-footer-bottom{font-size:11px;line-height:1.6;gap:18px}
+}
 `;
