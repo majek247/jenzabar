@@ -584,9 +584,9 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-roles-heading h2 em{font-style:italic;color:#0a67d8;font-weight:500}
 .jz-roles-heading p{font-size:17px;line-height:1.6;color:#5a6b7f;max-width:660px;margin:0 auto}
 .jz-role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-.jz-role{display:grid;grid-template-columns:1fr 1.1fr;min-height:320px;overflow:hidden;background:#f6faff;color:var(--ink)!important;border:1px solid #e2eefb;border-radius:6px;transition:box-shadow .3s ease,transform .3s ease,border-color .3s ease}
+.jz-role{display:grid;grid-template-columns:1fr 1.1fr;min-height:320px;overflow:hidden;background:#ffffff;color:var(--ink)!important;border:1px solid #e2eefb;border-radius:6px;transition:box-shadow .3s ease,transform .3s ease,border-color .3s ease}
 .jz-role:hover{box-shadow:0 24px 48px -22px rgba(10,37,64,.22);border-color:#c9dcf0;transform:translateY(-2px)}
-.jz-role-copy{padding:36px 32px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.jz-role-copy{padding:36px 32px;display:flex;flex-direction:column;justify-content:center;gap:14px;background:#ffffff}
 .jz-role-icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:#e6f1fc;color:#0a67d8}
 .jz-role-copy h3{font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:500;letter-spacing:-.02em;color:#0A2540;margin:0}
 .jz-role-copy p{font-size:14px;line-height:1.6;color:#4a5c70;margin:0;max-width:260px}
