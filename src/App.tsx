@@ -1,4 +1,4 @@
-import React, { useId, useState } from 'react';
+import React, { useId, useState, useEffect } from 'react';
 
 /* Replace your current App component with this file. React is the only dependency.
    All CSS is scoped to .jz-site. Official logos are embedded below.
@@ -306,9 +306,42 @@ function Header() {
   const [open,setOpen]=useState(false);
   return <> <header className="jz-header"><div className="jz-container jz-header-inner"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a><nav className={open?'open':''} aria-label="Main navigation">{[['Platform','#platform'],['Solutions','#roles'],['Case study','#intelligence'],['Integrations','#integrations'],['FAQ','#questions']].map(([label,href])=><a href={href} key={label} onClick={()=>setOpen(false)}>{label}</a>)}</nav><div className="jz-header-actions"><a className="jz-login" href="https://www.myjenzabar.net/">Log in</a><a className="jz-button magenta" href={DEMO}>Request a demo <Icon name="arrow" size={16}/></a><button className="jz-mobile-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={()=>setOpen(!open)}><Icon name={open?'close':'menu'}/></button></div></div></header></>;
 }
+
+const HERO_IMAGES = [
+  '/images/jenzabardesignmockup.png',      // 0 · Student
+  '/images/jenzabarrecruitmockup.png',     // 1 · Recruitment
+  '/images/jenzabarretentionmockup.png',   // 2 · Retention
+  '/images/jenzabarfinancemockup.png',     // 3 · Finance
+  '/images/jenzabaranalyticsmockup.png'    // 4 · Analytics
+];
+
+
 function Hero() {
   const [product,setProduct]=useState(0);
-  return <section className="jz-hero jz-dark" id="top"><Header/><div className="jz-container"><div className="jz-hero-copy"><span className="jz-eyebrow-pill">Built exclusively for higher education</span><h1>Your entire campus.<em>One connected experience.</em></h1><p>Connect every stage of the student journey. From recruitment and registration to retention,<br className="jz-desktop-break"/> finance and advancement, bring your campus together with Jenzabar.</p><div className="jz-hero-actions"><a className="jz-button white" href="#platform">Explore Jenzabar One <span>↗</span></a><a className="jz-overview" href={`${BASE}/jenzabar-one`}>Explore the platform <span className="jz-round-play"><Icon name="arrow" size={17}/></span></a></div><small>Higher education, connected &nbsp; • &nbsp; One trusted partner</small></div><div className="jz-hero-showcase"><Tabs vertical value={product} onChange={setProduct} id="hero-product-panel"/><div className="jz-hero-screen" role="tabpanel" id="hero-product-panel" aria-label={`Jenzabar ${PRODUCTS[product].name}`}><div className="jz-slide-panel" key={product}><Dashboard index={product}/></div></div><StudentPhone/></div><div className="jz-proof"><h2>Trusted by more than <span>1,400 campuses.</span></h2><div className="jz-campus-logos">{[1,3,4,2].map(i=><img key={i} src={ASSETS[i].src} alt={ASSETS[i].name}/>)}</div></div><div className="jz-benefits">{[['database','One campus record'],['users','Connected departments'],['user','Student self-service'],['gear','Flexible workflows'],['cap','Higher ed expertise']].map(([icon,label])=><div key={label}><Icon name={icon} size={31}/><span>{label}</span></div>)}</div></div></section>;
+
+  // Preload all hero images on mount so tab switches are instant
+  React.useEffect(() => {
+    HERO_IMAGES.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
+  return <section className="jz-hero jz-dark" id="top"><Header/><div className="jz-container"><div className="jz-hero-copy"><span className="jz-eyebrow-pill">Built exclusively for higher education</span><h1>Your entire campus.<em>One connected experience.</em></h1><p>Connect every stage of the student journey. From recruitment and registration to retention,<br className="jz-desktop-break"/> finance and advancement, bring your campus together with Jenzabar.</p><div className="jz-hero-actions"><a className="jz-button white" href="#platform">Explore Jenzabar One <span>↗</span></a><a className="jz-overview" href={`${BASE}/jenzabar-one`}>Explore the platform <span className="jz-round-play"><Icon name="arrow" size={17}/></span></a></div><small>Higher education, connected &nbsp; • &nbsp; One trusted partner</small></div><div className="jz-hero-showcase">
+  <Tabs value={product} onChange={setProduct} id="hero-product-panel"/>
+  <div className="jz-hero-screen" role="tabpanel" id="hero-product-panel" aria-label={`Jenzabar ${PRODUCTS[product].name}`}>
+    <div className="jz-slide-panel" key={product}>
+    
+      <img
+        src={HERO_IMAGES[product]}
+        alt={`Jenzabar ${PRODUCTS[product].name} product screen`}
+        loading="lazy"
+        style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8 }}
+      />
+
+    </div>
+  </div>
+</div><div className="jz-proof"><h2>Trusted by more than <span>1,400 campuses.</span></h2><div className="jz-campus-logos">{[1,3,4,2].map(i=><img key={i} src={ASSETS[i].src} alt={ASSETS[i].name}/>)}</div></div><div className="jz-benefits">{[['database','One campus record'],['users','Connected departments'],['user','Student self-service'],['gear','Flexible workflows'],['cap','Higher ed expertise']].map(([icon,label])=><div key={label}><Icon name={icon} size={31}/><span>{label}</span></div>)}</div></div></section>;
 }
 
 const PRODUCT_IMAGES = [
@@ -332,7 +365,15 @@ function ShowcasePanel({ index }) {
 
 function ProductsSection({ selected, onSelect }) {
   const p=PRODUCTS[selected];
-  return <section className="jz-products jz-light" id="platform"><div className="jz-container"><div className="jz-products-eyebrow"><span/>Our products<span/></div><h2>Everything your campus needs. <em>Connected.</em></h2><div className="jz-tabs-wrap"><Tabs value={selected} onChange={onSelect} id="feature-product-panel"/></div><div className="jz-product-grid" role="tabpanel" id="feature-product-panel" aria-label={`Jenzabar ${p.name} features`}><div className="jz-product-copy"><span className="jz-kicker">Jenzabar {p.name}</span><h3>{p.title}</h3><ul>{p.bullets.map(b=><li key={b}><span><Icon name="check" size={13}/></span>{b}</li>)}</ul><a className="jz-text-link" href={`${BASE}/jenzabar-one`}>Explore Jenzabar {p.name}<Icon name="arrow" size={20}/></a></div><div className="jz-feature-screen"><div className="jz-slide-panel" key={selected}><ShowcasePanel index={selected}/></div></div></div></div></section>;
+
+  useEffect(() => {
+    PRODUCT_IMAGES.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
+  return <section className="jz-products jz-light" id="platform"><div className="jz-container"><div className="jz-products-eyebrow"><span/>Our products<span/></div><h2>Everything your campus needs. <em>Connected.</em></h2><div className="jz-tabs-wrap"><div className="jz-products-tabs"><Tabs value={selected} onChange={onSelect} id="feature-product-panel"/></div></div><div className="jz-product-grid" role="tabpanel" id="feature-product-panel" aria-label={`Jenzabar ${p.name} features`}><div className="jz-product-copy"><span className="jz-kicker">Jenzabar {p.name}</span><h3>{p.title}</h3><ul>{p.bullets.map(b=><li key={b}><span><Icon name="check" size={13}/></span>{b}</li>)}</ul><a className="jz-text-link" href={`${BASE}/jenzabar-one`}>Explore Jenzabar {p.name}<Icon name="arrow" size={20}/></a></div><div className="jz-feature-screen"><div className="jz-slide-panel" key={selected}><ShowcasePanel index={selected}/></div></div></div></div></section>;
 }
 function StoriesSection() {
   const [story,setStory]=useState(0); const s=STORIES[story];
@@ -454,7 +495,7 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-nav-caret{color:#bdd0e0}
 .jz-header-actions{display:flex;gap:24px;align-items:center}
 .jz-login{font-size:13px;font-weight:500;color:#d6e4f0;transition:color .2s}
-.jz-login:hover{color:#fff}.jz-header .jz-button{padding:11px 17px;font-size:12px;min-height:39px}.jz-mobile-toggle{display:none;background:none;border:0;padding:6px}.jz-hero{background:radial-gradient(ellipse at 48% 58%,#0d3556 0%,#082b48 65%,#062b49 100%)}.jz-hero-copy{text-align:center;padding:35px 0 24px}.jz-eyebrow-pill{display:inline-block;font-size:11px;line-height:1.2;border:1px solid #59748a;border-radius:30px;padding:4px 10px;background:#ffffff08}.jz-hero h1{font-size:clamp(40px,4.9vw,69px);line-height:1.03;letter-spacing:-2px;margin:18px 0 13px;font-weight:700}.jz-hero h1 em{display:block;font-size:1.03em;line-height:1.03;letter-spacing:-2.5px}.jz-hero-copy>p{font-size:16px;line-height:1.45;color:#edf3f7;max-width:865px;margin:auto}.jz-hero-actions{display:flex;align-items:center;justify-content:center;gap:27px;margin:22px 0 12px}.jz-hero-actions .jz-button{min-height:41px}.jz-overview{display:flex;align-items:center;gap:12px;font-size:13px}.jz-round-play{display:grid;place-items:center;border:1px solid #a5c2d8;width:29px;height:29px;border-radius:50%}.jz-hero-copy>small{font-size:11px;color:#d6e2ed}.jz-hero-showcase{display:grid;grid-template-columns:225px minmax(0,1fr) 214px;gap:25px;align-items:center;margin:10px -12px 0}/* Horizontal Tabs - Segmented pill, matches target design */
+.jz-login:hover{color:#fff}.jz-header .jz-button{padding:11px 17px;font-size:12px;min-height:39px}.jz-mobile-toggle{display:none;background:none;border:0;padding:6px}.jz-hero{background:radial-gradient(ellipse at 48% 58%,#0d3556 0%,#082b48 65%,#062b49 100%)}.jz-hero-copy{text-align:center;padding:35px 0 24px}.jz-eyebrow-pill{display:inline-block;font-size:11px;line-height:1.2;border:1px solid #59748a;border-radius:30px;padding:4px 10px;background:#ffffff08}.jz-hero h1{font-size:clamp(40px,4.9vw,69px);line-height:1.03;letter-spacing:-2px;margin:18px 0 13px;font-weight:700}.jz-hero h1 em{display:block;font-size:1.03em;line-height:1.03;letter-spacing:-2.5px}.jz-hero-copy>p{font-size:16px;line-height:1.45;color:#edf3f7;max-width:865px;margin:auto}.jz-hero-actions{display:flex;align-items:center;justify-content:center;gap:27px;margin:22px 0 12px}.jz-hero-actions .jz-button{min-height:41px}.jz-overview{display:flex;align-items:center;gap:12px;font-size:13px}.jz-round-play{display:grid;place-items:center;border:1px solid #a5c2d8;width:29px;height:29px;border-radius:50%}.jz-hero-copy>small{font-size:11px;color:#d6e2ed}.jz-hero-showcase{display:flex;flex-direction:column;align-items:center;gap:25px;margin:24px 0 0}/* Horizontal Tabs - Segmented pill, matches target design */
 .jz-products-eyebrow{display:flex;align-items:center;justify-content:center;gap:16px;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#0067c7;margin-bottom:18px}
 .jz-products-eyebrow span{width:44px;height:1px;background:currentColor;opacity:.45}
 
@@ -523,6 +564,61 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
   box-shadow: 0 4px 12px rgba(16, 24, 40, 0.10);
 }
 
+
+
+.jz-hero-showcase{
+  width:100%;
+  max-width:100%;
+  margin:24px auto 0;
+  padding:0;
+}
+.jz-hero-showcase .jz-tabs,
+.jz-hero-showcase .jz-hero-screen{
+  width:100%;
+  max-width:none;
+  margin:0;
+  box-sizing:border-box;
+}
+.jz-hero-showcase .jz-tabs{
+  display:flex;
+  justify-content:space-between;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  box-shadow:none;
+  padding:0;
+  border-bottom:1px solid rgba(255,255,255,0.15);
+}
+.jz-hero-showcase .jz-tabs button{
+  flex:1;
+  justify-content:center;
+  color:#c3d3e1;
+  background:transparent;
+  box-shadow:none;
+  border-radius:0;
+  border-bottom:2px solid transparent;
+  padding:16px 20px;
+}
+.jz-hero-showcase .jz-tabs button:not(:last-child):after{
+  background:rgba(255,255,255,0.15);
+}
+.jz-hero-showcase .jz-tabs button svg{
+  color:#9fb7cb;
+}
+.jz-hero-showcase .jz-tabs button:hover{
+  color:#ffffff;
+  background:transparent;
+}
+.jz-hero-showcase .jz-tabs button.active{
+  color:#ffffff;
+  background:transparent;
+  border-bottom-color:#3aa0e8;
+}
+.jz-hero-showcase .jz-tabs button.active svg{
+  color:#5ec8f2;
+}
 .jz-tabs button.active svg {
   color: #0067c7;
 }
@@ -621,9 +717,15 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 }
 
 /* Rest of the original CSS block that should remain unchanged */
-.jz-hero-screen{padding:5px;border:1px solid #849baa;border-radius:14px;background:#ffffff2b;min-width:0;overflow:hidden}
-.jz-slide-panel{animation:jzSlideIn .45s cubic-bezier(.22,.68,0,1.01)}
-@keyframes jzSlideIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}.jz-app{background:var(--surface);color:var(--ink);border:1px solid #E7EBF0;border-radius:var(--radius);overflow:hidden;font-family:var(--font-sans);line-height:1.4;min-width:0;box-shadow:var(--shadow-md)}
+.jz-hero-screen{padding:0;border:0;border-radius:12px;background:transparent;min-width:0;overflow:hidden}
+.jz-slide-panel{
+  animation: jzFadeIn .35s ease-out;
+  will-change: opacity;
+}
+@keyframes jzFadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}.jz-app{background:var(--surface);color:var(--ink);border:1px solid #E7EBF0;border-radius:var(--radius);overflow:hidden;font-family:var(--font-sans);line-height:1.4;min-width:0;box-shadow:var(--shadow-md)}
 .jz-app-toolbar{height:52px;background:var(--surface);display:flex;align-items:center;gap:16px;padding:0 20px;border-bottom:1px solid var(--line)}.jz-fake-search{display:flex;align-items:center;gap:8px;font-size:11px;flex:1;color:var(--muted);background:#F4F6F8;border-radius:6px;padding:8px 12px;white-space:nowrap}.jz-toolbar-icons{display:flex;align-items:center;gap:12px}.jz-avatar{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;background:#eef2f7;color:#2f4e6c;border-radius:50%;font-size:8px;font-weight:700}.jz-avatar.blue{background:#0a2f47;color:white;width:22px;height:22px;font-size:7px}.jz-app-body{display:flex;min-height:304px;background:#fbfcfe}.jz-app-nav{width:150px;flex-shrink:0;padding:18px 10px;background:#FBFBFC;border-right:1px solid #EEF1F5;display:flex;flex-direction:column;gap:2px}.jz-app-nav>span{display:flex;gap:9px;align-items:center;font-size:12.5px;line-height:1;padding:9px 10px;border-radius:6px;color:#8B95A3;white-space:nowrap;font-weight:500;transition:all .15s}.jz-app-nav>span.selected{background:#F0F3F6;color:var(--ink);font-weight:600}
 .jz-app-nav .jz-app-more{margin-top:auto;color:#9aa8b8}.jz-app-main{padding:18px 16px 12px;min-width:0;flex:1;background:#fff}.jz-app h3{font-family:Arial,sans-serif;letter-spacing:-.3px;font-size:17px;font-weight:700;line-height:1.25}.jz-dash-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.jz-dash-heading select{font-size:8px;color:#5d7186;background:white;border:1px solid #e7edf2;padding:5px 7px;border-radius:3px;max-width:100px}.jz-stat-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.jz-stat-cards>div{background:var(--surface);padding:22px 20px;display:flex;gap:16px;align-items:center;border:1px solid #EEF1F5;border-radius:var(--radius-sm);box-shadow:none}.jz-stat-cards svg{color:#8593A3}.jz-stat-cards b{display:block;font-size:21px;line-height:1.2;color:var(--navy);font-weight:600;letter-spacing:-.01em}.jz-stat-cards span{display:block;font-size:12px;color:var(--muted);white-space:nowrap}.jz-dash-bottom{display:grid;grid-template-columns:1.03fr 1fr;gap:10px}.jz-chart-title{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:14px;min-height:24px;font-weight:600}.jz-chart-title span{font-size:6px;color:#718198}.jz-line-chart,.jz-records{background:var(--surface);padding:20px 16px;border-radius:8px;border:1px solid var(--line);min-width:0}.jz-line-chart svg{display:block;width:100%;height:auto;margin-top:7px}.jz-line-chart svg text,.jz-bar-card svg text{fill:var(--muted);font-family:inherit;font-size:11px}.jz-records>strong{font-size:8px;display:block;margin-bottom:10px}.jz-record{display:flex;align-items:center;gap:12px;padding:12px 8px;border-radius:var(--radius-xs,6px);font-size:13px;transition:background .15s;border-bottom:1px solid var(--line)}.jz-record:last-child{border-bottom:none}.jz-record:hover{background:#f6f9fc}.jz-record .jz-avatar{width:22px;height:22px;font-size:6px}.jz-record>span:nth-child(2){flex:1;white-space:nowrap}.jz-status{display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}.tone-0{background:#e7f5ed;color:#29794a}.tone-1{background:#e6f1ff;color:#116bc0}.tone-2{background:#fff3df;color:#ac7a25}.jz-sample{font-size:6px;text-align:right;color:#8594a3;margin-top:9px}
 
@@ -650,6 +752,54 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-budget-track>span{display:block;height:100%;background:#0967c2;border-radius:3px}
 .jz-budget-row b{text-align:right}
 .jz-tabs-wrap{margin-top:36px;padding-bottom:24px;text-align:center}
+
+/* Products section tabs — same layout as hero, black text, blue active */
+.jz-products-tabs .jz-tabs{
+  display:flex;
+  justify-content:space-between;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  padding:0;
+  border-bottom:1px solid #D8DFE7;
+  width:100%;
+  max-width:none;
+  margin:0;
+}
+.jz-products-tabs .jz-tabs button{
+  flex:1;
+  justify-content:center;
+  color:#4A5A6E;
+  background:transparent;
+  box-shadow:none;
+  border-radius:0;
+  border-bottom:2px solid transparent;
+  padding:16px 20px;
+  font-size:15px;
+  font-weight:600;
+  gap:10px;
+}
+.jz-products-tabs .jz-tabs button:not(:last-child):after{
+  background:#D8DFE7;
+}
+.jz-products-tabs .jz-tabs button svg{
+  color:#8A97A6;
+  width:19px;
+  height:19px;
+}
+.jz-products-tabs .jz-tabs button:hover{
+  color:#0A2540;
+  background:transparent;
+}
+.jz-products-tabs .jz-tabs button.active{
+  color:#0067c7;
+  background:transparent;
+  border-bottom-color:#0067c7;
+}
+.jz-products-tabs .jz-tabs button.active svg{
+  color:#0067c7;
+}
 .jz-reports-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .jz-report-tile{background:white;border:1px solid #eef2f6;border-radius:4px;padding:12px 10px;display:flex;flex-direction:column;gap:6px}
 .jz-report-tile svg{color:#0876cf}
@@ -1375,8 +1525,11 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-header nav.open{display:flex;flex-direction:column;gap:4px}
 .jz-header nav a{font-size:16px;font-weight:500;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07)}
 .jz-header nav a:last-child{border-bottom:0}
-.jz-header nav a:after{display:none}.jz-mobile-toggle{display:block}.jz-hero h1{font-size:54px}.jz-hero-copy>p{font-size:14px}.jz-hero-showcase{grid-template-columns:minmax(0,1fr) 190px;gap:20px}.jz-tabs.vertical{grid-column:1/-1;flex-direction:row;padding:0;gap:0;justify-content:space-between;overflow-x:auto}.jz-tabs.vertical button{border-left:0;border-bottom:2px solid transparent;min-height:46px;padding:8px 10px;gap:7px}.jz-tabs.vertical button svg{width:20px}.jz-tabs.vertical button.active{border-left-color:transparent;border-bottom-color:var(--magenta)}.jz-tabs.vertical button span{font-size:10px}.jz-app-nav{width:83px}.jz-app-body{min-height:295px}.jz-proof h2{font-size:31px}.jz-campus-logos{gap:22px}.jz-campus-logos img{width:20%;height:66px}.jz-product-grid{grid-template-columns:.72fr 1fr;gap:20px}.jz-product-copy h3{font-size:31px}.jz-product-copy li{font-size:12px;gap:9px}.jz-feature-screen .jz-app-nav{display:none}.jz-feature-screen .jz-app-main{padding:13px}.jz-feature-screen .jz-app-body{min-height:284px}.jz-product-copy .jz-text-link{font-size:12px}.jz-tabs{gap:20px;justify-content:space-between}.jz-tabs button{padding-inline:12px}.jz-story-photo{min-height:230px}.jz-story-copy h3{font-size:24px}.jz-story-copy p{font-size:12px}.jz-outcomes h2{font-size:30px}.jz-outcomes>div{gap:18px;padding:0}.jz-outcomes article{gap:12px;padding-right:16px}.jz-outcomes article>svg{width:28px}.jz-outcomes h3{font-size:17px}.jz-outcomes p{font-size:10px}.jz-role-grid{gap:10px}.jz-role{min-height:220px}.jz-role>div{left:12px;right:12px;bottom:12px}.jz-role h3{font-size:18px}.jz-role p{font-size:9px;padding-right:14px}.jz-casestudy-photo{min-height:360px}.jz-casestudy-panel{padding:38px 32px}.jz-casestudy-panel h2{font-size:28px}.jz-casestudy-panel p{font-size:13px}.jz-casestudy-stats b{font-size:21px}.jz-integration-grid{grid-template-columns:.9fr 1.2fr;gap:26px}.jz-integration-grid h2{font-size:34px}.jz-integration-node{gap:9px;font-size:10.5px;height:56px}.jz-integration-node svg{width:17px}.jz-integration-center{height:72px}.jz-integration-center .jz-brand{width:110px}.jz-faq-grid{gap:52px}.jz-faq h2{font-size:46px}.jz-final-cta{flex-wrap:wrap}.jz-footer-grid{gap:22px}.jz-footer-grid .jz-brand{width:115px}}
-@media(max-width:640px){.jz-container{width:calc(100% - 36px)} .jz-header-inner{min-height:72px;gap:12px}.jz-header .jz-brand{width:123px;height:30px}.jz-header-actions{gap:10px}.jz-header .jz-button{font-size:10px;padding:10px 12px;min-height:35px;gap:7px}.jz-header .jz-button svg{width:13px}.jz-login{display:none}.jz-header nav{left:18px;right:18px;top:72px}.jz-hero-copy{padding:27px 0 18px}.jz-eyebrow-pill{font-size:9px}.jz-hero h1{font-size:clamp(34px,8.4vw,52px);letter-spacing:-1.4px;line-height:1.08;margin-top:18px}.jz-hero h1 em{letter-spacing:-1.7px;line-height:1.06;margin-top:4px}.jz-hero-copy>p{font-size:12px;line-height:1.65;max-width:400px;margin-top:18px}.jz-desktop-break{display:none}.jz-hero-actions{gap:16px;margin-top:22px}.jz-hero-actions .jz-button{font-size:10px;padding:11px 13px;gap:10px}.jz-overview{font-size:10px;gap:7px}.jz-round-play{width:24px;height:24px}.jz-hero-copy>small{font-size:8px}.jz-hero-showcase{grid-template-columns:1fr;gap:16px;margin-top:10px}.jz-tabs.vertical{grid-column:1;justify-content:start;gap:7px;padding-bottom:2px}.jz-tabs.vertical button{font-size:10px;min-width:124px;gap:8px;min-height:45px;padding-left:7px;padding-right:7px}.jz-tabs.vertical button span{font-size:10px}.jz-hero-screen{padding:3px;border-radius:7px}.jz-app-toolbar{height:34px;padding-inline:9px;gap:10px}.jz-fake-search{font-size:5px;padding:4px;overflow:hidden}.jz-app-nav{width:66px;gap:8px;padding-inline:3px}.jz-app-nav>span{font-size:5px;gap:4px;padding-inline:3px}.jz-app-nav svg{width:11px;height:11px}.jz-app-main{padding:12px 7px 7px}.jz-app h3{font-size:13px}.jz-dash-heading{gap:6px}.jz-dash-heading select{font-size:6px;padding:4px;max-width:78px}.jz-stat-cards{gap:5px;margin-bottom:10px}.jz-stat-cards>div{padding:9px 4px;gap:4px}.jz-stat-cards svg{width:13px}.jz-stat-cards b{font-size:12px}.jz-stat-cards span{font-size:4.5px}.jz-app-body{min-height:256px}.jz-records,.jz-line-chart{padding:7px 4px}.jz-chart-title{font-size:6px;min-height:20px}.jz-chart-title span{font-size:5px}.jz-records>strong{font-size:6px;margin-bottom:7px}.jz-record{font-size:4.5px;padding:7px 0}.jz-record .jz-avatar{width:15px;height:15px;font-size:5px}.jz-record .jz-status{font-size:4px;padding:2px}.jz-phone{width:210px;min-height:342px;margin:0 auto 5px;display:block}.jz-proof{margin-top:20px}.jz-proof h2{font-size:27px;max-width:300px;margin:auto;line-height:1.2}.jz-campus-logos{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin:22px auto;max-width:340px}.jz-campus-logos img{width:100%;height:64px}.jz-benefits{grid-template-columns:repeat(3,1fr);gap:22px 8px;padding:9px 0 30px}.jz-benefits>div{font-size:9px;gap:8px;padding:0 4px}.jz-benefits>div:nth-child(3){border:0}.jz-benefits svg{width:24px;height:24px}.jz-products{padding:33px 0}.jz-products h2{font-size:30px;text-align:left;max-width:350px;line-height:1.14}.jz-tabs{gap:5px;overflow:auto;justify-content:start;margin-top:20px}.jz-tabs button{font-size:11px;padding:0 10px;flex-shrink:0;min-height:44px}.jz-product-grid{grid-template-columns:1fr;gap:26px;padding-top:25px}.jz-product-copy h3{max-width:310px;font-size:34px;margin:12px 0 19px}.jz-product-copy ul{gap:13px;margin-bottom:23px}.jz-product-copy li{font-size:13px}.jz-product-copy .jz-text-link{font-size:13px}.jz-feature-screen .jz-app-body{min-height:275px}.jz-feature-screen .jz-app-main{padding:13px 10px}.jz-profile-head small{font-size:6px}.jz-profile-head h3{font-size:15px}.jz-profile-head>img{width:40px;height:40px}.jz-profile-tabs{gap:22px}.jz-profile-tabs button{font-size:8px}.jz-progress,.jz-schedule{padding:9px}.jz-progress>strong,.jz-schedule>strong{font-size:8px}.jz-progress svg{width:63px;height:63px}.jz-progress>div:first-of-type{gap:5px}.jz-progress span{font-size:6px}.jz-progress span b{font-size:8px}.jz-schedule>div{font-size:5px;grid-template-columns:34px 1fr 35px;gap:3px}.jz-stories{padding:30px 0}.jz-stories>div>h2{font-size:30px;max-width:330px;margin:0 auto 24px}.jz-carousel{padding:0}.jz-story{grid-template-columns:1fr}.jz-story-photo{min-height:210px}.jz-story-copy{padding:25px}.jz-story-copy h3{font-size:29px}.jz-story-copy p{font-size:13px}.jz-carousel-arrow{top:91px;background:#062e4fc9;padding:8px;border-radius:50%}.jz-carousel-arrow.prev{left:9px}.jz-carousel-arrow.next{right:9px}.jz-outcomes h2{font-size:30px;text-align:left;margin-bottom:25px}.jz-outcomes>div{grid-template-columns:1fr;gap:20px}.jz-outcomes article{border-right:0;border-bottom:1px solid #7693aa44;padding:0 0 20px;gap:22px}.jz-outcomes article:last-child{padding-bottom:0}.jz-outcomes article>svg{width:35px}.jz-outcomes h3{font-size:22px}.jz-outcomes p{font-size:12px}.jz-roles{padding:28px 0}.jz-roles h2{font-size:30px;text-align:left}.jz-role-grid{grid-template-columns:repeat(2,1fr);gap:12px}.jz-role{min-height:260px}.jz-role-body{padding:16px}.jz-role-body h3{font-size:18px}.jz-role-body p{font-size:11px;line-height:1.5;max-height:100px;opacity:1;margin-top:8px;padding-right:0}.jz-role-body svg{width:15px;right:16px;bottom:16px}.jz-casestudy{padding:36px 0}.jz-casestudy-grid{grid-template-columns:1fr}.jz-casestudy-photo{min-height:420px;padding:16px 16px 0}.jz-cs-topbar{font-size:9px;letter-spacing:.2em}.jz-cs-visual{min-height:320px}.jz-cs-title strong{font-size:24px}.jz-cs-title span{width:140px;font-size:9px;letter-spacing:.4em}  .jz-casestudy-panel{padding:32px 24px}.jz-casestudy-panel h2{font-size:26px;max-width:100%}.jz-casestudy-panel p{font-size:13px;max-width:100%;margin-bottom:28px}.jz-casestudy-stats{grid-template-columns:1fr 1fr;margin-bottom:28px}.jz-casestudy-stats>div{padding:20px 0}.jz-casestudy-stats>div+div{padding-left:18px}.jz-casestudy-stats b{font-size:18px}.jz-casestudy-button{min-width:0;width:100%;padding:14px 18px}
+.jz-header nav a:after{display:none}.jz-mobile-toggle{display:block}.jz-hero h1{font-size:54px}.jz-hero-copy>p{font-size:14px}.jz-hero-showcase{grid-template-columns:minmax(0,1fr);gap:20px}.jz-tabs.vertical{grid-column:1/-1;flex-direction:row;padding:0;gap:0;justify-content:space-between;overflow-x:auto}.jz-tabs.vertical button{border-left:0;border-bottom:2px solid transparent;min-height:46px;padding:8px 10px;gap:7px}.jz-tabs.vertical button svg{width:20px}.jz-tabs.vertical button.active{border-left-color:transparent;border-bottom-color:var(--magenta)}.jz-tabs.vertical button span{font-size:10px}.jz-app-nav{width:83px}.jz-app-body{min-height:295px}.jz-proof h2{font-size:31px}.jz-campus-logos{gap:22px}.jz-campus-logos img{width:20%;height:66px}.jz-product-grid{grid-template-columns:.72fr 1fr;gap:20px}.jz-product-copy h3{font-size:31px}.jz-product-copy li{font-size:12px;gap:9px}.jz-feature-screen .jz-app-nav{display:none}.jz-feature-screen .jz-app-main{padding:13px}.jz-feature-screen .jz-app-body{min-height:284px}.jz-product-copy .jz-text-link{font-size:12px}.jz-tabs{gap:20px;justify-content:space-between}.jz-tabs button{padding-inline:12px}.jz-story-photo{min-height:230px}.jz-story-copy h3{font-size:24px}.jz-story-copy p{font-size:12px}.jz-outcomes h2{font-size:30px}.jz-outcomes>div{gap:18px;padding:0}.jz-outcomes article{gap:12px;padding-right:16px}.jz-outcomes article>svg{width:28px}.jz-outcomes h3{font-size:17px}.jz-outcomes p{font-size:10px}.jz-role-grid{gap:10px}.jz-role{min-height:220px}.jz-role>div{left:12px;right:12px;bottom:12px}.jz-role h3{font-size:18px}.jz-role p{font-size:9px;padding-right:14px}.jz-casestudy-photo{min-height:360px}.jz-casestudy-panel{padding:38px 32px}.jz-casestudy-panel h2{font-size:28px}.jz-casestudy-panel p{font-size:13px}.jz-casestudy-stats b{font-size:21px}.jz-integration-grid{grid-template-columns:.9fr 1.2fr;gap:26px}.jz-integration-grid h2{font-size:34px}.jz-integration-node{gap:9px;font-size:10.5px;height:56px}.jz-integration-node svg{width:17px}.jz-integration-center{height:72px}.jz-integration-center .jz-brand{width:110px}.jz-faq-grid{gap:52px}.jz-faq h2{font-size:46px}.jz-final-cta{flex-wrap:wrap}.jz-footer-grid{gap:22px}.jz-footer-grid .jz-brand{width:115px}}
+@media(max-width:640px){.jz-container{width:calc(100% - 36px)} .jz-header-inner{min-height:72px;gap:12px}.jz-header .jz-brand{width:123px;height:30px}.jz-header-actions{gap:10px}.jz-header .jz-button{font-size:10px;padding:10px 12px;min-height:35px;gap:7px}.jz-header .jz-button svg{width:13px}.jz-login{display:none}.jz-header nav{left:18px;right:18px;top:72px}.jz-hero-copy{padding:27px 0 18px}.jz-eyebrow-pill{font-size:9px}.jz-hero h1{font-size:clamp(34px,8.4vw,52px);letter-spacing:-1.4px;line-height:1.08;margin-top:18px}.jz-hero h1 em{letter-spacing:-1.7px;line-height:1.06;margin-top:4px}.jz-hero-copy>p{font-size:12px;line-height:1.65;max-width:400px;margin-top:18px}.jz-desktop-break{display:none}.jz-hero-actions{gap:16px;margin-top:22px}.jz-hero-actions .jz-button{font-size:10px;padding:11px 13px;gap:10px}.jz-overview{font-size:10px;gap:7px}.jz-round-play{width:24px;height:24px}.jz-hero-copy>small{font-size:8px}.jz-hero-showcase{grid-template-columns:1fr;gap:16px;margin-top:10px}.jz-tabs.vertical{grid-column:1;justify-content:start;gap:7px;padding-bottom:2px}.jz-tabs.vertical button{font-size:10px;min-width:124px;gap:8px;min-height:45px;padding-left:7px;padding-right:7px}.jz-tabs.vertical button span{font-size:10px}.jz-hero-screen{padding:3px;border-radius:7px}.jz-app-toolbar{height:34px;padding-inline:9px;gap:10px}.jz-fake-search{font-size:5px;padding:4px;overflow:hidden}.jz-app-nav{width:66px;gap:8px;padding-inline:3px}.jz-app-nav>span{font-size:5px;gap:4px;padding-inline:3px}.jz-app-nav svg{width:11px;height:11px}.jz-app-main{padding:12px 7px 7px}.jz-app h3{font-size:13px}.jz-dash-heading{gap:6px}.jz-dash-heading select{font-size:6px;padding:4px;max-width:78px}.jz-stat-cards{gap:5px;margin-bottom:10px}.jz-stat-cards>div{padding:9px 4px;gap:4px}.jz-stat-cards svg{width:13px}.jz-stat-cards b{font-size:12px}.jz-stat-cards span{font-size:4.5px}.jz-app-body{min-height:256px}.jz-records,.jz-line-chart{padding:7px 4px}.jz-chart-title{font-size:6px;min-height:20px}.jz-chart-title span{font-size:5px}.jz-records>strong{font-size:6px;margin-bottom:7px}.jz-record{font-size:4.5px;padding:7px 0}.jz-record .jz-avatar{width:15px;height:15px;font-size:5px}.jz-record .jz-status{font-size:4px;padding:2px}.jz-phone{width:210px;min-height:342px;margin:0 auto 5px;display:block}.jz-proof{margin-top:20px}.jz-proof h2{font-size:27px;max-width:300px;margin:auto;line-height:1.2}.jz-campus-logos{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin:22px auto;max-width:340px}.jz-campus-logos img{width:100%;height:64px}.jz-benefits{grid-template-columns:repeat(3,1fr);gap:22px 8px;padding:9px 0 30px}.jz-benefits>div{font-size:9px;gap:8px;padding:0 4px}.jz-benefits>div:nth-child(3){border:0}.jz-benefits svg{width:24px;height:24px}.jz-products{padding:33px 0}.jz-products h2{font-size:30px;text-align:left;max-width:350px;line-height:1.14}.jz-tabs{gap:5px;overflow:auto;justify-content:start;margin-top:20px}.jz-tabs button{font-size:11px;padding:0 10px;flex-shrink:0;min-height:44px}
+.jz-products-tabs .jz-tabs{overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start}
+.jz-products-tabs .jz-tabs button{flex:0 0 auto;font-size:11px;padding:12px 14px;gap:7px;min-width:110px}
+.jz-products-tabs .jz-tabs button svg{width:16px;height:16px}.jz-product-grid{grid-template-columns:1fr;gap:26px;padding-top:25px}.jz-product-copy h3{max-width:310px;font-size:34px;margin:12px 0 19px}.jz-product-copy ul{gap:13px;margin-bottom:23px}.jz-product-copy li{font-size:13px}.jz-product-copy .jz-text-link{font-size:13px}.jz-feature-screen .jz-app-body{min-height:275px}.jz-feature-screen .jz-app-main{padding:13px 10px}.jz-profile-head small{font-size:6px}.jz-profile-head h3{font-size:15px}.jz-profile-head>img{width:40px;height:40px}.jz-profile-tabs{gap:22px}.jz-profile-tabs button{font-size:8px}.jz-progress,.jz-schedule{padding:9px}.jz-progress>strong,.jz-schedule>strong{font-size:8px}.jz-progress svg{width:63px;height:63px}.jz-progress>div:first-of-type{gap:5px}.jz-progress span{font-size:6px}.jz-progress span b{font-size:8px}.jz-schedule>div{font-size:5px;grid-template-columns:34px 1fr 35px;gap:3px}.jz-stories{padding:30px 0}.jz-stories>div>h2{font-size:30px;max-width:330px;margin:0 auto 24px}.jz-carousel{padding:0}.jz-story{grid-template-columns:1fr}.jz-story-photo{min-height:210px}.jz-story-copy{padding:25px}.jz-story-copy h3{font-size:29px}.jz-story-copy p{font-size:13px}.jz-carousel-arrow{top:91px;background:#062e4fc9;padding:8px;border-radius:50%}.jz-carousel-arrow.prev{left:9px}.jz-carousel-arrow.next{right:9px}.jz-outcomes h2{font-size:30px;text-align:left;margin-bottom:25px}.jz-outcomes>div{grid-template-columns:1fr;gap:20px}.jz-outcomes article{border-right:0;border-bottom:1px solid #7693aa44;padding:0 0 20px;gap:22px}.jz-outcomes article:last-child{padding-bottom:0}.jz-outcomes article>svg{width:35px}.jz-outcomes h3{font-size:22px}.jz-outcomes p{font-size:12px}.jz-roles{padding:28px 0}.jz-roles h2{font-size:30px;text-align:left}.jz-role-grid{grid-template-columns:repeat(2,1fr);gap:12px}.jz-role{min-height:260px}.jz-role-body{padding:16px}.jz-role-body h3{font-size:18px}.jz-role-body p{font-size:11px;line-height:1.5;max-height:100px;opacity:1;margin-top:8px;padding-right:0}.jz-role-body svg{width:15px;right:16px;bottom:16px}.jz-casestudy{padding:36px 0}.jz-casestudy-grid{grid-template-columns:1fr}.jz-casestudy-photo{min-height:420px;padding:16px 16px 0}.jz-cs-topbar{font-size:9px;letter-spacing:.2em}.jz-cs-visual{min-height:320px}.jz-cs-title strong{font-size:24px}.jz-cs-title span{width:140px;font-size:9px;letter-spacing:.4em}  .jz-casestudy-panel{padding:32px 24px}.jz-casestudy-panel h2{font-size:26px;max-width:100%}.jz-casestudy-panel p{font-size:13px;max-width:100%;margin-bottom:28px}.jz-casestudy-stats{grid-template-columns:1fr 1fr;margin-bottom:28px}.jz-casestudy-stats>div{padding:20px 0}.jz-casestudy-stats>div+div{padding-left:18px}.jz-casestudy-stats b{font-size:18px}.jz-casestudy-button{min-width:0;width:100%;padding:14px 18px}
 .jz-integrations{padding:56px 0}.jz-integration-grid{grid-template-columns:1fr;gap:26px}.jz-integration-grid h2{font-size:32px}.jz-integration-grid>div>p{font-size:13px}
 
 
