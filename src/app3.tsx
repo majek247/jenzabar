@@ -43,22 +43,26 @@ const PRODUCTS = [
 ];
 
 const STORIES = [
-  { school: 'Parker University', title: 'Earlier support. Stronger student engagement.', text: 'Parker University uses Jenzabar Retention to support early intervention and student engagement.', img: photo('photo-1523050854058-8df90110c9f1', 1200) },
-  { school: 'Charleston Southern University', title: 'Less paper. A more connected campus.', text: 'Charleston Southern University describes how Jenzabar helped its teams automate previously paper-based processes.', img: photo('photo-1541339907198-e08756dedf3f', 1200) },
-  { school: 'Gordon College', title: 'Faster processes. Better conversations.', text: 'Gordon College reports simpler applicant communications and less paper in the Registrar’s Office.', img: photo('photo-1562774053-701939374585', 1200) },
+  { school: 'Parker University', title: 'Earlier support. Stronger student engagement.', quote: 'Our office of Student Success has developed a system of early intervention using Jenzabar Retention that has kept our retention rate consistently above 90% and increased our level of engagement with students.', name: 'Alaina Mount', role: 'Assistant Dean of Student Affairs', img: photo('photo-1523580494863-6f3031224c94', 1200) },
+  { school: 'Charleston Southern University', title: 'Less paper. A more connected campus.', quote: 'The experience we gained through working with the Jenzabar team has facilitated our technological acceleration. We were able to advance a print-focused, labor-intensive system and completely automate our campus. We’ve gone paperless.', name: 'Lisa Fleming', role: 'Director of Computer Operations', img: photo('photo-1541339907198-e08756dedf3f', 1200) },
+  { school: 'Gordon College', title: 'Faster processes. Better conversations.', quote: 'Getting rid of a lot of the paper has opened up new doors and sped up the process, which in turn means that students are able to have better conversations with their faculty. What used to take days now only takes minutes.', name: 'Jon Williams', role: 'Software Architect and Strategist', img: photo('photo-1562774053-701939374585', 1200) },
 ];
 const ROLES = [
-  { name: 'Enrollment teams', text: 'Recruit and enroll the right students for your institution.', img: 'photo-1573496359142-b8d87734a5a2', product: 1 },
-  { name: 'Student success', text: 'Support every student from enrollment to graduation.', img: 'photo-1500648767791-00dcc994a43e', product: 2 },
-  { name: 'Finance leaders', text: 'Gain greater visibility and control over campus finances.', img: 'photo-1580489944761-15a19d654956', product: 3 },
-  { name: 'Campus IT', text: 'A flexible, connected foundation built for higher education.', img: 'photo-1519085360753-af0119f7cbe7', product: 4 },
+  { name: 'Enrollment teams', text: 'Recruit and enroll the right students for your institution.', img: '/images/janzenroll.png', product: 1 },
+  { name: 'Student success', text: 'Support every student from enrollment to graduation.', img: '/images/janzsupport.png', product: 2 },
+  { name: 'Finance leaders', text: 'Gain greater visibility and control over campus finances.', img: '/images/janzbudget.png', product: 3 },
+  { name: 'Campus IT', text: 'A flexible, connected foundation built for higher education.', img: '/images/janzsecurity.png', product: 4 },
 ];
 const FAQS = [
   ['What is Jenzabar One?', 'Jenzabar One brings together software for student information, recruitment, retention, finance and other campus functions. Its higher education ecosystem helps institutions connect their departments and support the student journey.'],
-  ['Which products fit our institution?', 'Start with the teams and processes you want to improve. Jenzabar can help you explore the appropriate combination of products for your institution’s size, priorities and existing technology. Request a demo to discuss your requirements.'],
+  ['Which products fit our institution?', 'Start with the teams and processes you want to improve. Jenzabar can help you explore the right combination of products for your institution’s size, priorities and existing technology.', 'Explore our products', `${BASE}/jenzabar-one`],
   ['Can Jenzabar connect with our existing systems?', 'Jenzabar offers integration options through the Jenzabar One API and Jenzabar Unity Platform. Your systems, data requirements and workflows determine the right approach; review compatibility and scope with the Jenzabar team.'],
   ['How does implementation work?', 'Implementation scope depends on the products you choose and your existing environment. Discuss data migration, configuration, training, responsibilities and launch milestones with Jenzabar before agreeing a project plan.'],
   ['What support is available?', 'Jenzabar provides higher education services and customer support. The team can explain the onboarding, training and ongoing support options available for your products and agreement.'],
+  ['How long does it take to get up and running?', 'Timelines vary by institution, product mix and scope. Most campuses begin with a phased rollout — a focused launch for one department or workflow, followed by broader adoption. Your Jenzabar team will outline a realistic schedule during planning.'],
+  ['Is Jenzabar built for institutions of our size?', 'Yes. Jenzabar serves a broad range of colleges and universities, from small private institutions to larger multi-campus organizations. The platform scales with you — you can start with the modules you need today and expand over time.'],
+  ['Can students and faculty access Jenzabar on mobile?', 'Yes. Jenzabar offers responsive web access and a mobile experience for students, faculty and staff. Students can view schedules, grades, financial information and appointments from a phone or tablet.'],
+  ['How is data secured and protected?', 'Jenzabar follows industry-standard security practices including encryption in transit and at rest, role-based access controls, and regular audits. Specific compliance frameworks and data handling policies are documented during your evaluation.'],
 ];
 
 function Icon({ name = 'chart', size = 22, ...props }) {
@@ -171,17 +175,90 @@ function BarChart({ mode = 0 }) {
   return <div className="jz-bar-card"><div className="jz-chart-title"><strong>{['Headcount by term','Messages delivered (%)','Completed workflows (%)'][mode]}</strong><span>{hover!==null?values[hover].toLocaleString():'Sample data'}</span></div><svg viewBox="0 0 460 200" role="img" aria-label={`Illustrative ${['enrollment','communications','workflow'][mode]} chart`}>{[0,1,2,3].map(i=><g key={i}><path d={`M42 ${28+i*43}H448`} stroke="#e7edf2"/><text x="32" y={32+i*43} textAnchor="end">{Math.round(max*(1-i/3)).toLocaleString()}</text></g>)}{values.map((v,i)=><g key={i}><rect x={63+i*77} y={157-v/max*129} width="42" height={v/max*129} rx="2" fill={hover===i?'#ae0879':'#238de5'} tabIndex="0" role="button" aria-label={`${labels[i]}: ${v}`} onMouseEnter={()=>setHover(i)} onMouseLeave={()=>setHover(null)} onFocus={()=>setHover(i)} onBlur={()=>setHover(null)}/><text x={84+i*77} y="182" textAnchor="middle">{labels[i]}</text></g>)}</svg></div>;
 }
 function AnalyticsSection() {
-  const [tab,setTab] = useState(0);
-  const texts=[['See the story behind the numbers.','Turn your campus data into insight. Jenzabar Analytics helps you make informed institutional decisions with clearer reporting.'],['Keep your campus conversation connected.','Help teams coordinate communications and keep students informed throughout their journey.'],['Keep everyday work moving.','Connect tasks and responsibilities with configurable workflows for your campus.']];
-  return <section className="jz-intelligence jz-dark" id="intelligence"><div className="jz-container"><div className="jz-editorial-rule"><span>One partner for the work that connects your institution.</span></div><div className="jz-intelligence-grid"><AppShell compact active="Reporting"><h3>{['Enrollment analytics','Campus communications','Workflow overview'][tab]}</h3><BarChart mode={tab}/></AppShell><div><div className="jz-intel-tabs">{['Analytics','Communications','Workflow'].map((name,i)=><button key={name} className={tab===i?'active':''} onClick={()=>setTab(i)} aria-pressed={tab===i}>{name}</button>)}</div><h2>{texts[tab][0]}</h2><p>{texts[tab][1]}</p><a className="jz-text-link cyan" href={`${BASE}/jenzabar-one`}>Explore Jenzabar {['Analytics','Communications','Workflow'][tab]}<Icon name="arrow" size={18}/></a></div></div></div></section>;
+  return <section className="jz-casestudy jz-dark" id="intelligence"><div className="jz-container"><div className="jz-casestudy-grid"><div className="jz-casestudy-photo"><img src={CAMPUS} alt="Lakeland University campus, illustrative photography" loading="lazy"/></div><div className="jz-casestudy-panel"><div className="jz-casestudy-badges"><span className="jz-pill">Case study</span><span className="jz-pill outline">Higher education</span></div><h2>Modernizing operations. <em>Elevating the student experience.</em></h2><p>Lakeland University partnered with Jenzabar One to bring financial aid, registration and student services onto one connected platform — replacing disconnected systems with a single source of truth.</p><div className="jz-casestudy-stats"><div><span className="jz-pill outline small">Operations</span><b>One platform</b><small>Illustrative outcome</small></div><div><span className="jz-pill outline small">Experience</span><b>Fewer manual steps</b><small>Illustrative outcome</small></div></div><a className="jz-text-link cyan" href="https://www.jenzabar.com/resource/case-study-lakeland-university-modernizing-operations-and-elevating-student-experiences-with-jenzabar-one" target="_blank" rel="noopener noreferrer">Read the case study <Icon name="arrow" size={18}/></a></div></div></div></section>;
 }
+
+
 function IntegrationDiagram() {
-  const [selected,setSelected]=useState(null);
-  return <div className="jz-integration-wrap"><div className="jz-integration-map"><svg viewBox="0 0 600 210" preserveAspectRatio="none" aria-hidden="true"><path d="M140 50H205L245 95M140 160H205L245 115M355 95l40-45h65M355 115l40 45h65" fill="none" stroke="#70aed8" strokeWidth="1.7" strokeDasharray="4 6"/></svg>{[['Learning','book'],['Finance','database'],['Identity','user'],['Student services','users']].map(([l,i],n)=><button className={`jz-integration-node node-${n} ${selected===l?'active':''}`} key={l} onClick={()=>setSelected(selected===l?null:l)} aria-pressed={selected===l}><Icon name={i}/>{l}</button>)}<div className="jz-integration-center"><Brand/></div></div><p className="jz-integration-note" aria-live="polite">{selected ? `${selected}: discuss your systems and integration requirements with Jenzabar.`:'Jenzabar One API + Jenzabar Unity Platform'}</p></div>;
+  const [selected, setSelected] = useState(null);
+
+  const nodes = [
+    { id: 'Learning',          icon: 'book',     pos: 'tl', subIcons: ['document', 'user', 'cap'] },
+    { id: 'Identity',          icon: 'user',     pos: 'tr', subIcons: ['user', 'document', 'database'] },
+    { id: 'Finance',           icon: 'database', pos: 'bl', subIcons: ['document', 'calendar', 'bars'] },
+    { id: 'Student services',  icon: 'users',    pos: 'br', subIcons: ['user', 'calendar', 'book'] },
+  ];
+
+  return (
+    <div className="jz-integration-wrap">
+      <div className="jz-integration-map">
+        <div className="jz-integration-bg" aria-hidden="true" />
+
+<div className="jz-connector-lines" aria-hidden="true">
+  <span className="jz-connector-elbow tl" />
+  <span className="jz-connector-elbow bl" />
+  <span className="jz-connector-elbow tr" />
+  <span className="jz-connector-elbow br" />
+  <span className="jz-connector-vline" />
+
+  <span className="jz-connector-dot" style={{ top: 130, left: 305 }} />
+  <span className="jz-connector-dot" style={{ top: 335, left: 305 }} />
+  <span className="jz-connector-dot" style={{ top: 130, left: 'calc(100% - 305px)' }} />
+  <span className="jz-connector-dot" style={{ top: 335, left: 'calc(100% - 305px)' }} />
+
+  <span className="jz-connector-dot" style={{ top: 197.5, left: 'calc(50% - 150px)' }} />
+  <span className="jz-connector-dot" style={{ top: 322.5, left: 'calc(50% - 150px)' }} />
+  <span className="jz-connector-dot" style={{ top: 197.5, left: 'calc(50% + 150px)' }} />
+  <span className="jz-connector-dot" style={{ top: 322.5, left: 'calc(50% + 150px)' }} />
+
+  <span className="jz-connector-dot" style={{ top: 342.5, left: '50%' }} />
+  <span className="jz-connector-dot" style={{ top: 438, left: '50%' }} />
+</div>
+
+        {nodes.map(n => (
+          <button
+            key={n.id}
+            className={`jz-integration-node node-${n.pos} ${selected === n.id ? 'active' : ''}`}
+            onClick={() => setSelected(selected === n.id ? null : n.id)}
+            aria-pressed={selected === n.id}
+          >
+            <div className="jz-node-head">
+              <span className="jz-node-head-icon"><Icon name={n.icon} size={22}/></span>
+              <strong>{n.id}</strong>
+            </div>
+            <div className="jz-node-lines">
+              {n.subIcons.map((ic, i) => (
+                <span key={i} className="jz-node-line">
+                  <Icon name={ic} size={14}/>
+                  <span className="jz-node-bar" />
+                </span>
+              ))}
+            </div>
+          </button>
+        ))}
+
+        <div className="jz-integration-center">
+          <Brand dark/>
+          <span className="jz-center-divider" />
+          <span className="jz-center-sub">Jenzabar One API<br/>Jenzabar Unity Platform</span>
+        </div>
+
+        <div className="jz-integration-pill">
+          <Icon name="home" size={16}/> One connected view
+        </div>
+      </div>
+      <p className="jz-integration-note" aria-live="polite">
+        {selected ? `${selected}: discuss your systems and integration requirements with Jenzabar.` : ''}
+      </p>
+    </div>
+  );
 }
+
+
+
 function Header() {
   const [open,setOpen]=useState(false);
-  return <><div className="jz-announcement"><span>Explore higher ed insights on AI and digital transformation</span><a href={`${BASE}/resources`}>Explore resources <Icon name="arrow" size={13}/></a></div><header className="jz-header"><div className="jz-container jz-header-inner"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a><nav className={open?'open':''} aria-label="Main navigation">{[['Products','#platform'],['Solutions','#roles'],['Services',`${BASE}/services`],['Resources',`${BASE}/resources`],['Company',`${BASE}/about`]].map(([label,href])=><a href={href} key={label} onClick={()=>setOpen(false)}>{label}<span className="jz-nav-caret">⌄</span></a>)}</nav><div className="jz-header-actions"><a className="jz-login" href="https://www.myjenzabar.net/">Log in</a><a className="jz-button magenta" href={DEMO}>Request a demo <Icon name="arrow" size={16}/></a><button className="jz-mobile-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={()=>setOpen(!open)}><Icon name={open?'close':'menu'}/></button></div></div></header></>;
+  return <> <header className="jz-header"><div className="jz-container jz-header-inner"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a><nav className={open?'open':''} aria-label="Main navigation">{[['Platform','#platform'],['Solutions','#roles'],['Case study','#intelligence'],['Integrations','#integrations'],['FAQ','#questions']].map(([label,href])=><a href={href} key={label} onClick={()=>setOpen(false)}>{label}</a>)}</nav><div className="jz-header-actions"><a className="jz-login" href="https://www.myjenzabar.net/">Log in</a><a className="jz-button magenta" href={DEMO}>Request a demo <Icon name="arrow" size={16}/></a><button className="jz-mobile-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={()=>setOpen(!open)}><Icon name={open?'close':'menu'}/></button></div></div></header></>;
 }
 function Hero() {
   const [product,setProduct]=useState(0);
@@ -208,17 +285,103 @@ function ProductsSection({ selected, onSelect }) {
 function StoriesSection() {
   const [story,setStory]=useState(0); const s=STORIES[story];
   const advance=(step)=>setStory((story+step+STORIES.length)%STORIES.length);
-  return <section className="jz-stories jz-dark" id="proof"><div className="jz-container"><h2>Real campuses. <em>Meaningful progress.</em></h2><div className="jz-carousel"><button className="jz-carousel-arrow prev" aria-label="Previous customer story" onClick={()=>advance(-1)}><Icon name="chevron"/></button><article className="jz-story" aria-live="polite" key={story}><div className="jz-story-photo"><img src={s.img} alt={`${s.school} campus, illustrative photography`} loading="lazy"/></div><div className="jz-story-copy"><span className="jz-kicker light">{s.school}</span><h3>{s.title}</h3><p>{s.text}</p><a className="jz-text-link cyan" href={`${BASE}/`}>Explore customer stories <Icon name="arrow" size={18}/></a></div></article><button className="jz-carousel-arrow next" aria-label="Next customer story" onClick={()=>advance(1)}><Icon name="chevron"/></button></div><div className="jz-dots">{STORIES.map((item,i)=><button key={item.school} aria-label={`Show ${item.school} story`} aria-pressed={i===story} onClick={()=>setStory(i)} className={i===story?'active':''}/>)}</div><div className="jz-outcomes"><h2>Less administration. <em>More time for students.</em></h2><div>{[['users','Connected teams','Bring departments together around shared information.'],['bars','Clearer decisions','Turn data into insight to support student success.'],['user','Consistent experiences','Give students a seamless experience across campus.']].map(([icon,title,text])=><article key={title}><Icon name={icon} size={40}/><div><h3>{title}</h3><p>{text}</p></div></article>)}</div></div></div></section>;
+  return <section className="jz-stories jz-dark" id="proof"><div className="jz-container"><h2>Real campuses. <em>Meaningful progress.</em></h2><div className="jz-carousel"><button className="jz-carousel-arrow prev" aria-label="Previous customer story" onClick={()=>advance(-1)}><Icon name="chevron"/></button><article className="jz-story" aria-live="polite" key={story}><div className="jz-story-photo"><img src={s.img} alt={`${s.school} campus, illustrative photography`} loading="lazy"/></div><div className="jz-story-copy"><span className="jz-kicker light">{s.school}</span><h3>{s.title}</h3><blockquote className="jz-story-quote"><span aria-hidden="true">&ldquo;</span>{s.quote}<footer><b>{s.name}</b><span>{s.role}, {s.school}</span></footer></blockquote><a className="jz-text-link cyan" href={`${BASE}/`}>Explore customer stories <Icon name="arrow" size={18}/></a></div></article><button className="jz-carousel-arrow next" aria-label="Next customer story" onClick={()=>advance(1)}><Icon name="chevron"/></button></div><div className="jz-dots">{STORIES.map((item,i)=><button key={item.school} aria-label={`Show ${item.school} story`} aria-pressed={i===story} onClick={()=>setStory(i)} className={i===story?'active':''}/>)}</div><div className="jz-outcomes"><h2>Less administration. <em>More time for students.</em></h2><div>{[['users','Connected teams','Bring departments together around shared information.'],['bars','Clearer decisions','Turn data into insight to support student success.'],['user','Consistent experiences','Give students a seamless experience across campus.']].map(([icon,title,text])=><article key={title}><Icon name={icon} size={40}/><div><h3>{title}</h3><p>{text}</p></div></article>)}</div></div></div></section>;
 }
 function RolesSection({ onSelect }) {
-  return <section className="jz-roles jz-light" id="roles"><div className="jz-container"><h2>Built around your campus.</h2><div className="jz-role-grid">{ROLES.map(r=><a key={r.name} href="#platform" onClick={()=>onSelect(r.product)} className="jz-role"><img src={photo(r.img,700)} alt="" loading="lazy"/><div><h3>{r.name}</h3><p>{r.text}</p><Icon name="arrow" size={20}/></div></a>)}</div></div></section>;
+  return <section className="jz-roles jz-light" id="roles"><div className="jz-container"><h2>Built around your campus.</h2><div className="jz-role-grid">{ROLES.map(r=><a key={r.name} href="#platform" onClick={()=>onSelect(r.product)} className="jz-role"><div className="jz-role-photo"><img src={r.img} alt="" loading="lazy"/></div><div className="jz-role-body"><h3>{r.name}</h3><p>{r.text}</p><Icon name="arrow" size={18}/></div></a>)}</div></div></section>;
 }
 function IntegrationsSection() {
-  return <section className="jz-integrations jz-light" id="integrations"><div className="jz-container"><div className="jz-integration-grid"><div><h2>Your campus systems.<br/><em>Better connected.</em></h2><p>Bring your technology together with the<br className="jz-desktop-break"/> Jenzabar One API and Jenzabar Unity Platform.</p></div><IntegrationDiagram/></div><div className="jz-comparison"><article><div><h3>Disconnected systems</h3><p>Data is often siloed across multiple systems,<br/> making it harder to get a complete view.</p></div><div className="jz-mini-flow"><Icon name="database"/><span>···</span><Icon name="document"/><span>···</span><Icon name="database"/></div></article><article><div><h3>A connected campus</h3><p>Bring your systems together for a unified view<br/> of your institution.</p></div><div className="jz-mini-flow"><Icon name="database"/><span>···</span><span className="jz-mini-brand"><Brand small/></span><span>···</span><Icon name="database"/></div></article></div></div></section>;
+  return (
+    <section className="jz-integrations jz-light" id="integrations">
+      <div className="jz-container">
+        <span className="jz-kicker">— A connected campus</span>
+        <div className="jz-integration-grid">
+          <div>
+            <h2>Your campus systems.<br/><em>Better connected.</em></h2>
+          </div>
+          <div className="jz-integration-copy">
+            <p>Bring your technology together with the<br className="jz-desktop-break"/> Jenzabar One API and Jenzabar Unity Platform.</p>
+            <a className="jz-text-link" href="#platform">Explore campus connectivity <Icon name="arrow" size={18}/></a>
+          </div>
+        </div>
+        <IntegrationDiagram />
+        <div className="jz-comparison">
+          <article>
+            <div>
+              <h3>Disconnected systems</h3>
+              <p>Data is often siloed across multiple systems,<br/> making it harder to get a complete view.</p>
+            </div>
+            <div className="jz-mini-flow">
+              <Icon name="database" />
+              <span>···</span>
+              <Icon name="document" />
+              <span>···</span>
+              <Icon name="database" />
+            </div>
+          </article>
+          <article>
+            <div>
+              <h3>A connected campus</h3>
+              <p>Bring your systems together for a unified view<br/> of your institution.</p>
+            </div>
+            <div className="jz-mini-flow">
+              <Icon name="database" />
+              <span>···</span>
+              <span className="jz-mini-brand"><Brand small /></span>
+              <span>···</span>
+              <Icon name="database" />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
 }
 function FAQSection() {
-  const [open,setOpen]=useState(null);
-  return <section className="jz-faq" id="questions"><div className="jz-container jz-faq-grid"><h2>A few things you may<br/> be wondering.</h2><div>{FAQS.map(([q,a],i)=><article className={open===i?'open':''} key={q}><h3><button onClick={()=>setOpen(open===i?null:i)} aria-expanded={open===i} aria-controls={`jz-answer-${i}`} id={`jz-question-${i}`}>{q}<span>{open===i?'−':'+'}</span></button></h3><div id={`jz-answer-${i}`} role="region" aria-labelledby={`jz-question-${i}`} hidden={open!==i}><p>{a}</p></div></article>)}</div></div></section>;
+  const [open,setOpen]=useState(1);
+  return (
+    <section className="jz-faq" id="questions">
+      <div className="jz-container jz-faq-grid">
+        <div className="jz-faq-intro">
+          <span className="jz-faq-eyebrow">Frequently asked</span>
+          <h2>Questions,<br/><em>answered.</em></h2>
+          <p>Everything you need to know about connecting your campus with Jenzabar.</p>
+        
+      <div className="jz-faq-illustration" aria-hidden="true">
+  <img src="/images/jenzabarsketch.png" alt="" loading="lazy"/>
+</div>
+
+
+          <div className="jz-faq-cta">
+            <strong>Your campus.<br/>Your questions.</strong>
+            <span>Let's find the right fit for your institution.</span>
+            <a href={`${BASE}/contact-us`} className="jz-faq-cta-button"><span>Talk to our team</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div className="jz-faq-list">
+          {FAQS.map(([q,a,linkLabel,linkHref],i)=>(
+            <article className={open===i?'open':''} key={q}>
+              <h3>
+                <button onClick={()=>setOpen(open===i?null:i)} aria-expanded={open===i} aria-controls={`jz-answer-${i}`} id={`jz-question-${i}`}>
+                  <span className="jz-faq-num">{String(i+1).padStart(2,'0')}</span>
+                  <span className="jz-faq-q">{q}</span>
+                  <span className="jz-faq-toggle" aria-hidden="true">
+                    {open===i
+                      ? <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 8h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
+                      : <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 8h10M8 3v10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>}
+                  </span>
+                </button>
+              </h3>
+              <div className="jz-faq-answer" id={`jz-answer-${i}`} role="region" aria-labelledby={`jz-question-${i}`} hidden={open!==i}>
+                <p>{a}</p>
+                {linkLabel && <a className="jz-faq-inline-link" href={linkHref}>{linkLabel} <span aria-hidden="true">↗</span></a>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 function Footer() {
   const columns=[['Products',...PRODUCTS.map(p=>[`Jenzabar ${p.name}`,`${BASE}/jenzabar-one`])],['Solutions',['For your role','#roles'],['For your institution',`${BASE}/solutions`],['Integrations','#integrations'],['Support & training',`${BASE}/services`]],['Resources',['Resource library',`${BASE}/resources`],['Customer stories','#proof'],['Frequently asked questions','#questions'],['Blog',`${BASE}/blog`]],['Company',['About us',`${BASE}/about`],['Careers',`${BASE}/careers`],['Contact',`${BASE}/contact-us`]]];
@@ -231,10 +394,20 @@ export default function App() {
 
 const CSS = `
 body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#__next:has(.jz-site){width:100%;max-width:none;margin:0;padding:0;text-align:left}
-.jz-site{--navy:#0A2540;--deep:#061A2E;--blue:#0067c7;--cyan:#00b8e9;--magenta:#ad087b;--ivory:#FAFAFB;--ink:#1A1F36;--muted:#6B7280;--line:#E3E8EE;--surface:#FFFFFF;--radius:12px;--radius-sm:8px;--shadow-sm:0 1px 2px rgba(16,24,40,.05);--shadow-md:0 4px 20px -6px rgba(16,24,40,.10),0 16px 44px -14px rgba(16,24,40,.16);--font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--font-serif:Georgia,'Times New Roman',serif;font-family:var(--font-sans);color:var(--ink);background:var(--ivory);font-size:15px;line-height:1.5;width:100%;overflow:clip;text-align:left;-webkit-font-smoothing:antialiased}
-.jz-site *{box-sizing:border-box}.jz-site h1,.jz-site h2,.jz-site h3,.jz-site h4,.jz-site p{margin:0}.jz-site a{color:inherit;text-decoration:none}.jz-site button,.jz-site select{font:inherit}.jz-site button{cursor:pointer}.jz-site button,.jz-site a{-webkit-tap-highlight-color:transparent}.jz-site button{color:inherit}.jz-site button:focus-visible,.jz-site a:focus-visible,.jz-site select:focus-visible,.jz-site svg [tabindex]:focus-visible{outline:3px solid #15b9e3;outline-offset:5px}.jz-site img{display:block;max-width:100%}.jz-site svg{flex-shrink:0}.jz-site h2,.jz-site h3.editorial{font-family:Georgia,'Times New Roman',serif;letter-spacing:-1.1px;font-weight:400}.jz-site h2{font-size:clamp(30px,3.2vw,46px);line-height:1.14}.jz-site em{font-family:Georgia,'Times New Roman',serif;font-weight:400}.jz-container{width:min(1240px,calc(100% - 80px));margin-inline:auto}.jz-dark{background:var(--navy);color:#fff}.jz-light{background:var(--ivory)}.jz-skip{position:fixed;z-index:100;left:16px;top:-100px;background:white;padding:14px;color:var(--ink)!important}.jz-skip:focus{top:16px}.jz-brand{position:relative;display:inline-block;width:176px;height:36px;flex-shrink:0;vertical-align:middle}.jz-brand img{position:absolute;width:100%;height:100%;object-fit:contain;inset:0}.jz-brand.on-dark>img:first-child{filter:brightness(0) invert(1)}.jz-brand .jz-brand-color{clip-path:inset(0 80% 0 0)}.jz-brand.small{width:74px;height:17px}.jz-button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:12px 24px;min-height:48px;border-radius:60px;font-size:14px;font-weight:500;line-height:1;transition:all .2s;white-space:nowrap}.jz-button:hover{transform:translateY(-1px);box-shadow:0 8px 20px -6px rgba(10,37,64,.25)}.jz-button.magenta{background:var(--magenta);color:#fff}.jz-button.magenta:hover{background:#c4128e}.jz-button.white{background:#fff;color:var(--navy);border:1.5px solid #d9e3ee}.jz-text-link{display:inline-flex;align-items:center;gap:16px;font-weight:600;font-size:15px;color:var(--blue)!important}.jz-text-link:hover{text-decoration:underline;text-underline-offset:5px}.jz-text-link.cyan{color:var(--cyan)!important}.jz-kicker{text-transform:uppercase;font-size:11px;letter-spacing:.8px;font-weight:700;display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:30px;border:1.5px solid #0A2540;background:transparent;color:#0A2540}
-.jz-kicker.light{border-color:#ffffff55;color:#fff}
-.jz-kicker.light{border-color:#ffffff55;color:#fff}.jz-announcement{background:#0064c8;display:flex;justify-content:center;align-items:center;gap:26px;min-height:34px;padding:7px 20px;font-size:11px}.jz-announcement a{font-size:10px;display:inline-flex;gap:8px;align-items:center;text-decoration:underline;text-underline-offset:3px}.jz-header-inner{display:flex;align-items:center;justify-content:space-between;gap:30px;min-height:84px}.jz-header nav{display:flex;gap:29px;margin-left:35px;margin-right:auto;font-size:12px}.jz-header nav a{display:flex;gap:8px;align-items:center}.jz-header nav a:hover{color:var(--cyan)}.jz-nav-caret{color:#bdd0e0}.jz-header-actions{display:flex;gap:27px;align-items:center}.jz-login{font-size:12px}.jz-header .jz-button{padding:11px 17px;font-size:12px;min-height:39px}.jz-mobile-toggle{display:none;background:none;border:0;padding:6px}.jz-hero{background:radial-gradient(ellipse at 48% 58%,#0d3556 0%,#082b48 65%,#062b49 100%)}.jz-hero-copy{text-align:center;padding:35px 0 24px}.jz-eyebrow-pill{display:inline-block;font-size:11px;line-height:1.2;border:1px solid #59748a;border-radius:30px;padding:4px 10px;background:#ffffff08}.jz-hero h1{font-size:clamp(40px,4.9vw,69px);line-height:1.03;letter-spacing:-2px;margin:18px 0 13px;font-weight:700}.jz-hero h1 em{display:block;font-size:1.03em;line-height:1.03;letter-spacing:-2.5px}.jz-hero-copy>p{font-size:16px;line-height:1.45;color:#edf3f7;max-width:865px;margin:auto}.jz-hero-actions{display:flex;align-items:center;justify-content:center;gap:27px;margin:22px 0 12px}.jz-hero-actions .jz-button{min-height:41px}.jz-overview{display:flex;align-items:center;gap:12px;font-size:13px}.jz-round-play{display:grid;place-items:center;border:1px solid #a5c2d8;width:29px;height:29px;border-radius:50%}.jz-hero-copy>small{font-size:11px;color:#d6e2ed}.jz-hero-showcase{display:grid;grid-template-columns:225px minmax(0,1fr) 214px;gap:25px;align-items:center;margin:10px -12px 0}.jz-tabs{
+.jz-site{--navy:#0A2540;--deep:#061A2E;--blue:#0067c7;--cyan:#00b8e9;--magenta:#ad087b;--ivory:#FAFAFB;--ink:#1A1F36;--muted:#6B7280;--line:#E3E8EE;--surface:#FFFFFF;--radius:12px;--radius-sm:8px;--shadow-sm:0 1px 2px rgba(16,24,40,.05);--shadow-md:0 4px 20px -6px rgba(16,24,40,.10),0 16px 44px -14px rgba(16,24,40,.16);--font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--font-serif:'Playfair Display',Georgia,'Times New Roman',serif;font-family:var(--font-sans);color:var(--ink);background:var(--ivory);font-size:15px;line-height:1.5;width:100%;overflow:clip;text-align:left;-webkit-font-smoothing:antialiased}
+.jz-site *{box-sizing:border-box}.jz-site h1,.jz-site h2,.jz-site h3,.jz-site h4,.jz-site p{margin:0}.jz-site a{color:inherit;text-decoration:none}.jz-site button,.jz-site select{font:inherit}.jz-site button{cursor:pointer}.jz-site button,.jz-site a{-webkit-tap-highlight-color:transparent}.jz-site button{color:inherit}.jz-site button:focus-visible,.jz-site a:focus-visible,.jz-site select:focus-visible,.jz-site svg [tabindex]:focus-visible{outline:3px solid #15b9e3;outline-offset:5px}.jz-site img{display:block;max-width:100%}.jz-site svg{flex-shrink:0}.jz-site h2,.jz-site h3.editorial{font-family:Georgia,'Times New Roman',serif;letter-spacing:-1.1px;font-weight:400}.jz-site h2{font-size:clamp(30px,3.2vw,46px);line-height:1.14}.jz-site em{font-family:Georgia,'Times New Roman',serif;font-weight:400}.jz-container{width:min(1240px,calc(100% - 80px));margin-inline:auto}.jz-dark{background:var(--navy);color:#fff}.jz-light{background:var(--ivory)}.jz-skip{position:fixed;z-index:100;left:16px;top:-100px;background:white;padding:14px;color:var(--ink)!important}.jz-skip:focus{top:16px}.jz-brand{position:relative;display:inline-block;width:176px;height:36px;flex-shrink:0;vertical-align:middle}.jz-brand img{position:absolute;width:100%;height:100%;object-fit:contain;inset:0}.jz-brand.on-dark>img:first-child{filter:brightness(0) invert(1)}.jz-brand .jz-brand-color{clip-path:inset(0 80% 0 0)}.jz-brand.small{width:74px;height:17px}.jz-button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:12px 24px;min-height:48px;border-radius:60px;font-size:14px;font-weight:500;line-height:1;transition:all .2s;white-space:nowrap}.jz-button:hover{transform:translateY(-1px);box-shadow:0 8px 20px -6px rgba(10,37,64,.25)}.jz-button.magenta{background:var(--magenta);color:#fff}.jz-button.magenta:hover{background:#c4128e}.jz-button.white{background:#fff;color:var(--navy);border:1.5px solid #d9e3ee}.jz-text-link{display:inline-flex;align-items:center;gap:16px;font-weight:600;font-size:15px;color:var(--blue)!important}.jz-text-link:hover{text-decoration:underline;text-underline-offset:5px}.jz-text-link.cyan{color:var(--cyan)!important}.jz-kicker{text-transform:uppercase;font-size:11px;letter-spacing:.8px;font-weight:700;display:inline-flex;align-items:center;gap:6px;padding:0;border:0;background:transparent;color:#0A2540}
+.jz-kicker.light{color:#fff}
+.jz-kicker.light{border-color:#ffffff55;color:#fff} .jz-header-inner{display:flex;align-items:center;justify-content:space-between;gap:30px;min-height:84px}.jz-header nav{display:flex;gap:36px;margin-left:44px;margin-right:auto;font-size:13.5px;font-weight:500;letter-spacing:-.005em}
+.jz-header nav a{position:relative;display:inline-flex;align-items:center;padding:6px 0;color:#d6e4f0;transition:color .25s ease}
+.jz-header nav a:after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--cyan);transform:scaleX(0);transform-origin:left center;transition:transform .35s cubic-bezier(.22,.68,0,1.01)}
+.jz-header nav a:hover{color:#fff}
+.jz-header nav a:hover:after{transform:scaleX(1)}
+.jz-header nav a.active{color:#fff}
+.jz-header nav a.active:after{transform:scaleX(1)}
+.jz-nav-caret{color:#bdd0e0}
+.jz-header-actions{display:flex;gap:24px;align-items:center}
+.jz-login{font-size:13px;font-weight:500;color:#d6e4f0;transition:color .2s}
+.jz-login:hover{color:#fff}.jz-header .jz-button{padding:11px 17px;font-size:12px;min-height:39px}.jz-mobile-toggle{display:none;background:none;border:0;padding:6px}.jz-hero{background:radial-gradient(ellipse at 48% 58%,#0d3556 0%,#082b48 65%,#062b49 100%)}.jz-hero-copy{text-align:center;padding:35px 0 24px}.jz-eyebrow-pill{display:inline-block;font-size:11px;line-height:1.2;border:1px solid #59748a;border-radius:30px;padding:4px 10px;background:#ffffff08}.jz-hero h1{font-size:clamp(40px,4.9vw,69px);line-height:1.03;letter-spacing:-2px;margin:18px 0 13px;font-weight:700}.jz-hero h1 em{display:block;font-size:1.03em;line-height:1.03;letter-spacing:-2.5px}.jz-hero-copy>p{font-size:16px;line-height:1.45;color:#edf3f7;max-width:865px;margin:auto}.jz-hero-actions{display:flex;align-items:center;justify-content:center;gap:27px;margin:22px 0 12px}.jz-hero-actions .jz-button{min-height:41px}.jz-overview{display:flex;align-items:center;gap:12px;font-size:13px}.jz-round-play{display:grid;place-items:center;border:1px solid #a5c2d8;width:29px;height:29px;border-radius:50%}.jz-hero-copy>small{font-size:11px;color:#d6e2ed}.jz-hero-showcase{display:grid;grid-template-columns:225px minmax(0,1fr) 214px;gap:25px;align-items:center;margin:10px -12px 0}.jz-tabs{
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -364,15 +537,20 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-detail-pane{min-height:180px;padding:30px;background:var(--surface);border:1px solid var(--line);border-radius:8px;font-size:14px}
 .jz-detail-pane h4{margin:10px 0;font-size:16px}
 .jz-detail-pane small{font-size:12px;color:var(--muted)}
-.jz-stories{padding:70px 0 50px}
+.jz-stories{padding:100px 0 90px}
 .jz-stories>div>h2{text-align:center;margin-bottom:44px}
 .jz-carousel{position:relative;padding:0 40px}
-.jz-story{display:grid;grid-template-columns:1.12fr 1fr;border-radius:16px;overflow:hidden;box-shadow:0 30px 70px -30px rgba(0,0,0,.5);animation:jzSlideIn .45s cubic-bezier(.22,.68,0,1.01)}
+.jz-story{display:grid;grid-template-columns:1.12fr 1fr;overflow:hidden;box-shadow:0 30px 70px -30px rgba(0,0,0,.5);animation:jzSlideIn .45s cubic-bezier(.22,.68,0,1.01)}
 .jz-story-photo{position:relative;min-height:340px}
 .jz-story-photo img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover}
 .jz-story-copy{padding:56px 52px;background:#0c2f4d;display:flex;flex-direction:column;justify-content:center;gap:2px}
-.jz-story-copy h3{font-family:Georgia,serif;font-size:34px;line-height:1.22;letter-spacing:-.3px;font-weight:400;margin:22px 0 16px;max-width:360px}
-.jz-story-copy p{font-size:15px;color:#c3d3e2;max-width:380px;line-height:1.7;margin-bottom:26px}
+.jz-story-copy h3{font-family:Georgia,serif;font-size:30px;line-height:1.22;letter-spacing:-.3px;font-weight:400;margin:20px 0 20px;max-width:360px}
+.jz-story-quote{margin:0 0 28px;max-width:400px;border-left:2px solid #2b5b85;padding-left:20px}
+.jz-story-quote>span{font-family:Georgia,serif;font-size:34px;line-height:0;color:#4a86bd;vertical-align:-10px;margin-right:2px}
+.jz-story-quote{font-family:Georgia,serif;font-style:italic;font-size:16px;line-height:1.65;color:#dbe6ef}
+.jz-story-quote footer{margin-top:16px;font-style:normal}
+.jz-story-quote footer b{display:block;font-family:var(--font-sans);font-size:13px;font-weight:700;color:#fff}
+.jz-story-quote footer span{display:block;font-family:var(--font-sans);font-size:12px;color:#93a8bc;margin-top:2px}
 .jz-story-copy .jz-text-link{font-size:14px}
 .jz-carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffff14;border:1px solid #ffffff26;color:#e2ecf4;padding:12px;border-radius:50%;z-index:2;transition:background .2s}
 .jz-carousel-arrow:hover{background:#ffffff26}
@@ -389,70 +567,503 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-outcomes article>svg{color:#c5daea}
 .jz-outcomes h3{font-family:Georgia,serif;font-weight:400;font-size:22px}
 .jz-outcomes p{font-size:14px;line-height:1.5;color:#cfdfec;margin-top:8px}
-.jz-roles{padding:30px 0}
-.jz-roles h2{text-align:center;margin-bottom:24px;font-size:37px}
-.jz-role-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.jz-role{position:relative;min-height:280px;overflow:hidden;background:var(--navy);color:white!important;border-radius:8px}
-.jz-role>img{height:100%;width:100%;position:absolute;inset:0;object-fit:cover;object-position:center 30%;transition:transform .4s}
-.jz-role:hover>img{transform:scale(1.045)}
-.jz-role:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#042c4efc 0%,#042c4eaa 29%,transparent 74%)}
-.jz-role>div{position:absolute;bottom:20px;left:22px;right:20px;z-index:1}
-.jz-role h3{font-family:Georgia,serif;font-size:24px;font-weight:400;margin-bottom:8px}
-.jz-role p{font-size:13px;line-height:1.55;max-width:200px;padding-right:8px;color:#e3edf5}
-.jz-role svg{position:absolute;right:0;bottom:6px}
-.jz-intelligence{padding:30px 0}
-.jz-editorial-rule{display:flex;align-items:center;gap:30px;font-family:Georgia,serif;font-size:24px;text-align:center;margin-bottom:30px}
-.jz-editorial-rule:before,.jz-editorial-rule:after{content:'';height:1px;background:#a4b8c577;flex:1}
-.jz-intelligence-grid{display:grid;grid-template-columns:1.18fr 1fr;gap:50px;align-items:center}
-.jz-intelligence .jz-app-body{min-height:220px}
-.jz-intelligence .jz-app-main{padding-top:16px}
-.jz-intelligence .jz-app-nav{gap:10px;width:100px}
-.jz-intelligence .jz-app-nav>span:nth-child(n+5){display:none}
-.jz-intelligence .jz-app-nav>span{font-size:12px}
-.jz-intelligence .jz-app h3{font-size:18px}
-.jz-bar-card{background:var(--surface);margin-top:16px;padding:20px;border-radius:8px;border:1px solid var(--line)}
-.jz-bar-card svg{width:100%;display:block}
-.jz-intel-tabs{display:flex;gap:30px;border-bottom:1px solid #829bb166;margin-bottom:30px}
-.jz-intel-tabs button{border:0;border-bottom:2px solid transparent;background:none;color:#c5d7e6;font-size:14px;padding:12px 4px 14px;font-weight:500}
-.jz-intel-tabs button.active{border-color:#d31294;color:white}
-.jz-intelligence-grid h2{font-size:34px;max-width:450px}
-.jz-intelligence-grid p{font-size:15px;line-height:1.6;margin:18px 0;color:#c4d7e7;max-width:460px}
-.jz-intelligence-grid .jz-text-link{font-size:15px}
-.jz-integrations{padding:30px 0}
-.jz-integration-grid{display:grid;grid-template-columns:.85fr 1.25fr;gap:40px;align-items:center}
-.jz-integration-grid h2{font-size:36px}
-.jz-integration-grid p{font-size:15px;color:#51677d;line-height:1.6;margin-top:16px}
-.jz-integration-map{position:relative;height:220px}
-.jz-integration-map>svg{position:absolute;inset:0;width:100%;height:100%}
-.jz-integration-node,.jz-integration-center{position:absolute;display:flex;align-items:center;justify-content:center;border:1px solid #bcd2e6;border-radius:10px;background:#fafbfd;height:60px;gap:16px;font-size:13px;font-weight:500}
-.jz-integration-node{width:27%;transition:background .2s}
-.jz-integration-node svg{color:#3896e4}
-.jz-integration-node:hover,.jz-integration-node.active{background:#e8f3fd}
-.jz-integration-node.node-0{top:16px;left:0}
-.jz-integration-node.node-1{bottom:18px;left:0}
-.jz-integration-node.node-2{top:16px;right:0}
-.jz-integration-node.node-3{bottom:18px;right:0}
-.jz-integration-center{top:65px;left:35%;width:30%;height:80px;background:white}
-.jz-integration-center .jz-brand{width:140px;height:30px}
-.jz-integration-grid .jz-integration-note{font-size:12px;margin-top:0;min-height:18px;text-align:center;color:#637b90}
-.jz-comparison{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;padding:24px 28px;gap:30px;margin-top:16px}
-.jz-comparison article{display:flex;gap:24px;align-items:center}
-.jz-comparison article+article{border-left:1px solid var(--line);padding-left:30px}
-.jz-comparison h3{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:18px;letter-spacing:0;color:var(--blue);margin-bottom:6px;font-weight:600}
-.jz-comparison p{font-size:12px;color:var(--muted);line-height:1.5}
-.jz-mini-flow{display:flex;align-items:center;gap:10px;margin-left:auto;color:var(--muted)}
-.jz-mini-flow svg{width:26px}
-.jz-mini-brand{background:white;padding:6px;border:1px solid var(--line);border-radius:6px}
-.jz-mini-brand .jz-brand{width:60px;height:24px}
-.jz-faq{background:var(--surface);padding:45px 0 50px}
-.jz-faq-grid{display:grid;grid-template-columns:.72fr 1.25fr;gap:70px}
-.jz-faq h2{font-size:36px}
-.jz-faq article{border-bottom:1px solid var(--line)}
-.jz-faq article:first-child{border-top:1px solid var(--line)}
-.jz-faq h3{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;font-weight:600}
-.jz-faq h3 button{display:flex;align-items:center;justify-content:space-between;gap:30px;width:100%;background:none;border:0;text-align:left;padding:18px 0;color:var(--ink)}
-.jz-faq h3 button span{font-size:24px;line-height:1;color:var(--muted);font-weight:300}
-.jz-faq article p{font-size:14px;color:var(--muted);line-height:1.7;padding:0 30px 20px 0}
+.jz-roles{padding:100px 0 60px}
+.jz-roles h2{text-align:center;margin-bottom:44px;font-size:37px}
+.jz-role-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.jz-role{position:relative;display:flex;flex-direction:column;min-height:420px;overflow:hidden;background:var(--navy);color:white!important;border-radius:10px;transition:opacity .35s ease,filter .35s ease}
+.jz-role-grid:hover .jz-role:not(:hover){opacity:.5;filter:saturate(.35)}
+.jz-role-photo{position:relative;flex:1;overflow:hidden}
+.jz-role-photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform .5s}
+.jz-role:hover .jz-role-photo>img{transform:scale(1.06)}
+.jz-role-body{position:relative;background:#062441;padding:22px 24px 24px}
+.jz-role-body h3{font-family:Georgia,serif;font-size:22px;font-weight:400}
+.jz-role-body p{font-size:13px;line-height:1.6;color:#c3d4e2;max-height:0;opacity:0;overflow:hidden;margin-top:0;padding-right:26px;transition:max-height .35s ease,opacity .3s ease,margin-top .35s ease}
+.jz-role:hover .jz-role-body p{max-height:130px;opacity:1;margin-top:10px}
+.jz-role-body svg{position:absolute;right:24px;bottom:24px;transition:transform .25s}
+.jz-role:hover .jz-role-body svg{transform:translateX(4px)}
+.jz-casestudy{padding:70px 0}
+.jz-casestudy-grid{display:grid;grid-template-columns:1fr 1fr;box-shadow:0 30px 70px -30px rgba(0,0,0,.5)}
+.jz-casestudy-photo{position:relative;min-height:460px}
+.jz-casestudy-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.jz-casestudy-panel{background:#0c2f4d;padding:56px 52px;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.jz-casestudy-badges{display:flex;gap:10px;margin-bottom:22px}
+.jz-pill{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:6px 13px;border-radius:30px;background:#fff;color:#0A2540}
+.jz-pill.outline{background:transparent;border:1px solid #ffffff4a;color:#e2ecf4}
+.jz-pill.small{font-size:10px;padding:5px 11px;letter-spacing:.3px}
+.jz-casestudy-panel h2{font-family:Georgia,serif;font-weight:400;font-size:34px;line-height:1.2;letter-spacing:-.3px;max-width:440px;margin-bottom:18px}
+.jz-casestudy-panel p{font-size:15px;line-height:1.7;color:#c3d3e2;max-width:440px;margin-bottom:32px}
+.jz-casestudy-stats{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:26px 0;margin-bottom:30px;border-top:1px solid #ffffff26;border-bottom:1px solid #ffffff26}
+.jz-casestudy-stats>div{display:flex;flex-direction:column;gap:9px}
+.jz-casestudy-stats b{font-family:Georgia,serif;font-size:26px;font-weight:400;color:#fff;letter-spacing:-.01em}
+.jz-casestudy-stats small{font-size:11px;color:#8fa6bb}
+.jz-casestudy-panel .jz-text-link{font-size:14px;align-self:flex-start}
+/* Integration Section - Premium Redesign */
+.jz-integrations {
+  padding: 120px 0 100px;
+  background: #FAFBFC;
+}
+
+.jz-integration-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  gap: 48px;
+  align-items: start;
+  padding: 20px 0 40px;
+  border-bottom: 1px solid #E3E8EE;
+}
+
+.jz-integration-grid h2 {
+  font-size: 52px;
+  font-weight: 800;
+  font-family: var(--font-sans);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: #0A2540;
+}
+
+.jz-integration-grid h2 em {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.jz-integration-copy {
+  padding-left: 48px;
+  padding-top: 6px;
+  border-left: 1px solid #E3E8EE;
+}
+
+.jz-integration-copy p {
+  font-size: 17px;
+  color: #4A5C70;
+  line-height: 1.7;
+  max-width: 380px;
+  margin-bottom: 14px;
+}
+
+.jz-integration-copy .jz-text-link { font-size: 14px; }
+
+/* Diagram Map */
+.jz-integration-wrap { padding: 48px 0 60px; }
+
+.jz-integration-map {
+  position: relative;
+  height: 520px;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #F1EEE6 url('images/jenzabarrectangle.png') center / cover no-repeat;
+}
+
+.jz-integration-bg {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+/* Connector lines — solid blue with round rings */
+.jz-connector-lines{position:absolute;inset:0;z-index:2;pointer-events:none}
+.jz-connector-elbow{position:absolute;border:0 solid #0A6FD8}
+.jz-connector-elbow.tl{top:130px;left:305px;width:calc(50% - 455px);height:67.5px;border-top-width:2px;border-right-width:2px;border-top-right-radius:16px}
+.jz-connector-elbow.tr{top:130px;left:calc(50% + 150px);width:calc(50% - 455px);height:67.5px;border-top-width:2px;border-left-width:2px;border-top-left-radius:16px}
+.jz-connector-elbow.bl{top:322.5px;left:305px;width:calc(50% - 455px);height:12.5px;border-bottom-width:2px;border-right-width:2px;border-bottom-right-radius:16px}
+.jz-connector-elbow.br{top:322.5px;left:calc(50% + 150px);width:calc(50% - 455px);height:12.5px;border-bottom-width:2px;border-left-width:2px;border-bottom-left-radius:16px}
+.jz-connector-vline{position:absolute;left:50%;top:342.5px;width:2px;height:95.5px;background:#0A6FD8;transform:translateX(-50%)}
+.jz-connector-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid #0A6FD8;transform:translate(-50%,-50%)}
+@media (max-width:1024px){.jz-connector-lines{display:none}}
+
+/* Node cards */
+.jz-integration-node {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 24px;
+  width: 250px;
+  height: 150px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1px solid #D6E2EE;
+  box-shadow: 0 6px 20px -8px rgba(16, 24, 40, 0.12);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.22, 0.68, 0, 1.01),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease;
+  text-align: left;
+  color: #122A41;
+}
+
+.jz-integration-node:hover,
+.jz-integration-node.active {
+  transform: translateY(-2px);
+  border-color: #8FC0EA;
+  box-shadow: 0 12px 28px -10px rgba(8, 118, 207, 0.35);
+}
+
+.jz-node-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.jz-node-head {
+  gap: 16px;
+}
+
+.jz-node-head-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  color: #0A6FD8;
+  flex-shrink: 0;
+}
+
+.jz-node-head-icon svg { width: 40px; height: 40px; stroke-width: 1.6; }
+
+.jz-node-head strong {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #0A2540;
+}
+
+.jz-node-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.jz-node-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #8FA8BF;
+}
+
+.jz-node-line svg { color: #8FA8BF; flex-shrink: 0; width: 18px; height: 18px; }
+
+.jz-node-bar {
+  display: block;
+  flex: 1;
+  height: 6px;
+  border-radius: 4px;
+  background: #E8EEF4;
+}
+
+/* Node Positions */
+.jz-integration-node.node-tl { top: 55px; left: 55px; }
+.jz-integration-node.node-tr { top: 55px; right: 55px; }
+.jz-integration-node.node-bl { bottom: 110px; left: 55px; }
+.jz-integration-node.node-br { bottom: 110px; right: 55px; }
+
+/* Center Hub */
+.jz-integration-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 300px;
+  height: 165px;
+  padding: 24px 20px;
+  border-radius: 14px;
+  background: #0A2540;
+  box-shadow: 0 18px 40px -14px rgba(10, 37, 64, 0.5);
+}
+
+.jz-integration-center .jz-brand { width: 200px; height: 42px; }
+
+.jz-center-divider {
+  display: block;
+  width: 60%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+  margin: 4px 0 2px;
+}
+
+.jz-center-sub {
+  font-size: 12.5px;
+  line-height: 1.5;
+  text-align: center;
+  color: #C3D3E2;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+}
+
+/* Bottom Pill */
+.jz-integration-pill {
+  position: absolute;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #FFFFFF;
+  border: 1px solid #D6E2EE;
+  border-radius: 10px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #122A41;
+  box-shadow: 0 6px 16px -8px rgba(16, 24, 40, 0.12);
+}
+
+.jz-integration-pill svg { color: #0A6FD8; width: 18px; height: 18px; }
+
+/* Comparison Section */
+.jz-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1.5px solid #E2E9F0;
+  border-radius: 16px;
+  background: #FFFFFF;
+  overflow: hidden;
+  box-shadow: 0 6px 24px -12px rgba(16, 24, 40, 0.08);
+}
+
+.jz-comparison article {
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.jz-comparison article + article {
+  border-left: 1.5px solid #E2E9F0;
+}
+
+.jz-comparison h3 {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0A2540;
+  margin-bottom: 10px;
+}
+
+.jz-comparison p {
+  font-size: 15px;
+  color: #5A6E84;
+  line-height: 1.6;
+  max-width: 380px;
+}
+
+/* Mini Flow */
+.jz-mini-flow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #9AABBD;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.jz-mini-flow svg {
+  width: 28px;
+  height: 28px;
+  color: #8FA8BF;
+}
+
+.jz-mini-brand {
+  background: #F8FAFC;
+  padding: 8px 14px;
+  border: 1.5px solid #E2E9F0;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px -2px rgba(0,0,0,0.04);
+}
+
+.jz-mini-brand .jz-brand {
+  width: 80px;
+  height: 22px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .jz-integration-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  .jz-integration-grid p {
+    margin: 0 auto;
+  }
+
+
+
+
+  .jz-integration-map {
+    height: 240px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .jz-comparison article {
+    padding: 32px 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .jz-integrations {
+    padding: 80px 0 60px;
+  }
+  .jz-integration-grid h2 {
+    font-size: 38px;
+  }
+  .jz-integration-node {
+    font-size: 11px;
+    height: 48px;
+    padding: 0 12px;
+    gap: 6px;
+  }
+  .jz-integration-node svg {
+    width: 16px;
+    height: 16px;
+  }
+  .jz-integration-center {
+    width: 160px;
+    height: 64px;
+  }
+  .jz-integration-center .jz-brand {
+    width: 100px;
+    height: 24px;
+  }
+  .jz-comparison {
+    grid-template-columns: 1fr;
+  }
+  .jz-comparison article + article {
+    border-left: none;
+    border-top: 1.5px solid #E2E9F0;
+  }
+  .jz-comparison article {
+    padding: 28px 24px;
+  }
+  .jz-comparison h3 {
+    font-size: 18px;
+  }
+  .jz-comparison p {
+    font-size: 13px;
+  }
+  .jz-mini-flow {
+    gap: 8px;
+  }
+  .jz-mini-flow svg {
+    width: 22px;
+    height: 22px;
+  }
+  .jz-mini-brand {
+    padding: 6px 10px;
+  }
+  .jz-mini-brand .jz-brand {
+    width: 60px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .jz-integration-grid h2 {
+    font-size: 30px;
+  }
+  .jz-integration-grid p {
+    font-size: 14px;
+  }
+  .jz-integration-map {
+    height: 200px;
+  }
+  .jz-integration-node {
+    font-size: 9px;
+    height: 40px;
+    padding: 0 8px;
+    gap: 4px;
+  }
+  .jz-integration-node svg {
+    width: 13px;
+    height: 13px;
+  }
+  .jz-integration-center {
+    width: 130px;
+    height: 52px;
+  }
+  .jz-integration-center .jz-brand {
+    width: 80px;
+    height: 18px;
+  }
+  .jz-comparison article {
+    padding: 22px 18px;
+  }
+  .jz-comparison h3 {
+    font-size: 16px;
+  }
+  .jz-comparison p {
+    font-size: 12px;
+  }
+  .jz-mini-flow svg {
+    width: 18px;
+    height: 18px;
+  }
+  .jz-mini-brand {
+    padding: 4px 8px;
+  }
+  .jz-mini-brand .jz-brand {
+    width: 50px;
+    height: 15px;
+  }
+}
+.jz-faq{background:#F4F6F9;padding:80px 0 130px;position:relative;overflow:hidden}
+.jz-faq-grid{display:grid;grid-template-columns:.9fr 1.5fr;gap:48px;align-items:start;position:relative;z-index:1;padding-top:60px}
+.jz-faq-intro{position:relative;top:-60px;display:flex;flex-direction:column;gap:0}
+.jz-faq-eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0067c7;margin-bottom:26px}
+.jz-faq-eyebrow:before{content:'';width:38px;height:1.5px;background:#0067c7}
+.jz-faq h2{font-family:var(--font-serif);font-size:clamp(46px,5vw,72px);line-height:1.02;letter-spacing:-.035em;font-weight:550;color:#0A2540;margin:0 0 28px}
+.jz-faq h2 em{font-style:italic;color:#0067c7;font-weight:550}
+.jz-faq-intro p{font-size:19px;line-height:1.55;color:#3a4a5e;margin:0 0 36px;max-width:420px;font-weight:400;letter-spacing:-.005em}
+.jz-faq-illustration{margin:0 0 0;max-width:100%}
+.jz-faq-illustration img{display:block;width:100%;height:auto;max-width:420px;object-fit:contain}
+
+
+.jz-faq-cta{background:#0A2540;color:#fff;padding:44px 38px 38px;border-radius:2px;display:flex;flex-direction:column;gap:16px;max-width:420px;margin-top:0}
+.jz-faq-cta strong{font-family:'Playfair Display',Georgia,serif;font-size:32px;line-height:1.15;font-weight:400;letter-spacing:-.015em}
+.jz-faq-cta span{font-size:15px;color:#c9d8e6;line-height:1.55;margin-bottom:6px}
+.jz-faq-cta-button{margin-top:14px;display:inline-flex;align-items:center;justify-content:space-between;gap:18px;background:#ffffff;color:#0A2540 !important;font-family:var(--font-sans);font-size:14px;font-weight:600;line-height:1;letter-spacing:-.005em;padding:16px 20px 16px 24px;border:0;border-radius:2px;align-self:stretch;text-decoration:none;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+
+
+.jz-faq-cta-button:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(0,0,0,.45);background:#f4f6f9}
+.jz-faq-cta-button span{flex:1;text-align:left;color:#0A2540}
+.jz-faq-cta-button svg{stroke:#0A2540;flex-shrink:0}
+.jz-faq-list{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(10,37,64,.12)}
+.jz-faq article{background:transparent;border:0;border-bottom:1px solid rgba(10,37,64,.12);border-radius:0;transition:background .25s ease}
+.jz-faq article:hover{background:#E7F1FA}
+.jz-faq article.open{background:#E7F1FA;border-left:3px solid #0067c7;padding-left:0}
+.jz-faq h3{margin:0}
+.jz-faq h3 button{display:flex;align-items:center;gap:28px;width:100%;background:none;border:0;text-align:left;padding:28px 20px 28px 24px;color:#0A2540;font-family:var(--font-sans);font-size:18px;font-weight:700;line-height:1.4;letter-spacing:-.012em;transition:color .2s}
+.jz-faq article.open h3 button{color:#0067c7}
+.jz-faq-num{font-family:var(--font-sans);font-size:13px;font-weight:600;color:#8a98a8;flex-shrink:0;letter-spacing:.5px;min-width:24px}
+.jz-faq article.open .jz-faq-num{color:#0067c7}
+.jz-faq-q{flex:1;padding-right:20px}
+.jz-faq-toggle{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:transparent;border:0;color:#0A2540;flex-shrink:0;transition:color .25s,background .25s}
+.jz-faq h3 button:hover .jz-faq-toggle{color:#0067c7}
+.jz-faq article.open .jz-faq-toggle{color:#0067c7}
+.jz-faq-toggle svg{display:block}
+.jz-faq-answer{padding:0 60px 32px 76px;animation:jzFaqIn .35s cubic-bezier(.22,.68,0,1.01)}
+@keyframes jzFaqIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.jz-faq-answer p{font-size:15px;color:#41546a;line-height:1.75;margin:0 0 14px;max-width:640px}
+.jz-faq-inline-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#0067c7;text-decoration:underline;text-underline-offset:3px}
+.jz-faq-inline-link:hover{color:#004a94}
 .jz-footer{padding:30px 0 25px}
 .jz-final-cta{display:flex;align-items:center;justify-content:center;gap:30px;padding:0 0 30px;border-bottom:1px solid #7c96aa99}
 .jz-final-cta h2{font-size:36px}
@@ -467,7 +1078,16 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-footer-tagline{margin-left:auto}
 @media(min-width:1600px){.jz-container{width:1240px}}
 @media(max-width:1180px){.jz-container{width:calc(100% - 48px)}.jz-header nav{gap:16px;margin-left:0}.jz-header-inner{gap:20px}.jz-header .jz-brand{width:150px}.jz-header-actions{gap:17px}.jz-hero-showcase{grid-template-columns:180px minmax(0,1fr) 180px;gap:16px;margin-inline:0}.jz-tabs.vertical button{font-size:11px;gap:11px;padding-left:9px}.jz-tabs.vertical button svg{width:25px}.jz-app-nav{width:78px}.jz-app-nav>span{font-size:6px;gap:5px;padding-inline:3px}.jz-app-main{padding:12px 8px 7px}.jz-app h3{font-size:14px}.jz-stat-cards>div{padding:10px 5px;gap:5px}.jz-stat-cards svg{width:15px}.jz-stat-cards b{font-size:13px}.jz-dash-bottom{gap:6px}.jz-record{font-size:5px;gap:3px}.jz-record .jz-avatar{width:18px;height:18px}.jz-status{font-size:5px;padding:3px}.jz-phone{min-height:350px;padding:12px 9px}.jz-story-copy{padding:22px 26px}.jz-product-grid{gap:30px}.jz-profile-grid{grid-template-columns:1fr 1.1fr}.jz-progress svg{width:60px;height:60px}.jz-schedule{padding:9px}.jz-schedule>div{grid-template-columns:38px 1fr 37px;font-size:5px}.jz-comparison article{display:block}.jz-mini-flow{margin-top:12px}.jz-final-cta{gap:20px}.jz-final-cta h2{font-size:30px}}
-@media(max-width:900px){.jz-header nav{position:absolute;top:110px;left:24px;right:24px;z-index:20;display:none;background:#073757;border:1px solid #5f8097;border-radius:5px;padding:24px;box-shadow:0 15px 30px #001b3222}.jz-header nav.open{display:flex;flex-direction:column;gap:22px}.jz-mobile-toggle{display:block}.jz-hero h1{font-size:54px}.jz-hero-copy>p{font-size:14px}.jz-hero-showcase{grid-template-columns:minmax(0,1fr) 190px;gap:20px}.jz-tabs.vertical{grid-column:1/-1;flex-direction:row;padding:0;gap:0;justify-content:space-between;overflow-x:auto}.jz-tabs.vertical button{border-left:0;border-bottom:2px solid transparent;min-height:46px;padding:8px 10px;gap:7px}.jz-tabs.vertical button svg{width:20px}.jz-tabs.vertical button.active{border-left-color:transparent;border-bottom-color:var(--magenta)}.jz-tabs.vertical button span{font-size:10px}.jz-app-nav{width:83px}.jz-app-body{min-height:295px}.jz-proof h2{font-size:31px}.jz-campus-logos{gap:22px}.jz-campus-logos img{width:20%;height:66px}.jz-product-grid{grid-template-columns:.72fr 1fr;gap:20px}.jz-product-copy h3{font-size:31px}.jz-product-copy li{font-size:12px;gap:9px}.jz-feature-screen .jz-app-nav{display:none}.jz-feature-screen .jz-app-main{padding:13px}.jz-feature-screen .jz-app-body{min-height:284px}.jz-product-copy .jz-text-link{font-size:12px}.jz-tabs{gap:20px;justify-content:space-between}.jz-tabs button{padding-inline:12px}.jz-story-photo{min-height:230px}.jz-story-copy h3{font-size:24px}.jz-story-copy p{font-size:12px}.jz-outcomes h2{font-size:30px}.jz-outcomes>div{gap:18px;padding:0}.jz-outcomes article{gap:12px;padding-right:16px}.jz-outcomes article>svg{width:28px}.jz-outcomes h3{font-size:17px}.jz-outcomes p{font-size:10px}.jz-role-grid{gap:10px}.jz-role{min-height:220px}.jz-role>div{left:12px;right:12px;bottom:12px}.jz-role h3{font-size:18px}.jz-role p{font-size:9px;padding-right:14px}.jz-editorial-rule{font-size:18px;gap:15px}.jz-intelligence-grid{gap:27px;grid-template-columns:1.1fr 1fr}.jz-intelligence .jz-app-nav{display:none}.jz-intelligence .jz-app-body{min-height:185px}.jz-intelligence-grid h2{font-size:28px}.jz-intelligence-grid p{font-size:12px}.jz-intel-tabs{gap:17px;margin-bottom:18px}.jz-intel-tabs button{font-size:10px}.jz-integration-grid{grid-template-columns:.9fr 1.2fr;gap:20px}.jz-integration-grid h2{font-size:30px}.jz-integration-node{gap:7px;font-size:8px}.jz-integration-node svg{width:17px}.jz-integration-center .jz-brand{width:100px}.jz-faq-grid{gap:35px}.jz-faq h2{font-size:30px}.jz-final-cta{flex-wrap:wrap}.jz-footer-grid{gap:22px}.jz-footer-grid .jz-brand{width:115px}}
-@media(max-width:640px){.jz-container{width:calc(100% - 36px)}.jz-announcement{font-size:8px;gap:10px;min-height:32px;padding-inline:12px}.jz-announcement a{font-size:8px;white-space:nowrap}.jz-announcement a svg{display:none}.jz-header-inner{min-height:72px;gap:12px}.jz-header .jz-brand{width:123px;height:30px}.jz-header-actions{gap:10px}.jz-header .jz-button{font-size:10px;padding:10px 12px;min-height:35px;gap:7px}.jz-header .jz-button svg{width:13px}.jz-login{display:none}.jz-header nav{left:18px;right:18px;top:99px}.jz-hero-copy{padding:27px 0 18px}.jz-eyebrow-pill{font-size:9px}.jz-hero h1{font-size:clamp(34px,8.4vw,52px);letter-spacing:-1.4px;line-height:1.08;margin-top:18px}.jz-hero h1 em{letter-spacing:-1.7px;line-height:1.06;margin-top:4px}.jz-hero-copy>p{font-size:12px;line-height:1.65;max-width:400px;margin-top:18px}.jz-desktop-break{display:none}.jz-hero-actions{gap:16px;margin-top:22px}.jz-hero-actions .jz-button{font-size:10px;padding:11px 13px;gap:10px}.jz-overview{font-size:10px;gap:7px}.jz-round-play{width:24px;height:24px}.jz-hero-copy>small{font-size:8px}.jz-hero-showcase{grid-template-columns:1fr;gap:16px;margin-top:10px}.jz-tabs.vertical{grid-column:1;justify-content:start;gap:7px;padding-bottom:2px}.jz-tabs.vertical button{font-size:10px;min-width:124px;gap:8px;min-height:45px;padding-left:7px;padding-right:7px}.jz-tabs.vertical button span{font-size:10px}.jz-hero-screen{padding:3px;border-radius:7px}.jz-app-toolbar{height:34px;padding-inline:9px;gap:10px}.jz-fake-search{font-size:5px;padding:4px;overflow:hidden}.jz-app-nav{width:66px;gap:8px;padding-inline:3px}.jz-app-nav>span{font-size:5px;gap:4px;padding-inline:3px}.jz-app-nav svg{width:11px;height:11px}.jz-app-main{padding:12px 7px 7px}.jz-app h3{font-size:13px}.jz-dash-heading{gap:6px}.jz-dash-heading select{font-size:6px;padding:4px;max-width:78px}.jz-stat-cards{gap:5px;margin-bottom:10px}.jz-stat-cards>div{padding:9px 4px;gap:4px}.jz-stat-cards svg{width:13px}.jz-stat-cards b{font-size:12px}.jz-stat-cards span{font-size:4.5px}.jz-app-body{min-height:256px}.jz-records,.jz-line-chart{padding:7px 4px}.jz-chart-title{font-size:6px;min-height:20px}.jz-chart-title span{font-size:5px}.jz-records>strong{font-size:6px;margin-bottom:7px}.jz-record{font-size:4.5px;padding:7px 0}.jz-record .jz-avatar{width:15px;height:15px;font-size:5px}.jz-record .jz-status{font-size:4px;padding:2px}.jz-phone{width:210px;min-height:342px;margin:0 auto 5px;display:block}.jz-proof{margin-top:20px}.jz-proof h2{font-size:27px;max-width:300px;margin:auto;line-height:1.2}.jz-campus-logos{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin:22px auto;max-width:340px}.jz-campus-logos img{width:100%;height:64px}.jz-benefits{grid-template-columns:repeat(3,1fr);gap:22px 8px;padding:9px 0 30px}.jz-benefits>div{font-size:9px;gap:8px;padding:0 4px}.jz-benefits>div:nth-child(3){border:0}.jz-benefits svg{width:24px;height:24px}.jz-products{padding:33px 0}.jz-products h2{font-size:30px;text-align:left;max-width:350px;line-height:1.14}.jz-tabs{gap:5px;overflow:auto;justify-content:start;margin-top:20px}.jz-tabs button{font-size:11px;padding:0 10px;flex-shrink:0;min-height:44px}.jz-product-grid{grid-template-columns:1fr;gap:26px;padding-top:25px}.jz-product-copy h3{max-width:310px;font-size:34px;margin:12px 0 19px}.jz-product-copy ul{gap:13px;margin-bottom:23px}.jz-product-copy li{font-size:13px}.jz-product-copy .jz-text-link{font-size:13px}.jz-feature-screen .jz-app-body{min-height:275px}.jz-feature-screen .jz-app-main{padding:13px 10px}.jz-profile-head small{font-size:6px}.jz-profile-head h3{font-size:15px}.jz-profile-head>img{width:40px;height:40px}.jz-profile-tabs{gap:22px}.jz-profile-tabs button{font-size:8px}.jz-progress,.jz-schedule{padding:9px}.jz-progress>strong,.jz-schedule>strong{font-size:8px}.jz-progress svg{width:63px;height:63px}.jz-progress>div:first-of-type{gap:5px}.jz-progress span{font-size:6px}.jz-progress span b{font-size:8px}.jz-schedule>div{font-size:5px;grid-template-columns:34px 1fr 35px;gap:3px}.jz-stories{padding:30px 0}.jz-stories>div>h2{font-size:30px;max-width:330px;margin:0 auto 24px}.jz-carousel{padding:0}.jz-story{grid-template-columns:1fr}.jz-story-photo{min-height:210px}.jz-story-copy{padding:25px}.jz-story-copy h3{font-size:29px}.jz-story-copy p{font-size:13px}.jz-carousel-arrow{top:91px;background:#062e4fc9;padding:8px;border-radius:50%}.jz-carousel-arrow.prev{left:9px}.jz-carousel-arrow.next{right:9px}.jz-outcomes h2{font-size:30px;text-align:left;margin-bottom:25px}.jz-outcomes>div{grid-template-columns:1fr;gap:20px}.jz-outcomes article{border-right:0;border-bottom:1px solid #7693aa44;padding:0 0 20px;gap:22px}.jz-outcomes article:last-child{padding-bottom:0}.jz-outcomes article>svg{width:35px}.jz-outcomes h3{font-size:22px}.jz-outcomes p{font-size:12px}.jz-roles{padding:28px 0}.jz-roles h2{font-size:30px;text-align:left}.jz-role-grid{grid-template-columns:repeat(2,1fr);gap:12px}.jz-role{min-height:232px}.jz-role h3{font-size:19px}.jz-role p{font-size:10px;line-height:1.5}.jz-role svg{width:15px;bottom:-3px}.jz-role>div{bottom:15px;left:12px;right:12px}.jz-intelligence{padding:28px 0}.jz-editorial-rule{font-size:19px;line-height:1.4;gap:12px;margin-bottom:25px}.jz-editorial-rule:before,.jz-editorial-rule:after{max-width:20px}.jz-editorial-rule span{flex:1}.jz-intelligence-grid{grid-template-columns:1fr;gap:22px}.jz-intelligence .jz-app-nav{display:flex;width:73px}.jz-intelligence .jz-app-body{min-height:213px}.jz-intelligence .jz-app h3{font-size:15px}.jz-intel-tabs{justify-content:space-between;gap:18px;margin-bottom:22px}.jz-intel-tabs button{font-size:12px}.jz-intelligence-grid h2{font-size:31px;max-width:310px}.jz-intelligence-grid p{font-size:13px;line-height:1.65}.jz-integrations{padding:30px 0}.jz-integration-grid{grid-template-columns:1fr;gap:15px}.jz-integration-grid h2{font-size:32px}.jz-integration-grid>div>p{font-size:13px}.jz-integration-map{height:185px}.jz-integration-node{font-size:8px;gap:5px;height:49px}.jz-integration-node svg{width:18px}.jz-integration-center{height:65px;top:59px}.jz-integration-center .jz-brand{width:90px}.jz-comparison{grid-template-columns:1fr;padding:20px;gap:20px;margin-top:22px}.jz-comparison article{display:flex;gap:12px}.jz-comparison article+article{border-left:0;border-top:1px solid #d2dce5;padding-left:0;padding-top:20px}.jz-comparison h3{font-size:14px}.jz-comparison p{font-size:9px}.jz-mini-flow{gap:3px;margin-top:0}.jz-mini-flow svg{width:17px}.jz-mini-brand .jz-brand{width:39px;height:18px}.jz-faq{padding:33px 0}.jz-faq-grid{grid-template-columns:1fr;gap:25px}.jz-faq h2{font-size:32px}.jz-faq h3{font-size:12px}.jz-faq h3 button{padding:16px 0}.jz-footer{padding:28px 0 22px}.jz-final-cta{justify-content:start;gap:18px 25px;padding-bottom:27px}.jz-final-cta h2{font-size:33px;width:100%;line-height:1.14;max-width:320px}.jz-final-cta .jz-button{font-size:12px;padding:12px 16px}.jz-talk{font-size:11px}.jz-footer-grid{grid-template-columns:1fr 1fr;gap:24px 25px;padding:28px 0}.jz-footer-grid>a{grid-column:1/-1;margin-bottom:2px}.jz-footer-grid .jz-brand{width:150px}.jz-footer-grid h3{font-size:12px}.jz-footer-grid>div>a{font-size:11px;margin:8px 0}.jz-footer-bottom{gap:22px;flex-wrap:wrap;font-size:9px}.jz-footer-tagline{width:100%;margin-left:0;opacity:.7}}
+@media(max-width:900px){.jz-header nav{position:absolute;top:76px;left:24px;right:24px;z-index:20;display:none;background:#073757;border:1px solid #5f8097;border-radius:12px;padding:28px 28px;box-shadow:0 24px 48px -12px rgba(0,20,40,.45);backdrop-filter:blur(12px)}
+.jz-header nav.open{display:flex;flex-direction:column;gap:4px}
+.jz-header nav a{font-size:16px;font-weight:500;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.jz-header nav a:last-child{border-bottom:0}
+.jz-header nav a:after{display:none}.jz-mobile-toggle{display:block}.jz-hero h1{font-size:54px}.jz-hero-copy>p{font-size:14px}.jz-hero-showcase{grid-template-columns:minmax(0,1fr) 190px;gap:20px}.jz-tabs.vertical{grid-column:1/-1;flex-direction:row;padding:0;gap:0;justify-content:space-between;overflow-x:auto}.jz-tabs.vertical button{border-left:0;border-bottom:2px solid transparent;min-height:46px;padding:8px 10px;gap:7px}.jz-tabs.vertical button svg{width:20px}.jz-tabs.vertical button.active{border-left-color:transparent;border-bottom-color:var(--magenta)}.jz-tabs.vertical button span{font-size:10px}.jz-app-nav{width:83px}.jz-app-body{min-height:295px}.jz-proof h2{font-size:31px}.jz-campus-logos{gap:22px}.jz-campus-logos img{width:20%;height:66px}.jz-product-grid{grid-template-columns:.72fr 1fr;gap:20px}.jz-product-copy h3{font-size:31px}.jz-product-copy li{font-size:12px;gap:9px}.jz-feature-screen .jz-app-nav{display:none}.jz-feature-screen .jz-app-main{padding:13px}.jz-feature-screen .jz-app-body{min-height:284px}.jz-product-copy .jz-text-link{font-size:12px}.jz-tabs{gap:20px;justify-content:space-between}.jz-tabs button{padding-inline:12px}.jz-story-photo{min-height:230px}.jz-story-copy h3{font-size:24px}.jz-story-copy p{font-size:12px}.jz-outcomes h2{font-size:30px}.jz-outcomes>div{gap:18px;padding:0}.jz-outcomes article{gap:12px;padding-right:16px}.jz-outcomes article>svg{width:28px}.jz-outcomes h3{font-size:17px}.jz-outcomes p{font-size:10px}.jz-role-grid{gap:10px}.jz-role{min-height:220px}.jz-role>div{left:12px;right:12px;bottom:12px}.jz-role h3{font-size:18px}.jz-role p{font-size:9px;padding-right:14px}.jz-casestudy-photo{min-height:360px}.jz-casestudy-panel{padding:38px 32px}.jz-casestudy-panel h2{font-size:28px}.jz-casestudy-panel p{font-size:13px}.jz-casestudy-stats b{font-size:21px}.jz-integration-grid{grid-template-columns:.9fr 1.2fr;gap:26px}.jz-integration-grid h2{font-size:34px}.jz-integration-node{gap:9px;font-size:10.5px;height:56px}.jz-integration-node svg{width:17px}.jz-integration-center{height:72px}.jz-integration-center .jz-brand{width:110px}.jz-faq-grid{gap:52px}.jz-faq h2{font-size:46px}.jz-final-cta{flex-wrap:wrap}.jz-footer-grid{gap:22px}.jz-footer-grid .jz-brand{width:115px}}
+@media(max-width:640px){.jz-container{width:calc(100% - 36px)} .jz-header-inner{min-height:72px;gap:12px}.jz-header .jz-brand{width:123px;height:30px}.jz-header-actions{gap:10px}.jz-header .jz-button{font-size:10px;padding:10px 12px;min-height:35px;gap:7px}.jz-header .jz-button svg{width:13px}.jz-login{display:none}.jz-header nav{left:18px;right:18px;top:72px}.jz-hero-copy{padding:27px 0 18px}.jz-eyebrow-pill{font-size:9px}.jz-hero h1{font-size:clamp(34px,8.4vw,52px);letter-spacing:-1.4px;line-height:1.08;margin-top:18px}.jz-hero h1 em{letter-spacing:-1.7px;line-height:1.06;margin-top:4px}.jz-hero-copy>p{font-size:12px;line-height:1.65;max-width:400px;margin-top:18px}.jz-desktop-break{display:none}.jz-hero-actions{gap:16px;margin-top:22px}.jz-hero-actions .jz-button{font-size:10px;padding:11px 13px;gap:10px}.jz-overview{font-size:10px;gap:7px}.jz-round-play{width:24px;height:24px}.jz-hero-copy>small{font-size:8px}.jz-hero-showcase{grid-template-columns:1fr;gap:16px;margin-top:10px}.jz-tabs.vertical{grid-column:1;justify-content:start;gap:7px;padding-bottom:2px}.jz-tabs.vertical button{font-size:10px;min-width:124px;gap:8px;min-height:45px;padding-left:7px;padding-right:7px}.jz-tabs.vertical button span{font-size:10px}.jz-hero-screen{padding:3px;border-radius:7px}.jz-app-toolbar{height:34px;padding-inline:9px;gap:10px}.jz-fake-search{font-size:5px;padding:4px;overflow:hidden}.jz-app-nav{width:66px;gap:8px;padding-inline:3px}.jz-app-nav>span{font-size:5px;gap:4px;padding-inline:3px}.jz-app-nav svg{width:11px;height:11px}.jz-app-main{padding:12px 7px 7px}.jz-app h3{font-size:13px}.jz-dash-heading{gap:6px}.jz-dash-heading select{font-size:6px;padding:4px;max-width:78px}.jz-stat-cards{gap:5px;margin-bottom:10px}.jz-stat-cards>div{padding:9px 4px;gap:4px}.jz-stat-cards svg{width:13px}.jz-stat-cards b{font-size:12px}.jz-stat-cards span{font-size:4.5px}.jz-app-body{min-height:256px}.jz-records,.jz-line-chart{padding:7px 4px}.jz-chart-title{font-size:6px;min-height:20px}.jz-chart-title span{font-size:5px}.jz-records>strong{font-size:6px;margin-bottom:7px}.jz-record{font-size:4.5px;padding:7px 0}.jz-record .jz-avatar{width:15px;height:15px;font-size:5px}.jz-record .jz-status{font-size:4px;padding:2px}.jz-phone{width:210px;min-height:342px;margin:0 auto 5px;display:block}.jz-proof{margin-top:20px}.jz-proof h2{font-size:27px;max-width:300px;margin:auto;line-height:1.2}.jz-campus-logos{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin:22px auto;max-width:340px}.jz-campus-logos img{width:100%;height:64px}.jz-benefits{grid-template-columns:repeat(3,1fr);gap:22px 8px;padding:9px 0 30px}.jz-benefits>div{font-size:9px;gap:8px;padding:0 4px}.jz-benefits>div:nth-child(3){border:0}.jz-benefits svg{width:24px;height:24px}.jz-products{padding:33px 0}.jz-products h2{font-size:30px;text-align:left;max-width:350px;line-height:1.14}.jz-tabs{gap:5px;overflow:auto;justify-content:start;margin-top:20px}.jz-tabs button{font-size:11px;padding:0 10px;flex-shrink:0;min-height:44px}.jz-product-grid{grid-template-columns:1fr;gap:26px;padding-top:25px}.jz-product-copy h3{max-width:310px;font-size:34px;margin:12px 0 19px}.jz-product-copy ul{gap:13px;margin-bottom:23px}.jz-product-copy li{font-size:13px}.jz-product-copy .jz-text-link{font-size:13px}.jz-feature-screen .jz-app-body{min-height:275px}.jz-feature-screen .jz-app-main{padding:13px 10px}.jz-profile-head small{font-size:6px}.jz-profile-head h3{font-size:15px}.jz-profile-head>img{width:40px;height:40px}.jz-profile-tabs{gap:22px}.jz-profile-tabs button{font-size:8px}.jz-progress,.jz-schedule{padding:9px}.jz-progress>strong,.jz-schedule>strong{font-size:8px}.jz-progress svg{width:63px;height:63px}.jz-progress>div:first-of-type{gap:5px}.jz-progress span{font-size:6px}.jz-progress span b{font-size:8px}.jz-schedule>div{font-size:5px;grid-template-columns:34px 1fr 35px;gap:3px}.jz-stories{padding:30px 0}.jz-stories>div>h2{font-size:30px;max-width:330px;margin:0 auto 24px}.jz-carousel{padding:0}.jz-story{grid-template-columns:1fr}.jz-story-photo{min-height:210px}.jz-story-copy{padding:25px}.jz-story-copy h3{font-size:29px}.jz-story-copy p{font-size:13px}.jz-carousel-arrow{top:91px;background:#062e4fc9;padding:8px;border-radius:50%}.jz-carousel-arrow.prev{left:9px}.jz-carousel-arrow.next{right:9px}.jz-outcomes h2{font-size:30px;text-align:left;margin-bottom:25px}.jz-outcomes>div{grid-template-columns:1fr;gap:20px}.jz-outcomes article{border-right:0;border-bottom:1px solid #7693aa44;padding:0 0 20px;gap:22px}.jz-outcomes article:last-child{padding-bottom:0}.jz-outcomes article>svg{width:35px}.jz-outcomes h3{font-size:22px}.jz-outcomes p{font-size:12px}.jz-roles{padding:28px 0}.jz-roles h2{font-size:30px;text-align:left}.jz-role-grid{grid-template-columns:repeat(2,1fr);gap:12px}.jz-role{min-height:260px}.jz-role-body{padding:16px}.jz-role-body h3{font-size:18px}.jz-role-body p{font-size:11px;line-height:1.5;max-height:100px;opacity:1;margin-top:8px;padding-right:0}.jz-role-body svg{width:15px;right:16px;bottom:16px}.jz-casestudy{padding:36px 0}.jz-casestudy-grid{grid-template-columns:1fr}.jz-casestudy-photo{min-height:220px}.jz-casestudy-panel{padding:28px 22px}.jz-casestudy-panel h2{font-size:26px;max-width:100%}.jz-casestudy-panel p{font-size:13px;max-width:100%}.jz-casestudy-stats{grid-template-columns:1fr 1fr;gap:16px;padding:20px 0}.jz-casestudy-stats b{font-size:19px}
+.jz-integrations{padding:56px 0}.jz-integration-grid{grid-template-columns:1fr;gap:26px}.jz-integration-grid h2{font-size:32px}.jz-integration-grid>div>p{font-size:13px}
+
+
+
+.jz-integration-map{height:210px}.jz-integration-node{font-size:10px;gap:7px;height:54px}.jz-integration-node svg{width:18px}.jz-integration-center{height:72px;top:66px}.jz-integration-center .jz-brand{width:100px}.jz-comparison{grid-template-columns:1fr;padding:24px;gap:24px;margin-top:22px}.jz-comparison article{display:flex;gap:14px}.jz-comparison article+article{border-left:0;border-top:1px solid #d2dce5;padding-left:0;padding-top:24px}.jz-comparison h3{font-size:15px}.jz-comparison p{font-size:11px}.jz-mini-flow{gap:3px;margin-top:0}.jz-mini-flow svg{width:17px}.jz-mini-brand .jz-brand{width:39px;height:18px}.jz-faq{padding:64px 0}.jz-faq-grid{grid-template-columns:1fr;gap:44px}.jz-faq-intro{position:static;gap:0}.jz-faq h2{font-size:42px;margin-bottom:20px}.jz-faq-intro p{font-size:16px;max-width:100%;margin-bottom:28px}.jz-faq-illustration img{max-width:100%}.jz-faq-cta{padding:26px 22px;max-width:100%}.jz-faq-cta strong{font-size:22px}.jz-faq h3 button{font-size:15px;padding:22px 12px 22px 16px;gap:16px}.jz-faq-toggle{width:28px;height:28px}.jz-faq-answer{padding:0 16px 24px 40px}.jz-faq-answer p{font-size:14px}.jz-footer{padding:28px 0 22px}.jz-final-cta{justify-content:start;gap:18px 25px;padding-bottom:27px}.jz-final-cta h2{font-size:33px;width:100%;line-height:1.14;max-width:320px}.jz-final-cta .jz-button{font-size:12px;padding:12px 16px}.jz-talk{font-size:11px}.jz-footer-grid{grid-template-columns:1fr 1fr;gap:24px 25px;padding:28px 0}.jz-footer-grid>a{grid-column:1/-1;margin-bottom:2px}.jz-footer-grid .jz-brand{width:150px}.jz-footer-grid h3{font-size:12px}.jz-footer-grid>div>a{font-size:11px;margin:8px 0}.jz-footer-bottom{gap:22px;flex-wrap:wrap;font-size:9px}.jz-footer-tagline{width:100%;margin-left:0;opacity:.7}}
 @media(prefers-reduced-motion:reduce){.jz-site *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 `;
