@@ -7,7 +7,7 @@ import React, { useId, useState, useEffect } from 'react';
 const ASSETS = [
   { name: "Jenzabar", url: "/images/jenzabar-logo.png", src: "/images/jenzabar-logo.png" },
   { name: "Parker University", url: "/images/parkerlogo.png", src: "/images/parkerlogo.png" },
-  { name: "Charleston Southern University", url: "/images/charleston.png", src: "/images/charleston.png" },
+  { name: "Charleston Southern University", url: "/images/charleston-transparent.png", src: "/images/charleston-transparent.png" },
   { name: "Gordon College", url: "/images/gordon.png", src: "/images/gordon.png" },
   { name: "Grove City College", url: "/images/grove.png", src: "/images/grove.png" }
 ];
