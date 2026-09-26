@@ -48,10 +48,10 @@ const STORIES = [
   { school: 'Gordon College', title: 'Faster processes. Better conversations.', quote: 'Getting rid of a lot of the paper has opened up new doors and sped up the process, which in turn means that students are able to have better conversations with their faculty. What used to take days now only takes minutes.', name: 'Jon Williams', role: 'Software Architect and Strategist', img: photo('photo-1562774053-701939374585', 1200) },
 ];
 const ROLES = [
-  { name: 'Enrollment teams', text: 'Recruit and enroll the right students for your institution.', img: '/images/janzenroll.png', product: 1 },
-  { name: 'Student success', text: 'Support every student from enrollment to graduation.', img: '/images/janzsupport.png', product: 2 },
-  { name: 'Finance leaders', text: 'Gain greater visibility and control over campus finances.', img: '/images/janzbudget.png', product: 3 },
-  { name: 'Campus IT', text: 'A flexible, connected foundation built for higher education.', img: '/images/janzsecurity.png', product: 4 },
+  { name: 'Enrollment teams', text: 'Simplify the application and admissions process with connected data, automated workflows and real-time visibility.', img: '/images/enrollment-teams.png', icon: 'users', product: 1 },
+  { name: 'Student success', text: 'Give advisors and support teams a complete view of each student to provide personalised guidance and improve outcomes.', img: '/images/student-success.png', icon: 'cap', product: 2 },
+  { name: 'Finance leaders', text: 'Unify financial data across systems, streamline billing and reporting, and get a clearer view of campus performance.', img: '/images/finance-leaders.png', icon: 'bars', product: 3 },
+  { name: 'Campus IT', text: 'Connect your systems, improve data quality and keep your campus secure with a modern, scalable platform.', img: '/images/campus-it.png', icon: 'database', product: 4 },
 ];
 const FAQS = [
   ['What is Jenzabar One?', 'Jenzabar One brings together software for student information, recruitment, retention, finance and other campus functions. Its higher education ecosystem helps institutions connect their departments and support the student journey.'],
@@ -302,7 +302,32 @@ function StoriesSection() {
   return <section className="jz-stories jz-dark" id="proof"><div className="jz-container"><h2>Real campuses. <em>Meaningful progress.</em></h2><div className="jz-carousel"><button className="jz-carousel-arrow prev" aria-label="Previous customer story" onClick={()=>advance(-1)}><Icon name="chevron"/></button><article className="jz-story" aria-live="polite" key={story}><div className="jz-story-photo"><img src={s.img} alt={`${s.school} campus, illustrative photography`} loading="lazy"/></div><div className="jz-story-copy"><span className="jz-kicker light">{s.school}</span><h3>{s.title}</h3><blockquote className="jz-story-quote"><span aria-hidden="true">&ldquo;</span>{s.quote}<footer><b>{s.name}</b><span>{s.role}, {s.school}</span></footer></blockquote><a className="jz-text-link cyan" href={`${BASE}/`}>Explore customer stories <Icon name="arrow" size={18}/></a></div></article><button className="jz-carousel-arrow next" aria-label="Next customer story" onClick={()=>advance(1)}><Icon name="chevron"/></button></div><div className="jz-dots">{STORIES.map((item,i)=><button key={item.school} aria-label={`Show ${item.school} story`} aria-pressed={i===story} onClick={()=>setStory(i)} className={i===story?'active':''}/>)}</div><div className="jz-outcomes"><h2>Less administration. <em>More time for students.</em></h2><div>{[['users','Connected teams','Bring departments together around shared information.'],['bars','Clearer decisions','Turn data into insight to support student success.'],['user','Consistent experiences','Give students a seamless experience across campus.']].map(([icon,title,text])=><article key={title}><Icon name={icon} size={40}/><div><h3>{title}</h3><p>{text}</p></div></article>)}</div></div></div></section>;
 }
 function RolesSection({ onSelect }) {
-  return <section className="jz-roles jz-light" id="roles"><div className="jz-container"><h2>Built around your campus.</h2><div className="jz-role-grid">{ROLES.map(r=><a key={r.name} href="#platform" onClick={()=>onSelect(r.product)} className="jz-role"><div className="jz-role-photo"><img src={r.img} alt="" loading="lazy"/></div><div className="jz-role-body"><h3>{r.name}</h3><p>{r.text}</p><Icon name="arrow" size={18}/></div></a>)}</div></div></section>;
+  return (
+    <section className="jz-roles jz-light" id="roles">
+      <div className="jz-container">
+        <div className="jz-roles-heading">
+          <span className="jz-roles-eyebrow">Built for every role</span>
+          <h2>Built around <em>your campus.</em></h2>
+          <p>One connected platform that brings every team, system and student touchpoint together so your campus can operate more efficiently and deliver a better experience.</p>
+        </div>
+        <div className="jz-role-grid">
+          {ROLES.map(r => (
+            <a key={r.name} href="#platform" onClick={() => onSelect(r.product)} className="jz-role">
+              <div className="jz-role-copy">
+                <span className="jz-role-icon"><Icon name={r.icon} size={22}/></span>
+                <h3>{r.name}</h3>
+                <p>{r.text}</p>
+                <span className="jz-role-link">Explore <Icon name="arrow" size={16}/></span>
+              </div>
+              <div className="jz-role-photo">
+                <img src={r.img} alt={`${r.name} — illustrative product view`} loading="lazy"/>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 function IntegrationsSection() {
   return <section className="jzc-section" id="integrations" aria-labelledby="jzc-title">
@@ -551,20 +576,25 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-outcomes article>svg{color:#c5daea}
 .jz-outcomes h3{font-family:Georgia,serif;font-weight:400;font-size:22px}
 .jz-outcomes p{font-size:14px;line-height:1.5;color:#cfdfec;margin-top:8px}
-.jz-roles{padding:100px 0 60px}
-.jz-roles h2{text-align:center;margin-bottom:44px;font-size:37px}
-.jz-role-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.jz-role{position:relative;display:flex;flex-direction:column;min-height:420px;overflow:hidden;background:var(--navy);color:white!important;border-radius:10px;transition:opacity .35s ease,filter .35s ease}
-.jz-role-grid:hover .jz-role:not(:hover){opacity:.5;filter:saturate(.35)}
-.jz-role-photo{position:relative;flex:1;overflow:hidden}
-.jz-role-photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform .5s}
-.jz-role:hover .jz-role-photo>img{transform:scale(1.06)}
-.jz-role-body{position:relative;background:#062441;padding:22px 24px 24px}
-.jz-role-body h3{font-family:Georgia,serif;font-size:22px;font-weight:400}
-.jz-role-body p{font-size:13px;line-height:1.6;color:#c3d4e2;max-height:0;opacity:0;overflow:hidden;margin-top:0;padding-right:26px;transition:max-height .35s ease,opacity .3s ease,margin-top .35s ease}
-.jz-role:hover .jz-role-body p{max-height:130px;opacity:1;margin-top:10px}
-.jz-role-body svg{position:absolute;right:24px;bottom:24px;transition:transform .25s}
-.jz-role:hover .jz-role-body svg{transform:translateX(4px)}
+.jz-roles{padding:100px 0 80px;background:#fff}
+.jz-roles-heading{text-align:center;max-width:820px;margin:0 auto 56px}
+.jz-roles-eyebrow{display:inline-flex;align-items:center;gap:16px;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#0a67d8;margin-bottom:22px}
+.jz-roles-eyebrow:before,.jz-roles-eyebrow:after{content:'';width:44px;height:1.5px;background:currentColor}
+.jz-roles-heading h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(38px,4.4vw,64px);line-height:1.08;letter-spacing:-.035em;font-weight:500;color:#0A2540;margin:0 0 20px}
+.jz-roles-heading h2 em{font-style:italic;color:#0a67d8;font-weight:500}
+.jz-roles-heading p{font-size:17px;line-height:1.6;color:#5a6b7f;max-width:660px;margin:0 auto}
+.jz-role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.jz-role{display:grid;grid-template-columns:1fr 1.1fr;min-height:320px;overflow:hidden;background:#f6faff;color:var(--ink)!important;border:1px solid #e2eefb;border-radius:6px;transition:box-shadow .3s ease,transform .3s ease,border-color .3s ease}
+.jz-role:hover{box-shadow:0 24px 48px -22px rgba(10,37,64,.22);border-color:#c9dcf0;transform:translateY(-2px)}
+.jz-role-copy{padding:36px 32px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.jz-role-icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:#e6f1fc;color:#0a67d8}
+.jz-role-copy h3{font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:500;letter-spacing:-.02em;color:#0A2540;margin:0}
+.jz-role-copy p{font-size:14px;line-height:1.6;color:#4a5c70;margin:0;max-width:260px}
+.jz-role-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#0a67d8;margin-top:6px}
+.jz-role:hover .jz-role-link svg{transform:translateX(4px)}
+.jz-role-link svg{transition:transform .25s}
+.jz-role-photo{position:relative;overflow:hidden;background:#eef5fd}
+.jz-role-photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center}
 .jz-casestudy{padding:70px 0}
 .jz-casestudy-grid{display:grid;grid-template-columns:1.05fr 1fr;box-shadow:0 30px 70px -30px rgba(0,0,0,.5);background:#0c2f4d}
 .jz-casestudy-photo{position:relative;min-height:560px;background:#0c2f4d;display:flex;flex-direction:column;padding:22px 26px 0}
