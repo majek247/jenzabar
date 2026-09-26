@@ -314,7 +314,7 @@ function Header() {
   return <> <header className="jz-header"><div className="jz-container jz-header-inner"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a><nav className={open?'open':''} aria-label="Main navigation">{[['Platform','#platform'],['Solutions','#roles'],['Case study','#intelligence'],['Integrations','#integrations'],['FAQ','#questions']].map(([label,href])=><a href={href} key={label} onClick={()=>setOpen(false)}>{label}</a>)}</nav><div className="jz-header-actions"><a className="jz-login" href="https://www.myjenzabar.net/">Log in</a><a className="jz-button magenta" href={DEMO}>Request a demo <Icon name="arrow" size={16}/></a><button className="jz-mobile-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={()=>setOpen(!open)}><Icon name={open?'close':'menu'}/></button></div></div></header></>;
 }
 
-const HERO_IMAGE = '/images/jenzabarheroimage.png';
+const HERO_IMAGE = '/images/jenzabar-dashboard-inter-transparent.png';
 
 function Hero() {
   return <section className="jz-hero jz-dark" id="top">
@@ -332,11 +332,12 @@ function Hero() {
       </div>
       <div className="jz-hero-showcase">
         <div className="jz-hero-screen">
-          <img
-            src={HERO_IMAGE}
-            alt="Jenzabar dashboard preview"
-            style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8 }}
-          />
+          <div className="jz-hero-glass">
+            <img
+              src={HERO_IMAGE}
+              alt="Jenzabar dashboard preview"
+            />
+          </div>
         </div>
       </div>
       <div className="jz-proof">
@@ -360,10 +361,17 @@ const PRODUCT_IMAGES = [
 
 
 function ShowcasePanel({ index }) {
-  const p = PRODUCTS[index];
   return (
     <div className="jz-showcase-container">
-      <img src={PRODUCT_IMAGES[index]} alt={`Jenzabar ${p.name} product screen`} loading="lazy"/>
+      {PRODUCT_IMAGES.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt={`Jenzabar ${PRODUCTS[i].name} product screen`}
+          className={i === index ? 'is-active' : ''}
+          aria-hidden={i !== index}
+        />
+      ))}
     </div>
   );
 }
@@ -723,7 +731,9 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 }
 
 /* Rest of the original CSS block that should remain unchanged */
-.jz-hero-screen{padding:0;border:0;border-radius:12px;background:transparent;min-width:0;overflow:hidden;max-width:1000px;margin:0 auto}
+.jz-hero-screen{padding:0;border:0;background:transparent;min-width:0;overflow:visible;max-width:1000px;margin:0 auto}
+.jz-hero-glass{position:relative;padding:14px;border-radius:20px;background:radial-gradient(circle at 50% 40%,rgba(48,120,205,0.55),rgba(18,66,130,0.65) 55%,rgba(8,38,82,0.75) 100%);border:1px solid rgba(120,180,240,0.4);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 30px 60px -20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(160,210,255,0.3)}
+.jz-hero-glass img{display:block;width:100%;height:auto;border-radius:12px}
 .jz-slide-panel{
   animation: jzFadeIn .35s ease-out;
   will-change: opacity;
@@ -839,16 +849,16 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-meeting small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
 .jz-portal-menu>b{font-size:16px}
 .jz-portal-menu button{display:flex;width:100%;align-items:center;justify-content:space-between;background:none;border:0;border-bottom:1px solid var(--line);padding:22px 0;text-align:left;font-size:14px;font-weight:500}
-.jz-proof{text-align:center;margin-top:40px}
+.jz-proof{text-align:center;padding:70px 0 20px}
 .jz-proof h2{font-size:36px}
 .jz-proof h2 span{color:var(--cyan)}
 .jz-campus-logos{display:flex;align-items:center;justify-content:space-around;gap:50px;margin:30px auto 40px;max-width:1040px}
 .jz-campus-logos img{width:180px;height:74px;object-fit:contain;filter:grayscale(1) brightness(0) invert(1);opacity:.87}
-.jz-benefits{display:grid;grid-template-columns:repeat(5,1fr);padding:10px 0 40px}
+.jz-benefits{display:grid;grid-template-columns:repeat(5,1fr);padding:10px 0 100px}
 .jz-benefits>div{display:flex;align-items:center;flex-direction:column;gap:12px;border-right:1px solid #8297a966;font-size:13px;font-weight:500}
 .jz-benefits>div:last-child{border:0}
 .jz-benefits svg{color:#c2d6e5}
-.jz-products{padding:50px 0;scroll-margin-top:20px}
+.jz-products{padding:100px 0 120px;scroll-margin-top:20px}
 .jz-products h2{text-align:center;margin-bottom:32px;font-size:clamp(32px,4vw,52px);letter-spacing:-.03em;font-family:var(--font-serif)}
 .jz-product-grid{display:grid;grid-template-columns:.78fr 1.45fr;gap:28px;align-items:center;padding-top:30px;min-height:358px}
 .jz-product-copy .jz-kicker{color:#0A2540;font-size:12.5px}
@@ -857,7 +867,7 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-product-copy li{display:flex;align-items:flex-start;gap:14px;font-size:16.5px;color:#3a4a5e;line-height:1.5}.jz-product-copy li>span{display:grid;place-items:center;color:#fff;background:var(--blue);border-radius:50%;width:22px;height:22px;flex-shrink:0;margin-top:1px}
 .jz-feature-screen{min-width:0;overflow:hidden}
 
-/* Plain, centered showcase image — no card, no border */
+/* Plain, centered showcase image — all images stacked, faded by class */
 .jz-showcase-container {
   position: relative;
   overflow: hidden;
@@ -865,13 +875,13 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
   background: transparent;
   border: 0;
   border-radius: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   padding: 0;
 }
 
 .jz-showcase-container img {
+  grid-area: 1 / 1;
   display: block;
   width: 100%;
   height: auto;
@@ -879,6 +889,18 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
   object-fit: contain;
   border-radius: 0;
   box-shadow: none;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity .5s cubic-bezier(.22,.68,0,1.01),
+              transform .5s cubic-bezier(.22,.68,0,1.01);
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.jz-showcase-container img.is-active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
 
 @media (max-width: 768px) {
