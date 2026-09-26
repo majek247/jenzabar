@@ -314,41 +314,40 @@ function Header() {
   return <> <header className="jz-header"><div className="jz-container jz-header-inner"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a><nav className={open?'open':''} aria-label="Main navigation">{[['Platform','#platform'],['Solutions','#roles'],['Case study','#intelligence'],['Integrations','#integrations'],['FAQ','#questions']].map(([label,href])=><a href={href} key={label} onClick={()=>setOpen(false)}>{label}</a>)}</nav><div className="jz-header-actions"><a className="jz-login" href="https://www.myjenzabar.net/">Log in</a><a className="jz-button magenta" href={DEMO}>Request a demo <Icon name="arrow" size={16}/></a><button className="jz-mobile-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={()=>setOpen(!open)}><Icon name={open?'close':'menu'}/></button></div></div></header></>;
 }
 
-const HERO_IMAGES = [
-  '/images/jenzabardesignmockup.png',      // 0 · Student
-  '/images/jenzabarrecruitmockup.png',     // 1 · Recruitment
-  '/images/jenzabarretentionmockup.png',   // 2 · Retention
-  '/images/jenzabarfinancemockup.png',     // 3 · Finance
-  '/images/jenzabaranalyticsmockup.png'    // 4 · Analytics
-];
-
+const HERO_IMAGE = '/images/jenzabarheroimage.png';
 
 function Hero() {
-  const [product,setProduct]=useState(0);
-
-  // Preload all hero images on mount so tab switches are instant
-  React.useEffect(() => {
-    HERO_IMAGES.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, []);
-
-  return <section className="jz-hero jz-dark" id="top"><Header/><div className="jz-container"><div className="jz-hero-copy"><span className="jz-eyebrow-pill">Built exclusively for higher education</span><h1>Your entire campus.<em>One connected experience.</em></h1><p>Connect every stage of the student journey. From recruitment and registration to retention,<br className="jz-desktop-break"/> finance and advancement, bring your campus together with Jenzabar.</p><div className="jz-hero-actions"><a className="jz-button white" href="#platform">Explore Jenzabar One <span>↗</span></a><a className="jz-overview" href={`${BASE}/jenzabar-one`}>Explore the platform <span className="jz-round-play"><Icon name="arrow" size={17}/></span></a></div><small>Higher education, connected &nbsp; • &nbsp; One trusted partner</small></div><div className="jz-hero-showcase">
-  <Tabs value={product} onChange={setProduct} id="hero-product-panel"/>
-  <div className="jz-hero-screen" role="tabpanel" id="hero-product-panel" aria-label={`Jenzabar ${PRODUCTS[product].name}`}>
-    <div className="jz-slide-panel" key={product}>
-    
-      <img
-        src={HERO_IMAGES[product]}
-        alt={`Jenzabar ${PRODUCTS[product].name} product screen`}
-        loading="lazy"
-        style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8 }}
-      />
-
+  return <section className="jz-hero jz-dark" id="top">
+    <Header/>
+    <div className="jz-container">
+      <div className="jz-hero-copy">
+        <span className="jz-eyebrow-pill">Built exclusively for higher education</span>
+        <h1>Your entire campus.<em>One connected experience.</em></h1>
+        <p>Connect every stage of the student journey. From recruitment and registration to retention,<br className="jz-desktop-break"/> finance and advancement, bring your campus together with Jenzabar.</p>
+        <div className="jz-hero-actions">
+          <a className="jz-button white" href="#platform">Explore Jenzabar One <span>↗</span></a>
+          <a className="jz-overview" href={`${BASE}/jenzabar-one`}>Explore the platform <span className="jz-round-play"><Icon name="arrow" size={17}/></span></a>
+        </div>
+        <small>Higher education, connected &nbsp; • &nbsp; One trusted partner</small>
+      </div>
+      <div className="jz-hero-showcase">
+        <div className="jz-hero-screen">
+          <img
+            src={HERO_IMAGE}
+            alt="Jenzabar dashboard preview"
+            style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8 }}
+          />
+        </div>
+      </div>
+      <div className="jz-proof">
+        <h2>Trusted by more than <span>1,400 campuses.</span></h2>
+        <div className="jz-campus-logos">{[1,2,3,4].map(i=><img key={i} src={ASSETS[i].src} alt={ASSETS[i].name}/>)}</div>
+      </div>
+      <div className="jz-benefits">
+        {[['database','One campus record'],['users','Connected departments'],['user','Student self-service'],['gear','Flexible workflows'],['cap','Higher ed expertise']].map(([icon,label])=><div key={label}><Icon name={icon} size={31}/><span>{label}</span></div>)}
+      </div>
     </div>
-  </div>
-</div><div className="jz-proof"><h2>Trusted by more than <span>1,400 campuses.</span></h2><div className="jz-campus-logos">{[1,3,4,2].map(i=><img key={i} src={ASSETS[i].src} alt={ASSETS[i].name}/>)}</div></div><div className="jz-benefits">{[['database','One campus record'],['users','Connected departments'],['user','Student self-service'],['gear','Flexible workflows'],['cap','Higher ed expertise']].map(([icon,label])=><div key={label}><Icon name={icon} size={31}/><span>{label}</span></div>)}</div></div></section>;
+  </section>;
 }
 
 const PRODUCT_IMAGES = [
@@ -724,7 +723,7 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 }
 
 /* Rest of the original CSS block that should remain unchanged */
-.jz-hero-screen{padding:0;border:0;border-radius:12px;background:transparent;min-width:0;overflow:hidden}
+.jz-hero-screen{padding:0;border:0;border-radius:12px;background:transparent;min-width:0;overflow:hidden;max-width:1000px;margin:0 auto}
 .jz-slide-panel{
   animation: jzFadeIn .35s ease-out;
   will-change: opacity;
