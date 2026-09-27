@@ -65,17 +65,49 @@ const ROLES = [
   { name: 'Finance leaders', text: 'Track spending, commitments, transactions and departmental budgets without waiting for spreadsheets to come back from across campus.', img: '/images/finance-leaders.png', icon: 'bars', product: 3 },
   { name: 'Campus IT', text: 'Reduce duplicate records, broken integrations, access issues and manual fixes across the systems your campus depends on.', img: '/images/campus-it.png', icon: 'database', product: 4 },
 ];
+
+
+
+
 const FAQS = [
-  ['What is Jenzabar One?', 'Jenzabar One brings together software for student information, recruitment, retention, finance and other campus functions. Its higher education ecosystem helps institutions connect their departments and support the student journey.'],
-  ['Which products fit our institution?', 'Start with the teams and processes you want to improve. Jenzabar can help you explore the right combination of products for your institution’s size, priorities and existing technology.', 'Explore our products', `${BASE}/jenzabar-one`],
-  ['Can Jenzabar connect with our existing systems?', 'Jenzabar offers integration options through the Jenzabar One API and Jenzabar Unity Platform. Your systems, data requirements and workflows determine the right approach; review compatibility and scope with the Jenzabar team.'],
-  ['How does implementation work?', 'Implementation scope depends on the products you choose and your existing environment. Discuss data migration, configuration, training, responsibilities and launch milestones with Jenzabar before agreeing a project plan.'],
-  ['What support is available?', 'Jenzabar provides higher education services and customer support. The team can explain the onboarding, training and ongoing support options available for your products and agreement.'],
-  ['How long does it take to get up and running?', 'Timelines vary by institution, product mix and scope. Most campuses begin with a phased rollout — a focused launch for one department or workflow, followed by broader adoption. Your Jenzabar team will outline a realistic schedule during planning.'],
-  ['Is Jenzabar built for institutions of our size?', 'Yes. Jenzabar serves a broad range of colleges and universities, from small private institutions to larger multi-campus organizations. The platform scales with you — you can start with the modules you need today and expand over time.'],
-  ['Can students and faculty access Jenzabar on mobile?', 'Yes. Jenzabar offers responsive web access and a mobile experience for students, faculty and staff. Students can view schedules, grades, financial information and appointments from a phone or tablet.'],
-  ['How is data secured and protected?', 'Jenzabar follows industry-standard security practices including encryption in transit and at rest, role-based access controls, and regular audits. Specific compliance frameworks and data handling policies are documented during your evaluation.'],
+  [
+    'Can we move to Jenzabar without replacing everything at once?',
+    'Yes, depending on your architecture and project scope. Jenzabar One API and Jenzabar Unity Platform can connect Jenzabar One with other technologies, so existing systems can remain integrated where appropriate. During planning, your team and Jenzabar should identify which systems stay, which are replaced, how data moves between them, and the sequence for introducing new Jenzabar products across campus gradually.',
+  ],
+  [
+    'What does a typical Jenzabar implementation actually involve?',
+    'A typical Jenzabar implementation starts by defining your institution’s requirements, users, objectives, milestones, and measurable outcomes. Jenzabar’s implementation specialists then work with your team on configuration, data migration, integrations, testing, training, and launch planning. The exact process depends on the products selected and your environment, with the implementation plan adjusted for institutional requirements and any nonstandard workflows or technical needs.',
+  ],
+  [
+    'How much work will our internal team need to handle?',
+    'Your internal workload depends on the products, integrations, data quality, and amount of process change involved. Expect campus stakeholders to provide subject-matter expertise, validate requirements, prepare and review data, test configured workflows, attend training, and make key decisions. Jenzabar’s implementation specialists provide project expertise and structured implementation support, while responsibilities and milestones should be agreed clearly before the project begins.',
+  ],
+  [
+    'How do you migrate student, finance, and historical data?',
+    'Data migration should begin with identifying the student, finance, historical, and operational records that need to move, along with their source systems, quality, and ownership. Jenzabar’s implementation services can support the migration as part of the wider project. Your institution should confirm data mapping, cleanup requirements, validation rules, testing, reconciliation, and the records that must remain accessible after launch securely.',
+  ],
+  [
+    'How does Jenzabar integrate with systems we need to keep?',
+    'Jenzabar supports integrations through Jenzabar One API and Jenzabar Unity Platform. The API supports customized integrations, workflows, and data exports, while Unity provides a low-code, no-code iPaaS with prebuilt and configurable system-to-system integrations. During evaluation, identify every system you plan to keep, the data each integration exchanges, how frequently it updates, and who will maintain it after launch over time.',
+  ],
+  [
+    'How do you avoid disruption during registration or enrollment periods?',
+    'Jenzabar’s implementation approach uses defined objectives, milestones, measurable results, and risk mitigation throughout the project. To reduce disruption, your implementation plan should account for registration, enrollment, financial aid, billing, and other critical campus periods when scheduling testing and cutover. Your team should also confirm fallback procedures, data validation, user readiness, and launch responsibilities before any production transition takes place safely.',
+  ],
+  [
+    'How much training will faculty and staff actually need?',
+    'Training requirements depend on each user’s role and the Jenzabar products your institution implements. Jenzabar provides hundreds of learning opportunities across different topics, user levels, and formats, including free on-demand e-learning. Your implementation plan should identify which teams need administrator, power-user, or everyday-user training, when that training happens, and who will support staff as new workflows become part of daily work.',
+  ],
+  [
+    'What support do we get after the system goes live?',
+    'After launch, Jenzabar provides ongoing product support, training, and additional professional services. Its annual maintenance includes product support, software enhancements, upgrades, and unlimited Help Desk calls for certified or trained end users. The support portal is available 24×7. Institutions can also use managed resources for areas such as process consulting, reporting, configuration, database administration, infrastructure, and departmental or IT staffing support.',
+  ],
+  [
+    'What does Jenzabar cost beyond the software license?',
+    'Jenzabar does not publish a standard public price for Jenzabar One because total cost depends on your institution, selected products, implementation scope, and services required. Beyond software licensing, your proposal may include implementation, data migration, integrations, training, cloud services, managed resources, or other professional services. Ask for a complete cost breakdown covering one-time implementation costs, recurring fees, support, upgrades, and optional services.',
+  ],
 ];
+
 
 function Icon({ name = 'chart', size = 22, ...props }) {
   const paths = {
@@ -314,9 +346,31 @@ function CampusMiniRecords({ connected = false }) {
   return <div className="jzc-mini-connected" aria-hidden="true"><svg viewBox="0 0 200 100"><g fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 20h20q10 0 10 10v8h20M12 80h20q10 0 10-10v-8h20M188 20h-20q-10 0-10 10v8h-20M188 80h-20q-10 0-10-10v-8h-20"/>{[[12,20],[12,80],[188,20],[188,80]].map(([x,y])=><circle key={`${x}-${y}`} cx={x} cy={y} r="4" fill="white"/>)}</g></svg><span className="jzc-mini-hub"><Icon name="database"/><span><i/><i/><i/></span></span></div>;
 }
 
+const NAV_LINKS = [['Platform','#platform'],['By Role','#roles'],['Case study','#intelligence'],['Integrations','#integrations'],['FAQ','#questions']];
+
 function Header() {
   const [open,setOpen]=useState(false);
-  return <> <header className="jz-header"><div className="jz-container jz-header-inner"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a><nav className={open?'open':''} aria-label="Main navigation">{[['Platform','#platform'],['Solutions','#roles'],['Case study','#intelligence'],['Integrations','#integrations'],['FAQ','#questions']].map(([label,href])=><a href={href} key={label} onClick={()=>setOpen(false)}>{label}</a>)}</nav><div className="jz-header-actions"><a className="jz-login" href="https://www.myjenzabar.net/">Log in</a><a className="jz-button magenta" href={DEMO}>Request a demo <Icon name="arrow" size={16}/></a><button className="jz-mobile-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={()=>setOpen(!open)}><Icon name={open?'close':'menu'}/></button></div></div></header></>;
+  const [active,setActive]=useState('');
+
+  useEffect(() => {
+    const sections = NAV_LINKS
+      .map(([, href]) => document.getElementById(href.slice(1)))
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: '-35% 0px -55% 0px', threshold: 0 }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
+  return <> <header className="jz-header"><div className="jz-container jz-header-inner"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a><nav className={open?'open':''} aria-label="Main navigation">{NAV_LINKS.map(([label,href])=><a href={href} key={label} className={active===href?'active':''} onClick={()=>setOpen(false)}>{label}</a>)}</nav><div className="jz-header-actions"><a className="jz-login" href="https://www.myjenzabar.net/">Log in</a><a className="jz-button magenta" href="https://www.jenzabar.com/request-a-demo" target="_blank" rel="noopener noreferrer">Request a demo <Icon name="arrow" size={16}/></a><button className="jz-mobile-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={()=>setOpen(!open)}><Icon name={open?'close':'menu'}/></button></div></div></header></>;
 }
 
 const HERO_IMAGE = '/images/jenzabar-dashboard-inter-transparent.png';
@@ -327,7 +381,6 @@ function Hero() {
 const [talkHover, setTalkHover] = useState(false);
 
   return <section className="jz-hero jz-dark" id="top">
-    <Header/>
     <div className="jz-container">
       <div className="jz-hero-copy">
    <span className="jz-eyebrow-pill">CLOUD ERP AND SIS SOFTWARE FOR HIGHER EDUCATION</span>
@@ -555,23 +608,45 @@ function FAQSection() {
   );
 }
 function Footer() {
-  const columns=[['Products',...PRODUCTS.map(p=>[`Jenzabar ${p.name}`,`${BASE}/jenzabar-one`])],['Solutions',['For your role','#roles'],['For your institution',`${BASE}/solutions`],['Integrations','#integrations'],['Support & training',`${BASE}/services`]],['Resources',['Resource library',`${BASE}/resources`],['Customer stories','#proof'],['Frequently asked questions','#questions'],['Blog',`${BASE}/blog`]],['Company',['About us',`${BASE}/about`],['Careers',`${BASE}/careers`],['Contact',`${BASE}/contact-us`]]];
+  const columns=[['Quick Links',['Jenzabar One',`${BASE}/jenzabar-one`],['Solutions',`${BASE}/solutions`],['Services',`${BASE}/services`],['Contact Us',`${BASE}/contact-us`]],['About',['Resources',`${BASE}/resources`],['About',`${BASE}/about`],['Blog','https://jenzabar.com/blog'],['Log In','https://www.myjenzabar.net/ics'],['Careers',`${BASE}/careers`]]];
   return <footer className="jz-footer jz-dark jz-campus-footer" id="demo"><div className="jz-container"><section className="jz-campus-cta" aria-labelledby="jz-campus-cta-title">
           <div className="jz-campus-cta-art" aria-hidden="true">
             <img src="/images/jenzabar-cta-campus.png" alt="" loading="lazy" decoding="async" width="1536" height="1024" />
           </div>
           <div className="jz-campus-cta-content">
             <h2 id="jz-campus-cta-title">Build a more<br/><em>connected campus.</em></h2>
-            <div className="jz-campus-cta-actions">
-              <a className="jz-campus-demo" href={DEMO}>Request a demo <Icon name="arrow" size={21}/></a>
-              <a className="jz-campus-talk" href={`${BASE}/contact-us`}>Talk to our team <Icon name="arrow" size={21}/></a>
-            </div>
+           
+      <div className="jz-campus-cta-actions">
+  <a
+    className="jz-campus-demo"
+    href={DEMO}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Request a demo <Icon name="arrow" size={21}/>
+  </a>
+  <a
+    className="jz-campus-talk"
+    href={`${BASE}/contact-us`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Talk to our team <Icon name="arrow" size={21}/>
+  </a>
+</div>
+
           </div>
-        </section><div className="jz-footer-grid"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a>{columns.map(([title,...links])=><div key={title}><h3>{title}</h3>{links.map(([label,href])=><a key={label} href={href}>{label}</a>)}</div>)}</div><div className="jz-footer-bottom"><span>© {new Date().getFullYear()} Jenzabar</span><a href={`${BASE}/privacy-policy`}>Privacy</a><a href={`${BASE}/terms-of-use`}>Terms</a><span className="jz-footer-tagline">Higher education. Connected.</span></div></div></footer>;
+        </section><div className="jz-footer-grid"><a href="#top" aria-label="Jenzabar home"><Brand dark/></a><div><h3>Contact Us</h3><a href={`${BASE}/contact-us`} target="_blank" rel="noopener noreferrer">Jenzabar, Inc.<br/>111 Huntington Avenue<br/>Suite 530<br/>Boston, MA 02199<br/>+617.492.9099</a></div>{columns.map(([title,...links])=><div key={title}><h3>{title}</h3>{links.map(([label,href])=><a key={label} href={href} target="_blank" rel="noopener noreferrer">{label}</a>)}</div>)}</div><div className="jz-footer-bottom">
+  <span>© Jenzabar, Inc. and its affiliates</span>
+  <a href={`${BASE}/terms-of-use`} target="_blank" rel="noopener noreferrer">Terms of Use</a>
+  <a href={`${BASE}/privacy-policy`} target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+  <a href={`${BASE}/privacy-policy`} target="_blank" rel="noopener noreferrer">Do Not Sell My Personal Information</a>
+  <span className="jz-footer-tagline">Concept redesign by GrowUp · Not affiliated with Jenzabar Inc.</span>
+</div></div></footer>;
 }
 export default function App() {
   const [selected,setSelected]=useState(0);
-  return <div className="jz-site"><style>{CSS}</style><a className="jz-skip" href="#main-content">Skip to content</a><main id="main-content"><Hero/><ProductsSection selected={selected} onSelect={setSelected}/><StoriesSection/><RolesSection onSelect={setSelected}/><AnalyticsSection/><IntegrationsSection/><FAQSection/></main><Footer/></div>;
+  return <div className="jz-site"><style>{CSS}</style><a className="jz-skip" href="#main-content">Skip to content</a><Header/><main id="main-content"><Hero/><ProductsSection selected={selected} onSelect={setSelected}/><StoriesSection/><RolesSection onSelect={setSelected}/><AnalyticsSection/><IntegrationsSection/><FAQSection/></main><Footer/></div>;
 }
 
 const CSS = `
@@ -580,13 +655,14 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-site{--navy:#0A2540;--deep:#061A2E;--blue:#0067c7;--cyan:#00b8e9;--magenta:#ad087b;--ivory:#FAFAFB;--ink:#1A1F36;--muted:#6B7280;--line:#E3E8EE;--surface:#FFFFFF;--radius:12px;--radius-sm:8px;--shadow-sm:0 1px 2px rgba(16,24,40,.05);--shadow-md:0 4px 20px -6px rgba(16,24,40,.10),0 16px 44px -14px rgba(16,24,40,.16);--font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--font-serif:'Playfair Display',Georgia,'Times New Roman',serif;font-family:var(--font-sans);color:var(--ink);background:var(--ivory);font-size:15px;line-height:1.5;width:100%;overflow:clip;text-align:left;-webkit-font-smoothing:antialiased}
 .jz-site *{box-sizing:border-box}.jz-site h1,.jz-site h2,.jz-site h3,.jz-site h4,.jz-site p{margin:0}.jz-site a{color:inherit;text-decoration:none}.jz-site button,.jz-site select{font:inherit}.jz-site button{cursor:pointer}.jz-site button,.jz-site a{-webkit-tap-highlight-color:transparent}.jz-site button{color:inherit}.jz-site button:focus-visible,.jz-site a:focus-visible,.jz-site select:focus-visible,.jz-site svg [tabindex]:focus-visible{outline:3px solid #15b9e3;outline-offset:5px}.jz-site img{display:block;max-width:100%}.jz-site svg{flex-shrink:0}.jz-site h2,.jz-site h3.editorial{font-family:Georgia,'Times New Roman',serif;letter-spacing:-1.1px;font-weight:400}.jz-site h2{font-size:clamp(30px,3.2vw,46px);line-height:1.14}.jz-site em{font-family:Georgia,'Times New Roman',serif;font-weight:400}.jz-container{width:min(1480px,calc(100% - 80px));margin-inline:auto}.jz-dark{background:var(--navy);color:#fff}.jz-light{background:var(--ivory)}.jz-skip{position:fixed;z-index:100;left:16px;top:-100px;background:white;padding:14px;color:var(--ink)!important}.jz-skip:focus{top:16px}.jz-brand{position:relative;display:inline-block;width:176px;height:36px;flex-shrink:0;vertical-align:middle}.jz-brand img{position:absolute;width:100%;height:100%;object-fit:contain;inset:0}.jz-brand.on-dark>img:first-child{filter:brightness(0) invert(1)}.jz-brand .jz-brand-color{clip-path:inset(0 80% 0 0)}.jz-brand.small{width:74px;height:17px}.jz-button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:12px 24px;min-height:48px;border-radius:60px;font-size:14px;font-weight:500;line-height:1;transition:all .2s;white-space:nowrap}.jz-button:hover{transform:translateY(-1px);box-shadow:0 8px 20px -6px rgba(10,37,64,.25)}.jz-button.magenta{background:var(--magenta);color:#fff}.jz-button.magenta:hover{background:#c4128e}.jz-button.white{background:#fff;color:var(--navy);border:1.5px solid #d9e3ee}.jz-text-link{display:inline-flex;align-items:center;gap:16px;font-weight:600;font-size:15px;color:var(--blue)!important}.jz-text-link:hover{text-decoration:underline;text-underline-offset:5px}.jz-text-link.cyan{color:var(--cyan)!important}.jz-kicker{text-transform:uppercase;font-size:11px;letter-spacing:.8px;font-weight:700;display:inline-flex;align-items:center;gap:6px;padding:0;border:0;background:transparent;color:#0A2540}
 .jz-kicker.light{color:#fff}
-.jz-kicker.light{border-color:#ffffff55;color:#fff} .jz-header-inner{display:flex;align-items:center;justify-content:space-between;gap:30px;min-height:84px}.jz-header nav{display:flex;gap:36px;margin-left:44px;margin-right:auto;font-size:13.5px;font-weight:500;letter-spacing:-.005em}
+.jz-kicker.light{border-color:#ffffff55;color:#fff} .jz-header{position:sticky;top:0;z-index:40;background:var(--navy);box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.jz-header-inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:30px;min-height:84px}.jz-header nav{display:flex;justify-content:center;gap:48px;margin:0;font-size:13.5px;font-weight:500;letter-spacing:-.005em}
 .jz-header nav a{position:relative;display:inline-flex;align-items:center;padding:6px 0;color:#d6e4f0;transition:color .25s ease}
 .jz-header nav a:after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--cyan);transform:scaleX(0);transform-origin:left center;transition:transform .35s cubic-bezier(.22,.68,0,1.01)}
 .jz-header nav a:hover{color:#fff}
 .jz-header nav a:hover:after{transform:scaleX(1)}
-.jz-header nav a.active{color:#fff}
-.jz-header nav a.active:after{transform:scaleX(1)}
+.jz-header nav a.active{color:#d6006f}
+.jz-header nav a.active:after{transform:scaleX(1);background:#d6006f}
 .jz-nav-caret{color:#bdd0e0}
 .jz-header-actions{display:flex;gap:24px;align-items:center}
 .jz-login{font-size:13px;font-weight:500;color:#d6e4f0;transition:color .2s}
@@ -1629,7 +1705,7 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-faq-toggle svg{display:block}
 .jz-faq-answer{padding:0 60px 32px 76px;animation:jzFaqIn .35s cubic-bezier(.22,.68,0,1.01)}
 @keyframes jzFaqIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-.jz-faq-answer p{font-size:15px;color:#41546a;line-height:1.75;margin:0 0 14px;max-width:640px}
+.jz-faq-answer p{font-size:15px;color:#41546a;line-height:1.75;margin:0 0 14px;max-width:840px}
 .jz-faq-inline-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#0067c7;text-decoration:underline;text-underline-offset:3px}
 .jz-faq-inline-link:hover{color:#004a94}
 .jz-footer{padding:30px 0 25px;background:#082b46}
@@ -1637,7 +1713,7 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-final-cta h2{font-size:36px}
 .jz-final-cta .jz-button{font-size:13px;padding:12px 20px;min-height:44px}
 .jz-talk{font-size:13px;display:flex;align-items:center;gap:20px}
-.jz-footer-grid{display:grid;grid-template-columns:1.15fr repeat(4,1fr);gap:40px;padding:40px 0 30px}
+.jz-footer-grid{display:grid;grid-template-columns:1.15fr repeat(3,1fr);gap:40px;padding:40px 0 30px}
 .jz-footer-grid .jz-brand{width:160px;height:34px}
 .jz-footer-grid h3{font-size:13px;font-weight:600;margin-bottom:14px}
 .jz-footer-grid>div>a{display:block;color:#c0d3e2;font-size:12px;margin:8px 0}
