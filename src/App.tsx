@@ -11,7 +11,7 @@ import React, { useId, useState, useEffect } from 'react';
 const PINK = "#d6006f"; // match your nav pink
 
 
-const ASSETS = [
+export const ASSETS = [
   { name: "Jenzabar", url: "/images/jenzabar-logo.png", src: "/images/jenzabar-logo.png" },
   { name: "Parker University", url: "/images/parkerlogo.png", src: "/images/parkerlogo.png" },
   { name: "Charleston Southern University", url: "/images/charleston-transparent.png", src: "/images/charleston-transparent.png" },
@@ -19,7 +19,7 @@ const ASSETS = [
   { name: "Grove City College", url: "/images/grove.png", src: "/images/grove.png" }
 ];
 
-const BASE = 'https://www.jenzabar.com';
+export const BASE = 'https://www.jenzabar.com';
 const DEMO = `${BASE}/request-a-demo`;
 const photo = (id, width = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=85`;
 const PORTRAIT = photo('photo-1580489944761-15a19d654956', 160);

@@ -1,4 +1,5 @@
 import React, { useId, useState } from 'react';
+import { ASSETS, BASE } from './App';
 
 // --- Shared Data & Icons needed for this section ---
 const PRODUCTS = [
