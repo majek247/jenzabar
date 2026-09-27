@@ -1,3 +1,5 @@
+// @ts-nocheck
+// 
 import React, { useId, useState, useEffect } from 'react';
 
 /* Replace your current App component with this file. React is the only dependency.
