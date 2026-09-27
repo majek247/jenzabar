@@ -4,6 +4,11 @@ import React, { useId, useState, useEffect } from 'react';
    All CSS is scoped to .jz-site. Official logos are embedded below.
    Interface data is illustrative; photography is remotely hosted.
    Demo buttons lead to Jenzabar's real demo page. */
+
+
+const PINK = "#d6006f"; // match your nav pink
+
+
 const ASSETS = [
   { name: "Jenzabar", url: "/images/jenzabar-logo.png", src: "/images/jenzabar-logo.png" },
   { name: "Parker University", url: "/images/parkerlogo.png", src: "/images/parkerlogo.png" },
@@ -20,45 +25,45 @@ const CAMPUS = photo('photo-1498243691581-b145c3f54a5a', 1200);
 
 
 const PRODUCTS = [
-  { name: 'Student', icon: 'cap', kind: 'student', title: 'A clearer view of every student.',
+  { name: 'Student', icon: 'cap', kind: 'student', title: 'Run the student journey from one system.',
     overview: 'Campus overview', chart: 'Enrollment trends',
     stats: ['4,892', '86%', '312'], labels: ['Total students', 'Retention rate', 'Active courses'],
     points: [2800, 3150, 3410, 3520, 4100, 4470, 4892],
-    bullets: ['Connect records and registration', 'Simplify everyday campus tasks', 'Give students more control'],
+    bullets: ['Manage registration, records and academic progress', ' Give students access to self-service tools', 'Automate everyday administrative workflows'],
     rows: [['Alex Morgan', 'Enrolled'], ['Jordan Taylor', 'Registered'], ['Sam Mitchell', 'Advising'], ['Casey Patel', 'Enrolled']] },
-  { name: 'Recruitment', icon: 'user', kind: 'funnel', title: 'Build relationships before day one.',
+  { name: 'Recruitment', icon: 'user', kind: 'funnel', title: 'Manage admissions from first inquiry to enrollment.',
     overview: 'Recruitment overview',
     stats: ['2,418', '684', '92%'], labels: ['Applications', 'Offers accepted', 'Follow-up rate'],
-    bullets: ['Bring applicant information together', 'Coordinate admissions communications', 'Follow each applicant’s progress'],
+    bullets: ['Capture prospect details and application activity centrally', 'Personalise outreach across email and text', 'Track application status across every admissions stage'],
     funnel: [{ label: 'Inquiries', value: 5240 }, { label: 'Applications', value: 2418 }, { label: 'Admitted', value: 1340 }, { label: 'Enrolled', value: 684 }],
     rows: [['Alex Morgan', 'Accepted'], ['Jordan Taylor', 'Review'], ['Sam Mitchell', 'Applied'], ['Casey Patel', 'Accepted']] },
-  { name: 'Retention', icon: 'bars', kind: 'risk', title: 'Spot the need. Start the conversation.',
+  { name: 'Retention', icon: 'bars', kind: 'risk', title: 'Identify at-risk students before they disengage.',
     overview: 'Student success',
     stats: ['86%', '124', '38'], labels: ['Retention rate', 'Check-ins booked', 'Open referrals'],
-    bullets: ['Identify students who need support', 'Coordinate early intervention', 'Keep advisors and students connected'],
+    bullets: ['Flag attendance, academic, and engagement risk signals', 'Trigger advisor alerts when intervention is needed', 'Track outreach, follow-ups, and student outcomes'],
     risk: [{ name: 'Alex Morgan', score: 91, note: 'On track' }, { name: 'Jordan Taylor', score: 58, note: 'Check-in due' }, { name: 'Sam Mitchell', score: 34, note: 'Priority referral' }, { name: 'Casey Patel', score: 88, note: 'On track' }] },
-  { name: 'Finance', icon: 'document', kind: 'budget', title: 'Bring campus finances into focus.',
+  { name: 'Finance', icon: 'document', kind: 'budget', title: 'Manage every core campus finance workflow.',
     overview: 'Finance overview',
     stats: ['$4.8m', '72%', '28'], labels: ['Operating budget', 'Budget utilized', 'Pending reviews'],
-    bullets: ['Connect financial information', 'Streamline departmental processes', 'Make budget decisions with clarity'],
+    bullets: ['Run general ledger, budgets, and reporting', 'Manage accounts payable and receivable centrally', 'Track purchasing, vendors, and fixed assets'],
     budget: [{ label: 'Academic affairs', amount: '$1.8M', spent: 62 }, { label: 'Student services', amount: '$920K', spent: 45 }, { label: 'Campus operations', amount: '$1.1M', spent: 78 }, { label: 'Library services', amount: '$410K', spent: 31 }] },
-  { name: 'Analytics', icon: 'chart', kind: 'reports', title: 'Turn campus data into clear decisions.',
+  { name: 'Analytics', icon: 'chart', kind: 'reports', title: 'Give leadership one view across campus data.',
     overview: 'Institutional analytics',
     stats: ['4,892', '12', '94%'], labels: ['Student headcount', 'Reports shared', 'Data completeness'],
-    bullets: ['See key institutional trends', 'Compare performance across terms', 'Share a clearer picture with leadership'],
+    bullets: ['Combine SIS, finance, and operational data', 'Track institutional KPIs through interactive dashboards', 'Spot performance changes before reporting deadlines arrive'],
     reports: [{ title: 'Enrollment summary', meta: 'Updated today', trend: '+4.2%' }, { title: 'Retention report', meta: 'Updated yesterday', trend: '+1.8%' }, { title: 'Finance overview', meta: 'In review', trend: '—' }, { title: 'Program demand', meta: 'Updated today', trend: '+6.5%' }] },
 ];
 
 const STORIES = [
-  { school: 'Parker University', title: 'Earlier support. Stronger student engagement.', quote: 'Our office of Student Success has developed a system of early intervention using Jenzabar Retention that has kept our retention rate consistently above 90% and increased our level of engagement with students.', name: 'Alaina Mount', role: 'Assistant Dean of Student Affairs', img: '/images/parkercollege.png' },
-  { school: 'Charleston Southern University', title: 'Less paper. A more connected campus.', quote: 'The experience we gained through working with the Jenzabar team has facilitated our technological acceleration. We were able to advance a print-focused, labor-intensive system and completely automate our campus. We’ve gone paperless.', name: 'Lisa Fleming', role: 'Director of Computer Operations', img: '/images/charlestoncollege.png' },
-  { school: 'Gordon College', title: 'Faster processes. Better conversations.', quote: 'Getting rid of a lot of the paper has opened up new doors and sped up the process, which in turn means that students are able to have better conversations with their faculty. What used to take days now only takes minutes.', name: 'Jon Williams', role: 'Software Architect and Strategist', img: '/images/gordoncollege.png' },
+  { school: 'Parker University', title: 'Retention above 90%, year after year.', quote: 'Our office of Student Success has developed a system of early intervention using Jenzabar Retention that has kept our retention rate consistently above 90% and increased our level of engagement with students.', name: 'Alaina Mount', role: 'Assistant Dean of Student Affairs', img: '/images/parkercollege.png' },
+  { school: 'Charleston Southern University', title: 'From paper-heavy to fully automated operations.', quote: 'The experience we gained through working with the Jenzabar team has facilitated our technological acceleration. We were able to advance a print-focused, labor-intensive system and completely automate our campus. We’ve gone paperless.', name: 'Lisa Fleming', role: 'Director of Computer Operations', img: '/images/charlestoncollege.png' },
+  { school: 'Gordon College', title: 'Days of paperwork, now done in minutes.', quote: 'Getting rid of a lot of the paper has opened up new doors and sped up the process, which in turn means that students are able to have better conversations with their faculty. What used to take days now only takes minutes.', name: 'Jon Williams', role: 'Software Architect and Strategist', img: '/images/gordoncollege.png' },
 ];
 const ROLES = [
-  { name: 'Enrollment teams', text: 'Simplify the application and admissions process with connected data, automated workflows and real-time visibility.', img: '/images/enrollment-teams.png', icon: 'users', product: 1 },
-  { name: 'Student success', text: 'Give advisors and support teams a complete view of each student to provide personalised guidance and improve outcomes.', img: '/images/student-success.png', icon: 'cap', product: 2 },
-  { name: 'Finance leaders', text: 'Unify financial data across systems, streamline billing and reporting, and get a clearer view of campus performance.', img: '/images/finance-leaders.png', icon: 'bars', product: 3 },
-  { name: 'Campus IT', text: 'Connect your systems, improve data quality and keep your campus secure with a modern, scalable platform.', img: '/images/campus-it.png', icon: 'database', product: 4 },
+  { name: 'Enrollment teams', text: 'Keep inquiries, applications, missing requirements and follow-ups moving from first contact through enrollment without losing applicants between handoffs.', img: '/images/enrollment-teams.png', icon: 'users', product: 1 },
+  { name: 'Student success', text: 'Bring attendance, academic performance, advisor notes and previous interventions together before a struggling student disappears from view.', img: '/images/student-success.png', icon: 'cap', product: 2 },
+  { name: 'Finance leaders', text: 'Track spending, commitments, transactions and departmental budgets without waiting for spreadsheets to come back from across campus.', img: '/images/finance-leaders.png', icon: 'bars', product: 3 },
+  { name: 'Campus IT', text: 'Reduce duplicate records, broken integrations, access issues and manual fixes across the systems your campus depends on.', img: '/images/campus-it.png', icon: 'database', product: 4 },
 ];
 const FAQS = [
   ['What is Jenzabar One?', 'Jenzabar One brings together software for student information, recruitment, retention, finance and other campus functions. Its higher education ecosystem helps institutions connect their departments and support the student journey.'],
@@ -234,8 +239,8 @@ function AnalyticsSection() {
               <span className="jz-pill">Case study</span>
               <span className="jz-pill outline">Higher education</span>
             </div>
-            <h2>Modernizing operations. <em>Elevating the student experience.</em></h2>
-            <p>Lakeland University partnered with Jenzabar One to bring financial aid, registration and student services onto one connected platform — replacing disconnected systems with a single source of truth.</p>
+            <h2>How Jenzabar Helped Lakeland <em>Unify Student Operations</em></h2>
+            <p>Lakeland University partnered with Jenzabar One to bring financial aid, registration and student services onto one connected platform, replacing disconnected systems with a single source of truth.</p>
             <div className="jz-casestudy-stats">
               <div>
                 <span className="jz-stat-label">Operations</span>
@@ -317,18 +322,71 @@ function Header() {
 const HERO_IMAGE = '/images/jenzabar-dashboard-inter-transparent.png';
 
 function Hero() {
+
+  const [demoHover, setDemoHover] = useState(false);
+const [talkHover, setTalkHover] = useState(false);
+
   return <section className="jz-hero jz-dark" id="top">
     <Header/>
     <div className="jz-container">
       <div className="jz-hero-copy">
-        <span className="jz-eyebrow-pill">Built exclusively for higher education</span>
-        <h1>Your entire campus.<em>One connected experience.</em></h1>
-        <p>Connect every stage of the student journey. From recruitment and registration to retention,<br className="jz-desktop-break"/> finance and advancement, bring your campus together with Jenzabar.</p>
-        <div className="jz-hero-actions">
-          <a className="jz-button white" href="#platform">Explore Jenzabar One <span>↗</span></a>
-          <a className="jz-overview" href={`${BASE}/jenzabar-one`}>Explore the platform <span className="jz-round-play"><Icon name="arrow" size={17}/></span></a>
-        </div>
-        <small>Higher education, connected &nbsp; • &nbsp; One trusted partner</small>
+   <span className="jz-eyebrow-pill">CLOUD ERP AND SIS SOFTWARE FOR HIGHER EDUCATION</span>
+<h1>One Platform to Run<em>Your Entire Campus</em></h1>
+
+
+
+
+        <p style={{ paddingTop: "5px" }}>
+  Jenzabar unites recruitment, registration, retention, finance, and advancement in a single <br className="jz-desktop-break" />
+  connected system, so every department works from the same data, in real time.
+</p>
+   <div className="jz-hero-actions">
+  <a
+    className="jz-button white"
+    href="https://www.jenzabar.com/request-a-demo"
+    target="_blank"
+    rel="noopener noreferrer"
+    onMouseEnter={() => setDemoHover(true)}
+    onMouseLeave={() => setDemoHover(false)}
+    style={{
+      backgroundColor: demoHover ? PINK : undefined,
+      color: demoHover ? "#ffffff" : undefined,
+      borderColor: demoHover ? PINK : undefined,
+      transition: "background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease",
+    }}
+  >
+    Request a Demo <span>↗</span>
+  </a>
+
+  <a
+    className="jz-overview"
+    href="https://www.jenzabar.com/contact-us"
+    target="_blank"
+    rel="noopener noreferrer"
+    onMouseEnter={() => setTalkHover(true)}
+    onMouseLeave={() => setTalkHover(false)}
+    style={{
+      color: talkHover ? PINK : undefined,
+      transition: "color 0.2s ease",
+    }}
+  >
+    Talk to Us{" "}
+    <span
+      className="jz-round-play"
+      style={{
+        backgroundColor: talkHover ? PINK : undefined,
+        borderColor: talkHover ? PINK : undefined,
+        color: talkHover ? "#ffffff" : undefined,
+        transition: "background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease",
+      }}
+    >
+      <Icon name="arrow" size={17} />
+    </span>
+  </a>
+</div>
+
+
+
       </div>
       <div className="jz-hero-showcase">
         <div className="jz-hero-screen">
@@ -387,12 +445,19 @@ function ProductsSection({ selected, onSelect }) {
     });
   }, []);
 
-  return <section className="jz-products jz-light" id="platform"><div className="jz-container"><div className="jz-products-eyebrow"><span/>Our products<span/></div><h2>Everything your campus needs. <em>Connected.</em></h2><div className="jz-tabs-wrap"><div className="jz-products-tabs"><Tabs value={selected} onChange={onSelect} id="feature-product-panel"/></div></div><div className="jz-product-grid" role="tabpanel" id="feature-product-panel" aria-label={`Jenzabar ${p.name} features`}><div className="jz-product-copy"><span className="jz-kicker">Jenzabar {p.name}</span><h3>{p.title}</h3><ul>{p.bullets.map(b=><li key={b}><span><Icon name="check" size={13}/></span>{b}</li>)}</ul><a className="jz-text-link" href={`${BASE}/jenzabar-one`}>Explore Jenzabar {p.name}<Icon name="arrow" size={20}/></a></div><div className="jz-feature-screen"><div className="jz-slide-panel" key={selected}><ShowcasePanel index={selected}/></div></div></div></div></section>;
+return <section className="jz-products jz-light" id="platform"><div className="jz-container"><div className="jz-products-eyebrow"><span/>Our products<span/></div><h2>Manage Every Core Campus Operation<br/><em>From One Platform.</em></h2><div className="jz-tabs-wrap"><div className="jz-products-tabs"><Tabs value={selected} onChange={onSelect} id="feature-product-panel"/></div></div><div className="jz-product-grid" role="tabpanel" id="feature-product-panel" aria-label={`Jenzabar ${p.name} features`}><div className="jz-product-copy"><span className="jz-kicker">Jenzabar {p.name}</span><h3>{p.title}</h3><ul>{p.bullets.map(b=><li key={b}><span><Icon name="check" size={13}/></span>{b}</li>)}</ul><a className="jz-text-link" href={`${BASE}/product/${p.name.toLowerCase()}`} target="_blank" rel="noopener noreferrer">Explore Jenzabar {p.name}<Icon name="arrow" size={20}/></a></div><div className="jz-feature-screen"><div className="jz-slide-panel" key={selected}><ShowcasePanel index={selected}/></div></div></div></div></section>;
 }
 function StoriesSection() {
   const [story,setStory]=useState(0); const s=STORIES[story];
   const advance=(step)=>setStory((story+step+STORIES.length)%STORIES.length);
-  return <section className="jz-stories jz-dark" id="proof"><div className="jz-container"><h2>Real campuses. <em>Meaningful progress.</em></h2><div className="jz-carousel"><button className="jz-carousel-arrow prev" aria-label="Previous customer story" onClick={()=>advance(-1)}><Icon name="chevron"/></button><article className="jz-story" aria-live="polite" key={story}><div className="jz-story-photo"><img src={s.img} alt={`${s.school} campus`} loading="lazy"/></div><div className="jz-story-copy"><span className="jz-kicker light">{s.school}</span><h3>{s.title}</h3><blockquote className="jz-story-quote"><span aria-hidden="true">&ldquo;</span>{s.quote}<footer><b>{s.name}</b><span>{s.role}, {s.school}</span></footer></blockquote><a className="jz-text-link cyan" href={`${BASE}/`}>Explore customer stories <Icon name="arrow" size={18}/></a></div></article><button className="jz-carousel-arrow next" aria-label="Next customer story" onClick={()=>advance(1)}><Icon name="chevron"/></button></div><div className="jz-dots">{STORIES.map((item,i)=><button key={item.school} aria-label={`Show ${item.school} story`} aria-pressed={i===story} onClick={()=>setStory(i)} className={i===story?'active':''}/>)}</div><div className="jz-outcomes"><h2>Less administration. <em>More time for students.</em></h2><div>{[['users','Connected teams','Bring departments together around shared information.'],['bars','Clearer decisions','Turn data into insight to support student success.'],['user','Consistent experiences','Give students a seamless experience across campus.']].map(([icon,title,text])=><article key={title}><Icon name={icon} size={40}/><div><h3>{title}</h3><p>{text}</p></div></article>)}</div></div></div></section>;
+  return <section className="jz-stories jz-dark" id="proof"><div className="jz-container"><h2>What Jenzabar Makes Possible.</h2><div className="jz-carousel"><button className="jz-carousel-arrow prev" aria-label="Previous customer story" onClick={()=>advance(-1)}><Icon name="chevron"/></button><article className="jz-story" aria-live="polite" key={story}><div className="jz-story-photo"><img src={s.img} alt={`${s.school} campus`} loading="lazy"/></div><div className="jz-story-copy"><span className="jz-kicker light">{s.school}</span><h3>{s.title}</h3><blockquote className="jz-story-quote"><span aria-hidden="true">&ldquo;</span>{s.quote}<footer><b>{s.name}</b><span>{s.role}, {s.school}</span></footer></blockquote><a
+  className="jz-text-link cyan"
+  href="https://www.jenzabar.com/resource/category/case-studies-and-success-stories"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Explore customer stories <Icon name="arrow" size={18}/>
+</a></div></article><button className="jz-carousel-arrow next" aria-label="Next customer story" onClick={()=>advance(1)}><Icon name="chevron"/></button></div><div className="jz-dots">{STORIES.map((item,i)=><button key={item.school} aria-label={`Show ${item.school} story`} aria-pressed={i===story} onClick={()=>setStory(i)} className={i===story?'active':''}/>)}</div><div className="jz-outcomes"><h2>Less administration. <em>More time for students.</em></h2><div>{[['users','Connected teams','Bring departments together around shared information.'],['bars','Clearer decisions','Turn data into insight to support student success.'],['user','Consistent experiences','Give students a seamless experience across campus.']].map(([icon,title,text])=><article key={title}><Icon name={icon} size={40}/><div><h3>{title}</h3><p>{text}</p></div></article>)}</div></div></div></section>;
 }
 function RolesSection({ onSelect }) {
   return (
@@ -400,8 +465,8 @@ function RolesSection({ onSelect }) {
       <div className="jz-container">
         <div className="jz-roles-heading">
           <span className="jz-roles-eyebrow">Built for every role</span>
-          <h2>Built around <em>your campus.</em></h2>
-          <p>One connected platform that brings every team, system and student touchpoint together so your campus can operate more efficiently and deliver a better experience.</p>
+  <h2>Make the work behind campus life <em>easier.</em></h2>
+          <p>Admissions, advisors, finance and IT may use Jenzabar differently. Each team gets a working view built around the decisions, tasks and problems they handle every day.</p>
         </div>
         <div className="jz-role-grid">
           {ROLES.map(r => (
@@ -427,8 +492,13 @@ function IntegrationsSection() {
     <div className="jzc-container">
       <div className="jzc-heading">
         <div><span className="jzc-eyebrow">A connected campus</span><h2 id="jzc-title">Your campus systems.<br/><em>Better connected.</em></h2></div>
-        <div className="jzc-intro"><p>Bring your technology together with the Jenzabar One API and Jenzabar Unity Platform.</p><a href="#platform">Explore campus connectivity <span aria-hidden="true">↗</span></a></div>
-      </div>
+ <div className="jzc-intro">
+  <p>Bring your technology together with the Jenzabar One API and Jenzabar Unity Platform.</p>
+  <a href="https://jenzabar.com/product/unity-platform" target="_blank" rel="noopener noreferrer">
+    Explore campus connectivity <span aria-hidden="true">↗</span>
+  </a>
+</div>
+     </div>
       <IntegrationDiagram/>
       <div className="jzc-comparison">
         <article className="jzc-before"><div><h3>Disconnected systems</h3><p>Data sits across separate systems, making the full picture harder to see.</p></div><CampusMiniRecords/></article>
@@ -870,10 +940,26 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-benefits>div:last-child{border:0}
 .jz-benefits svg{color:#c2d6e5}
 .jz-products{padding:100px 0 120px;scroll-margin-top:20px}
-.jz-products h2{text-align:center;margin-bottom:32px;font-size:clamp(32px,4vw,52px);letter-spacing:-.03em;font-family:var(--font-serif)}
+.jz-products h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.14;
+  text-align: center;
+  margin-bottom: 32px;
+  color: #0A2540;
+}
+
+.jz-products h2 em {
+  font-family: inherit;
+  font-weight: 500;
+  font-style: italic;
+  color: #0067c7;
+}
 .jz-product-grid{display:grid;grid-template-columns:.78fr 1.45fr;gap:28px;align-items:center;padding-top:30px;min-height:358px}
+.jz-product-copy{margin-top:-80px}
 .jz-product-copy .jz-kicker{color:#0A2540;font-size:12.5px}
-.jz-product-copy h3{font-family:var(--font-sans);font-size:clamp(34px,3.6vw,46px);font-weight:800;line-height:1.12;letter-spacing:-.025em;max-width:360px;margin:14px 0 26px;color:var(--navy)}
+.jz-product-copy h3{font-family:var(--font-sans);font-size:clamp(34px,3.6vw,46px);font-weight:800;line-height:1.12;letter-spacing:-.025em;max-width:520px;margin:14px 0 26px;color:var(--navy)}
 .jz-product-copy ul{padding:0;list-style:none;display:flex;flex-direction:column;gap:18px;margin:0 0 30px}
 .jz-product-copy li{display:flex;align-items:flex-start;gap:14px;font-size:16.5px;color:#3a4a5e;line-height:1.5}.jz-product-copy li>span{display:grid;place-items:center;color:#fff;background:var(--blue);border-radius:50%;width:22px;height:22px;flex-shrink:0;margin-top:1px}
 .jz-feature-screen{min-width:0;overflow:hidden}
@@ -959,8 +1045,8 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-story-photo{position:relative;min-height:340px}
 .jz-story-photo img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover}
 .jz-story-copy{padding:56px 52px;background:#0c2f4d;display:flex;flex-direction:column;justify-content:center;gap:2px}
-.jz-story-copy h3{font-family:Georgia,serif;font-size:30px;line-height:1.22;letter-spacing:-.3px;font-weight:400;margin:20px 0 20px;max-width:360px}
-.jz-story-quote{margin:0 0 28px;max-width:400px;border-left:2px solid #2b5b85;padding-left:20px}
+.jz-story-copy h3{font-family:Georgia,serif;font-size:30px;line-height:1.22;letter-spacing:-.3px;font-weight:400;margin:20px 0 20px;max-width:560px}
+.jz-story-quote{margin:0 0 28px;max-width:540px;border-left:2px solid #2b5b85;padding-left:20px}
 .jz-story-quote>span{font-family:Georgia,serif;font-size:34px;line-height:0;color:#4a86bd;vertical-align:-10px;margin-right:2px}
 .jz-story-quote{font-family:Georgia,serif;font-style:italic;font-size:16px;line-height:1.65;color:#dbe6ef}
 .jz-story-quote footer{margin-top:16px;font-style:normal}
@@ -1023,7 +1109,7 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-casestudy-badges{display:flex;gap:10px;margin-bottom:28px}
 .jz-pill{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:6px 14px;border-radius:30px;background:#fff;color:#0A2540}
 .jz-pill.outline{background:transparent;border:1px solid #ffffff4a;color:#e2ecf4}
-.jz-casestudy-panel h2{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:clamp(30px,3vw,44px);line-height:1.15;letter-spacing:-.02em;max-width:520px;margin:0 0 22px;color:#fff}
+.jz-casestudy-panel h2{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:clamp(30px,3vw,44px);line-height:1.15;letter-spacing:-.02em;max-width:590px;margin:0 0 22px;color:#fff}
 .jz-casestudy-panel h2 em{font-style:italic;font-weight:400;color:#fff}
 .jz-casestudy-panel p{font-size:15px;line-height:1.7;color:#c3d3e2;max-width:500px;margin:0 0 40px}
 .jz-casestudy-stats{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:40px;border-top:1px solid #ffffff26;border-bottom:1px solid #ffffff26}
@@ -1591,7 +1677,7 @@ body:has(.jz-site){margin:0;display:block;min-width:320px}#root:has(.jz-site),#_
 .jz-site .jzc-heading h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(40px,4.35vw,70px);font-weight:600;line-height:1.07;letter-spacing:-.048em;margin:0;color:var(--jc-navy);}
 .jz-site .jzc-heading h2 em{display:inline-block;font-family:inherit;font-weight:500;font-style:italic;color:var(--jc-blue);letter-spacing:-.052em;}
 .jzc-intro{border-left:1px solid #d7dce0;padding:16px 0 16px 48px;margin-bottom:2px;}
-.jz-site .jzc-intro p{font-size:clamp(16px,1.35vw,21px);line-height:1.65;color:#4c637a;max-width:470px;margin:0 0 12px;}
+.jz-site .jzc-intro p{font-size:clamp(16px,1.35vw,21px);line-height:1.65;color:#4c637a;max-width:570px;margin:0 0 12px;}
 .jz-site .jzc-intro a{display:inline-flex;align-items:center;gap:10px;color:var(--jc-blue);font-size:clamp(14px,1.2vw,18px);font-weight:650;line-height:1.5;}
 .jzc-intro a:hover{text-decoration:underline;text-underline-offset:5px;}
 .jzc-intro a span{font-size:1.2em;}
